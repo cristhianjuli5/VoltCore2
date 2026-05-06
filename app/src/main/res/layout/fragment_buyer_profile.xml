@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_voltcore_logo"
         android:padding="8dp"
-        app:strokeColor="@color/colorElectricTeal"
+        app:strokeColor="@color/volt_primary"
         app:strokeWidth="2dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         android:contentDescription="Foto de Perfil" />
@@ -34,14 +34,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="usuario@voltcore.com"
-        android:textColor="@color/colorElectricTeal" />
+        android:textColor="@color/volt_primary" />
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.VoltCore.Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:cardBackgroundColor="@color/colorSurface"
-        app:cardCornerRadius="12dp">
+        android:layout_marginTop="32dp">
 
         <LinearLayout
             android:layout_width="match_parent"

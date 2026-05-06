@@ -23,12 +23,11 @@
         android:rowCount="2">
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.VoltCore.Card"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/colorSurface"
-            app:cardCornerRadius="12dp">
+            android:layout_margin="4dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -50,12 +49,11 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.VoltCore.Card"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/colorSurface"
-            app:cardCornerRadius="12dp">
+            android:layout_margin="4dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

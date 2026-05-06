@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.VoltCore.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/colorSurface"
-    app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="@dimen/card_elevation">
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="$ 0.00"
-            android:textColor="@color/colorElectricTeal"
+            android:textColor="@color/volt_primary"
             android:textSize="14sp" />
 
         <Button
@@ -46,10 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Agregar"
+            android:text="@string/add_to_cart"
             android:textSize="12sp"
-            app:backgroundTint="@color/colorElectricTeal"
-            app:rippleColor="@color/white" />
+            app:backgroundTint="@color/volt_primary"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

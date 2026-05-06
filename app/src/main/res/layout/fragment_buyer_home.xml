@@ -13,11 +13,10 @@
         android:padding="@dimen/margin_standard">
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.VoltCore.Card"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:layout_marginBottom="24dp"
-            app:cardBackgroundColor="@color/colorSurface"
-            app:cardCornerRadius="16dp">
+            android:layout_marginBottom="24dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -81,24 +80,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="Electrónica"
-                    app:chipBackgroundColor="@color/colorSurface"
-                    android:textColor="@color/white" />
+                    app:chipBackgroundColor="@color/glass_surface"
+                    app:chipStrokeColor="@color/glass_stroke"
+                    android:textColor="@color/volt_primary" />
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="Hogar"
-                    app:chipBackgroundColor="@color/colorSurface"
-                    android:textColor="@color/white" />
+                    app:chipBackgroundColor="@color/glass_surface"
+                    app:chipStrokeColor="@color/glass_stroke"
+                    android:textColor="@color/volt_primary" />
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="Deportes"
-                    app:chipBackgroundColor="@color/colorSurface"
-                    android:textColor="@color/white" />
+                    app:chipBackgroundColor="@color/glass_surface"
+                    app:chipStrokeColor="@color/glass_stroke"
+                    android:textColor="@color/volt_primary" />
 
             </LinearLayout>
         </HorizontalScrollView>

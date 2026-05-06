@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/send_recovery"
-        android:backgroundTint="@color/colorElectricTeal" />
+        android:backgroundTint="@color/volt_primary"
+        android:textColor="@color/black" />
 
 </LinearLayout>

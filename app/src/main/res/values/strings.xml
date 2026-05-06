@@ -23,4 +23,9 @@
     <string name="nit_rut">Datos Legales (NIT/RUT)</string>
     <string name="product_detail">Detalle de Producto</string>
     <string name="checkout">Pago</string>
+    <string name="add_to_cart">Añadir</string>
+    <string name="pay_now">PAGAR AHORA</string>
+    <string name="save_data">GUARDAR CAMBIOS</string>
+    <string name="volt_offers">¡Ofertas Eléctricas!</string>
+    <string name="volt_tagline">Potencia tu vida</string>
 </resources>

@@ -38,9 +38,9 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSurface"
+            android:background="@color/glass_surface"
             android:visibility="gone"
-            app:itemIconTint="@color/colorElectricTeal"
+            app:itemIconTint="@color/volt_primary"
             app:itemTextColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/buyer_bottom_menu" />
@@ -52,9 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorSurface"
+        android:background="@color/volt_background"
         android:fitsSystemWindows="true"
-        app:itemIconTint="@color/colorElectricTeal"
+        app:itemIconTint="@color/volt_primary"
         app:itemTextColor="@color/white" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

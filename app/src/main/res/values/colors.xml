@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1A1A2E</color>
-    <color name="colorElectricTeal">#00B4D8</color>
-    <color name="colorSuccess">#4CAF50</color>
-    <color name="colorBackground">#0F0F1E</color>
-    <color name="colorSurface">#16213E</color>
-    <color name="colorOnSurface">#FFFFFF</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="black">#FF000000</color>
+    <color name="volt_primary">#C6FF00</color>
+    <color name="volt_background">#0F111A</color>
+    <color name="glass_surface">#1AFFFFFF</color>
+    <color name="glass_stroke">#33FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+
+    <!-- Mapeo para retrocompatibilidad de layouts -->
+    <color name="colorPrimary">@color/volt_primary</color>
+    <color name="colorBackground">@color/volt_background</color>
+    <color name="colorSurface">@color/glass_surface</color>
+    <color name="colorElectricTeal">@color/volt_primary</color>
+    <color name="colorSuccess">#4CAF50</color>
 </resources>

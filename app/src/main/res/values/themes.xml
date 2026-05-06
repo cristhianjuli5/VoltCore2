@@ -2,11 +2,23 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.VoltCore" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorSecondary">@color/colorElectricTeal</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorPrimary">@color/volt_primary</item>
+        <item name="android:windowBackground">@color/volt_background</item>
+        <item name="colorSurface">@color/glass_surface</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
+    <style name="Widget.VoltCore.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardBackgroundColor">@color/glass_surface</item>
+        <item name="strokeColor">@color/glass_stroke</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.VoltCore.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="backgroundTint">@color/volt_primary</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.VoltCore" parent="Base.Theme.VoltCore" />

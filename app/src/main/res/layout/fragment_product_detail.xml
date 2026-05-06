@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="Agregar al Carrito"
-                android:backgroundTint="@color/colorElectricTeal" />
+                android:backgroundTint="@color/volt_primary"
+                android:textColor="@color/black" />
 
         </LinearLayout>
     </LinearLayout>

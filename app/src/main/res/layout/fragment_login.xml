@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="@string/login_title"
-        android:textColor="@color/white"
+        android:textColor="@color/volt_primary"
         android:textSize="@dimen/text_size_h1" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,7 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/login_button"
-        android:backgroundTint="@color/colorElectricTeal" />
+        android:backgroundTint="@color/volt_primary"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/btnBiometric"
@@ -67,13 +68,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/biometric_button"
-        android:textColor="@color/colorElectricTeal" />
+        android:textColor="@color/volt_primary" />
 
     <TextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forgot_password"
-        android:textColor="@color/colorElectricTeal" />
+        android:textColor="@color/volt_primary" />
 
 </LinearLayout>
