@@ -98,9 +98,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        navController.navigate(R.id.loginFragment)
-        // Clear backstack
-        navController.popBackStack(R.id.loginFragment, false)
+        // Navegar a login y limpiar todo el historial
+        navController.navigate(R.id.loginFragment, null, androidx.navigation.NavOptions.Builder()
+            .setPopUpTo(R.id.nav_graph, true)
+            .build())
     }
 
     override fun onSupportNavigateUp(): Boolean {

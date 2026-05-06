@@ -9,9 +9,9 @@
     <string name="recovery_title">Recuperar Contraseña</string>
     <string name="recovery_desc">Ingresa tu correo para recibir las instrucciones de recuperación.</string>
     <string name="send_recovery">Enviar Instrucciones</string>
-    <string name="admin_dashboard">Dashboard Admin</string>
+    <string name="admin_dashboard">Dashboard Administrador</string>
     <string name="vendor_dashboard">Dashboard Vendedor</string>
-    <string name="buyer_home">Inicio</string>
+    <string name="buyer_home">Dashboard Comprador</string>
     <string name="catalog">Catálogo</string>
     <string name="cart">Carrito</string>
     <string name="profile">Perfil</string>
@@ -37,4 +37,6 @@
     <string name="tab_shipped">Enviados</string>
     <string name="tab_delivered">Entregados</string>
     <string name="admin_shortcuts">Accesos Directos</string>
+    <string name="login_tip">Tip: usa \'admin\' para Administrador, \'seller\' para Vendedor</string>
+    <string name="welcome_buyer">Bienvenido, Comprador</string>
 </resources>

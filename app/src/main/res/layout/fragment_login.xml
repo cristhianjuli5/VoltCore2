@@ -74,7 +74,15 @@
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="@string/forgot_password"
         android:textColor="@color/volt_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_tip"
+        android:textColor="#88FFFFFF"
+        android:textSize="12sp" />
 
 </LinearLayout>
