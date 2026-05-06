@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">VoltCore</string>
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="email_hint">Correo Electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Ingresar</string>
+    <string name="biometric_button">Ingreso Biométrico</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="recovery_title">Recuperar Contraseña</string>
+    <string name="recovery_desc">Ingresa tu correo para recibir las instrucciones de recuperación.</string>
+    <string name="send_recovery">Enviar Instrucciones</string>
+    <string name="admin_dashboard">Dashboard Admin</string>
+    <string name="vendor_dashboard">Dashboard Vendedor</string>
+    <string name="buyer_home">Inicio</string>
+    <string name="catalog">Catálogo</string>
+    <string name="cart">Carrito</string>
+    <string name="profile">Perfil</string>
+    <string name="moderation">Moderación</string>
+    <string name="users">Usuarios</string>
+    <string name="products">Productos</string>
+    <string name="orders">Pedidos</string>
+    <string name="reports">Reportes</string>
+    <string name="nit_rut">Datos Legales (NIT/RUT)</string>
+    <string name="product_detail">Detalle de Producto</string>
+    <string name="checkout">Pago</string>
+</resources>

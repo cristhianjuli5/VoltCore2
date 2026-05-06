@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1A1A2E</color>
+    <color name="colorElectricTeal">#00B4D8</color>
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorBackground">#0F0F1E</color>
+    <color name="colorSurface">#16213E</color>
+    <color name="colorOnSurface">#FFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
