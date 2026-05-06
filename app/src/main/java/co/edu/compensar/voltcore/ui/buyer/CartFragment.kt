@@ -36,8 +36,8 @@ class CartFragment : Fragment() {
     }
 
     private fun setupCartList() {
-        binding.rvCart.layoutManager = LinearLayoutManager(context)
-        binding.rvCart.adapter = object : RecyclerView.Adapter<CartViewHolder>() {
+        binding.rvCartItems.layoutManager = LinearLayoutManager(context)
+        binding.rvCartItems.adapter = object : RecyclerView.Adapter<CartViewHolder>() {
             private val items = CartManager.getItems()
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {

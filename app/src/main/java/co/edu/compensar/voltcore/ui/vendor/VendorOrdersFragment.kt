@@ -56,7 +56,7 @@ class VendorOrdersFragment : Fragment() {
                 btnMarkAsShipped.setOnClickListener {
                     val guide = etShippingGuide.text.toString()
                     if (guide.isNotEmpty()) {
-                        Toast.makeText(holder.root.context, "Orden ${order.id} enviada con guía $guide", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(root.context, "Orden ${order.id} enviada con guía $guide", Toast.LENGTH_SHORT).show()
                     } else {
                         etShippingGuide.error = "Ingresa la guía"
                     }
