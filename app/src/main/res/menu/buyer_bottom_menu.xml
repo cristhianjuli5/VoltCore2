@@ -16,4 +16,8 @@
         android:id="@+id/buyerProfileFragment"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="@string/profile" />
+    <item
+        android:id="@+id/logout_action"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:title="@string/logout" />
 </menu>

@@ -28,4 +28,13 @@
     <string name="save_data">GUARDAR CAMBIOS</string>
     <string name="volt_offers">¡Ofertas Eléctricas!</string>
     <string name="volt_tagline">Potencia tu vida</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="admin_users_title">Gestión de Usuarios</string>
+    <string name="search_users_hint">Buscar usuario por nombre o correo</string>
+    <string name="add_user_desc">Agregar usuario</string>
+    <string name="vendor_orders_title">Pedidos Recibidos</string>
+    <string name="tab_pending">Pendientes</string>
+    <string name="tab_shipped">Enviados</string>
+    <string name="tab_delivered">Entregados</string>
+    <string name="admin_shortcuts">Accesos Directos</string>
 </resources>

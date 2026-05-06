@@ -76,4 +76,39 @@
 
     </GridLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/admin_shortcuts"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVendorProducts"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/products"
+        app:icon="@android:drawable/ic_menu_gallery" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVendorOrders"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/orders"
+        app:icon="@android:drawable/ic_menu_agenda" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVendorProfile"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        app:icon="@android:drawable/ic_menu_edit" />
+
 </LinearLayout>

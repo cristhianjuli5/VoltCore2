@@ -16,4 +16,10 @@
         android:id="@+id/adminReportsFragment"
         android:icon="@android:drawable/ic_menu_report_image"
         android:title="@string/reports" />
+    <group android:id="@+id/logout_group">
+        <item
+            android:id="@+id/logout_action"
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:title="@string/logout" />
+    </group>
 </menu>

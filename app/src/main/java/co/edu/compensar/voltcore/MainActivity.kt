@@ -42,6 +42,27 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
         binding.bottomNavigation.setupWithNavController(navController)
 
+        // Handle logout for both Drawer and Bottom Navigation
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            if (menuItem.itemId == R.id.logout_action) {
+                logout()
+                true
+            } else {
+                val handled = androidx.navigation.ui.NavigationUI.onNavDestinationSelected(menuItem, navController)
+                if (handled) binding.drawerLayout.closeDrawers()
+                handled
+            }
+        }
+
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            if (menuItem.itemId == R.id.logout_action) {
+                logout()
+                true
+            } else {
+                androidx.navigation.ui.NavigationUI.onNavDestinationSelected(menuItem, navController)
+            }
+        }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             updateNavigationUI(destination.id)
         }
@@ -74,6 +95,12 @@ class MainActivity : AppCompatActivity() {
                 binding.navView.inflateMenu(R.menu.admin_drawer_menu)
             }
         }
+    }
+
+    private fun logout() {
+        navController.navigate(R.id.loginFragment)
+        // Clear backstack
+        navController.popBackStack(R.id.loginFragment, false)
     }
 
     override fun onSupportNavigateUp(): Boolean {
