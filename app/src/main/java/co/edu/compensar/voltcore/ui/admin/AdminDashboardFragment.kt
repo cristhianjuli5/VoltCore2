@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import co.edu.compensar.voltcore.databinding.FragmentVendorDashboardBinding
+import co.edu.compensar.voltcore.databinding.FragmentAdminDashboardBinding
 
-// Reusing vendor dashboard layout for admin metrics
 class AdminDashboardFragment : Fragment() {
-    private var _binding: FragmentVendorDashboardBinding? = null
+    private var _binding: FragmentAdminDashboardBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentVendorDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
