@@ -29,7 +29,7 @@ class SplashFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_splash_to_login)
-        }, 3000)
+        }, 2000)
     }
 
     override fun onDestroyView() {

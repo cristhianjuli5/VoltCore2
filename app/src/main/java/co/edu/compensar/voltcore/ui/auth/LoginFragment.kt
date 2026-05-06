@@ -50,10 +50,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun handleLogin(email: String) {
+        val emailLower = email.lowercase()
         when {
-            email.contains("admin", true) -> findNavController().navigate(R.id.action_login_to_adminDashboard)
-            email.contains("seller", true) -> findNavController().navigate(R.id.action_login_to_vendorDashboard)
-            else -> findNavController().navigate(R.id.action_login_to_buyerHome)
+            emailLower.contains("admin") -> {
+                Toast.makeText(context, "Accediendo como Administrador", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_login_to_adminDashboard)
+            }
+            emailLower.contains("seller") || emailLower.contains("vendedor") -> {
+                Toast.makeText(context, "Accediendo como Vendedor", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_login_to_vendorDashboard)
+            }
+            else -> {
+                Toast.makeText(context, "Accediendo como Comprador", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_login_to_buyerHome)
+            }
         }
     }
 

@@ -4,116 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@color/volt_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/margin_standard">
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome_buyer"
-            android:textColor="@color/volt_primary"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.VoltCore.Card"
+        <!-- Buscador -->
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/searchBar"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginBottom="24dp">
+            android:layout_height="wrap_content"
+            android:hint="Buscar repuestos, BMS, motores..."
+            app:backgroundTint="@color/glass_surface"
+            android:layout_marginBottom="24dp"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_voltcore_logo"
-                android:alpha="0.3"
-                android:contentDescription="Banner Ofertas" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="¡Ofertas Eléctricas!\n50% OFF en Laptops"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-        </com.google.android.material.card.MaterialCardView>
-
+        <!-- Ofertas/Banners -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Productos Destacados"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/volt_offers"
+            android:textColor="@color/volt_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFeaturedProducts"
+            android:id="@+id/rvOffers"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_banner_promo"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Categorías Rápidas -->
+        <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="24dp"
+            app:singleSelection="true">
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Baterías"
+                app:chipBackgroundColor="@color/glass_surface"
+                android:textColor="@color/white"/>
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Motores"
+                app:chipBackgroundColor="@color/glass_surface"
+                android:textColor="@color/white"/>
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Controladores"
+                app:chipBackgroundColor="@color/glass_surface"
+                android:textColor="@color/white"/>
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Destacados -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Productos Destacados"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFeatured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_product_card" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
-            android:text="Categorías"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="Electrónica"
-                    app:chipBackgroundColor="@color/glass_surface"
-                    app:chipStrokeColor="@color/glass_stroke"
-                    android:textColor="@color/volt_primary" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="Hogar"
-                    app:chipBackgroundColor="@color/glass_surface"
-                    app:chipStrokeColor="@color/glass_stroke"
-                    android:textColor="@color/volt_primary" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="Deportes"
-                    app:chipBackgroundColor="@color/glass_surface"
-                    app:chipStrokeColor="@color/glass_stroke"
-                    android:textColor="@color/volt_primary" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>

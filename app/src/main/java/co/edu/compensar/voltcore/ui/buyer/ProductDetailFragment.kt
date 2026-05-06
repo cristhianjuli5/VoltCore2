@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import co.edu.compensar.voltcore.databinding.FragmentProductDetailBinding
 
@@ -14,6 +15,14 @@ class ProductDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnAddToCart.setOnClickListener {
+            Toast.makeText(context, "Producto añadido al carrito", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

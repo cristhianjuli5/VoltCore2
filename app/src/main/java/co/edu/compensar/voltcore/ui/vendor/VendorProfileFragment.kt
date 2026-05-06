@@ -4,28 +4,57 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import co.edu.compensar.voltcore.databinding.FragmentVendorProfileBinding
+import java.util.regex.Pattern
 
 class VendorProfileFragment : Fragment() {
     private var _binding: FragmentVendorProfileBinding? = null
     private val binding get() = _binding!!
 
+    // Regex para NIT: 123456789-0
+    private val nitPattern = Pattern.compile("^[0-9]{7,10}-[0-9]$")
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVendorProfileBinding.inflate(inflater, container, false)
-        
-        // Buscamos el botón por texto para asignar la acción de feedback
-        val views = ArrayList<View>()
-        binding.root.findViewsWithText(views, "Actualizar Datos", View.FIND_VIEWS_WITH_TEXT)
-        if (views.isNotEmpty() && views[0] is Button) {
-            (views[0] as Button).setOnClickListener {
-                Toast.makeText(requireContext(), "Datos legales (NIT/RUT) guardados con éxito", Toast.LENGTH_SHORT).show()
-            }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnUploadRUT.setOnClickListener {
+            Toast.makeText(context, "Abriendo selector de archivos para RUT", Toast.LENGTH_SHORT).show()
         }
 
-        return binding.root
+        binding.btnSaveProfile.setOnClickListener {
+            validateAndSave()
+        }
+    }
+
+    private fun validateAndSave() {
+        val nit = binding.etNIT.text.toString()
+        val razonSocial = binding.etRazonSocial.text.toString()
+
+        if (razonSocial.isEmpty()) {
+            binding.tilRazonSocial.error = "La razón social es obligatoria"
+            return
+        } else {
+            binding.tilRazonSocial.error = null
+        }
+
+        if (!nitPattern.matcher(nit).matches()) {
+            binding.tilNIT.error = "Formato de NIT inválido (ej: 123456789-0)"
+            return
+        } else {
+            binding.tilNIT.error = null
+        }
+
+        val vacationMode = binding.switchVacation.isChecked
+        val message = if (vacationMode) "Perfil guardado - Modo Vacaciones Activo" else "Perfil actualizado correctamente"
+        
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

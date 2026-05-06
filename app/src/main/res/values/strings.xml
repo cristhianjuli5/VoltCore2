@@ -8,7 +8,7 @@
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="recovery_title">Recuperar Contraseña</string>
     <string name="recovery_desc">Ingresa tu correo para recibir las instrucciones de recuperación.</string>
-    <string name="send_recovery">Enviar Instrucciones</string>
+    <string name="send_recovery">Enviar Enlace</string>
     <string name="admin_dashboard">Dashboard Administrador</string>
     <string name="vendor_dashboard">Dashboard Vendedor</string>
     <string name="buyer_home">Dashboard Comprador</string>
@@ -39,4 +39,27 @@
     <string name="admin_shortcuts">Accesos Directos</string>
     <string name="login_tip">Tip: usa \'admin\' para Administrador, \'seller\' para Vendedor</string>
     <string name="welcome_buyer">Bienvenido, Comprador</string>
+    <string name="manage_users">Gestión de Usuarios</string>
+    <string name="manage_products">Gestión de Productos</string>
+    <string name="edit_user">Editar Usuario</string>
+    <string name="create_user">Crear Usuario</string>
+    <string name="delete_user">Eliminar Usuario</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Eliminar</string>
+    <string name="name_hint">Nombre</string>
+    <string name="price_hint">Precio</string>
+    <string name="stock_hint">Stock</string>
+    <string name="category_hint">Categoría</string>
+    <string name="featured_products">Productos Destacados</string>
+    <string name="search_hint">Buscar repuestos, BMS, motores...</string>
+    <string name="technical_sheet">Ficha Técnica</string>
+    <string name="add_to_cart_full">AÑADIR AL CARRITO</string>
+    <string name="order_number">Pedido #%s</string>
+    <string name="order_history">Mis Pedidos</string>
+    <string name="checkout_title">Finalizar Compra</string>
+    <string name="shipping_address">Dirección de Envío</string>
+    <string name="payment_method">Método de Pago</string>
+    <string name="confirm_pay">CONFIRMAR Y PAGAR</string>
+    <string name="update_profile">ACTUALIZAR PERFIL</string>
 </resources>

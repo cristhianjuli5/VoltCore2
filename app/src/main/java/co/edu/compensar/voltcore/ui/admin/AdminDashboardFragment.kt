@@ -26,7 +26,7 @@ class AdminDashboardFragment : Fragment() {
         }
 
         binding.btnManageProducts.setOnClickListener {
-            findNavController().navigate(R.id.adminModerationFragment)
+            findNavController().navigate(R.id.adminProductsFragment)
         }
 
         binding.btnViewReports.setOnClickListener {

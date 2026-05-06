@@ -52,11 +52,19 @@
     <fragment
         android:id="@+id/buyerHomeFragment"
         android:name="co.edu.compensar.voltcore.ui.buyer.BuyerHomeFragment"
-        android:label="@string/buyer_home" />
+        android:label="@string/buyer_home">
+        <action
+            android:id="@+id/action_buyerHome_to_productDetail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/catalogFragment"
         android:name="co.edu.compensar.voltcore.ui.buyer.CatalogFragment"
-        android:label="@string/catalog" />
+        android:label="@string/catalog">
+        <action
+            android:id="@+id/action_catalog_to_productDetail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="co.edu.compensar.voltcore.ui.buyer.ProductDetailFragment"
@@ -64,7 +72,11 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="co.edu.compensar.voltcore.ui.buyer.CartFragment"
-        android:label="@string/cart" />
+        android:label="@string/cart">
+        <action
+            android:id="@+id/action_cart_to_checkout"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/checkoutFragment"
         android:name="co.edu.compensar.voltcore.ui.buyer.CheckoutFragment"
@@ -72,7 +84,17 @@
     <fragment
         android:id="@+id/buyerProfileFragment"
         android:name="co.edu.compensar.voltcore.ui.buyer.BuyerProfileFragment"
-        android:label="@string/profile" />
+        android:label="@string/profile">
+        <action
+            android:id="@+id/action_profile_to_orders"
+            app:destination="@id/buyerOrdersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyerOrdersFragment"
+        android:name="co.edu.compensar.voltcore.ui.buyer.BuyerOrdersFragment"
+        android:label="Mis Pedidos"
+        tools:layout="@layout/fragment_buyer_orders" />
+
 
     <!-- Vendor Fragments -->
     <fragment
@@ -82,7 +104,17 @@
     <fragment
         android:id="@+id/vendorProductsFragment"
         android:name="co.edu.compensar.voltcore.ui.vendor.VendorProductsFragment"
-        android:label="@string/products" />
+        android:label="@string/products">
+        <action
+            android:id="@+id/action_vendorProducts_to_form"
+            app:destination="@id/vendorProductFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vendorProductFormFragment"
+        android:name="co.edu.compensar.voltcore.ui.vendor.VendorProductFormFragment"
+        android:label="Formulario de Producto"
+        tools:layout="@layout/fragment_vendor_product_form" />
+
     <fragment
         android:id="@+id/vendorOrdersFragment"
         android:name="co.edu.compensar.voltcore.ui.vendor.VendorOrdersFragment"
@@ -109,5 +141,11 @@
         android:id="@+id/adminReportsFragment"
         android:name="co.edu.compensar.voltcore.ui.admin.AdminReportsFragment"
         android:label="@string/reports" />
+
+    <fragment
+        android:id="@+id/adminProductsFragment"
+        android:name="co.edu.compensar.voltcore.ui.admin.AdminProductsFragment"
+        android:label="@string/products"
+        tools:layout="@layout/fragment_admin_products" />
 
 </navigation>

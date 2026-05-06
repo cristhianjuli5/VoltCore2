@@ -75,19 +75,19 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigation.visibility = View.GONE
                 binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
-            R.id.buyerHomeFragment, R.id.catalogFragment, R.id.cartFragment, R.id.productDetailFragment, R.id.checkoutFragment, R.id.buyerProfileFragment -> {
+            R.id.buyerHomeFragment, R.id.catalogFragment, R.id.cartFragment, R.id.productDetailFragment, R.id.checkoutFragment, R.id.buyerProfileFragment, R.id.buyerOrdersFragment -> {
                 binding.toolbar.visibility = View.VISIBLE
                 binding.bottomNavigation.visibility = View.VISIBLE
                 binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
-            R.id.vendorDashboardFragment, R.id.vendorProductsFragment, R.id.vendorOrdersFragment, R.id.vendorProfileFragment -> {
+            R.id.vendorDashboardFragment, R.id.vendorProductsFragment, R.id.vendorOrdersFragment, R.id.vendorProfileFragment, R.id.vendorProductFormFragment -> {
                 binding.toolbar.visibility = View.VISIBLE
                 binding.bottomNavigation.visibility = View.GONE
                 binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
                 binding.navView.menu.clear()
                 binding.navView.inflateMenu(R.menu.vendor_drawer_menu)
             }
-            R.id.adminDashboardFragment, R.id.adminUsersFragment, R.id.adminModerationFragment, R.id.adminReportsFragment -> {
+            R.id.adminDashboardFragment, R.id.adminUsersFragment, R.id.adminModerationFragment, R.id.adminReportsFragment, R.id.adminProductsFragment -> {
                 binding.toolbar.visibility = View.VISIBLE
                 binding.bottomNavigation.visibility = View.GONE
                 binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)

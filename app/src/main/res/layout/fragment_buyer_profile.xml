@@ -1,93 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_standard">
+    android:background="@color/volt_background">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/ic_voltcore_logo"
-        android:padding="8dp"
-        app:strokeColor="@color/volt_primary"
-        app:strokeWidth="2dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        android:contentDescription="Foto de Perfil" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Nombre del Usuario"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="usuario@voltcore.com"
-        android:textColor="@color/volt_primary" />
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.VoltCore.Card"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-        <LinearLayout
+        <!-- Foto de Perfil (Simulada con CardView para hacerlo circular) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="60dp"
+            app:strokeColor="@color/volt_primary"
+            app:strokeWidth="2dp"
+            android:layout_marginBottom="16dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_voltcore_logo"
+                android:padding="20dp"
+                android:scaleType="centerInside"
+                android:background="@color/glass_surface"
+                android:contentDescription="Foto de perfil"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario Comprador"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="comprador@voltcore.com"
+            android:textColor="#B3FFFFFF"
+            android:layout_marginBottom="32dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
+            android:hint="Nombre Completo"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="@color/volt_primary"
+            app:hintTextColor="@color/volt_primary">
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mis Direcciones"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:drawableStart="@android:drawable/ic_menu_mapmode"
-                android:drawablePadding="16dp" />
+                android:text="Juan Pérez"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="12dp"
-                android:background="@color/colorBackground" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mis Pedidos"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:drawableStart="@android:drawable/ic_menu_recent_history"
-                android:drawablePadding="16dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="12dp"
-                android:background="@color/colorBackground" />
-
-            <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono de contacto"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="@color/volt_primary"
+            app:hintTextColor="@color/volt_primary">
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Configuración"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:drawableStart="@android:drawable/ic_menu_manage"
-                android:drawablePadding="16dp" />
+                android:text="+57 300 123 4567"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="ACTUALIZAR PERFIL"
+            android:backgroundTint="@color/glass_surface"
+            android:textColor="@color/white"
+            app:strokeColor="@color/volt_primary"
+            app:strokeWidth="1dp"
+            app:cornerRadius="12dp"
+            android:layout_marginBottom="16dp"/>
 
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/glass_stroke"
+            android:layout_marginVertical="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMyOrders"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="MIS PEDIDOS"
+            android:backgroundTint="@color/volt_primary"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:icon="@android:drawable/ic_menu_agenda"
+            app:iconTint="@color/black"/>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
