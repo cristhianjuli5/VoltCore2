@@ -146,7 +146,7 @@ class LoginFragment : Fragment() {
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Autenticación Biométrica")
             .setSubtitle("Ingresa con tu huella o rostro")
-            .setNegativeButtonText("Cancelar")
+            // No se puede usar setNegativeButtonText si DEVICE_CREDENTIAL está permitido
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
             .build()
     }
