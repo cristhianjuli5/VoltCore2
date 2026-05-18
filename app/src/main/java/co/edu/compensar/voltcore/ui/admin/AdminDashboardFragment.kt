@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.databinding.FragmentAdminDashboardBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class AdminDashboardFragment : Fragment() {
     private var _binding: FragmentAdminDashboardBinding? = null
     private val binding get() = _binding!!
+
+    private val auth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAdminDashboardBinding.inflate(inflater, container, false)
@@ -35,6 +38,15 @@ class AdminDashboardFragment : Fragment() {
 
         binding.btnModeration.setOnClickListener {
             findNavController().navigate(R.id.adminModerationFragment)
+        }
+
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+            findNavController().navigate(R.id.loginFragment, null,
+                androidx.navigation.NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_graph, true)
+                    .build()
+            )
         }
     }
 

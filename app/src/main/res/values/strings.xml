@@ -62,4 +62,12 @@
     <string name="payment_method">Método de Pago</string>
     <string name="confirm_pay">CONFIRMAR Y PAGAR</string>
     <string name="update_profile">ACTUALIZAR PERFIL</string>
+    <string name="register_title">Crear Cuenta</string>
+    <string name="role_selection">Selecciona tu rol:</string>
+    <string name="buyer">Comprador</string>
+    <string name="vendor">Vendedor</string>
+    <string name="register_button">Registrarse</string>
+    <string name="back_to_login">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="no_account">¿No tienes cuenta? Regístrate aquí</string>
+    <string name="address_hint">Dirección</string>
 </resources>

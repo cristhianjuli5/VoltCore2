@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.databinding.FragmentVendorProfileBinding
+import com.google.firebase.auth.FirebaseAuth
 import java.util.regex.Pattern
 
 class VendorProfileFragment : Fragment() {
     private var _binding: FragmentVendorProfileBinding? = null
     private val binding get() = _binding!!
+
+    private val auth by lazy { FirebaseAuth.getInstance() }
 
     // Regex para NIT: 123456789-0
     private val nitPattern = Pattern.compile("^[0-9]{7,10}-[0-9]$")
@@ -30,6 +35,15 @@ class VendorProfileFragment : Fragment() {
 
         binding.btnSaveProfile.setOnClickListener {
             validateAndSave()
+        }
+
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+            findNavController().navigate(R.id.loginFragment, null,
+                androidx.navigation.NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_graph, true)
+                    .build()
+            )
         }
     }
 

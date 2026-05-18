@@ -10,8 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.edu.compensar.voltcore.R
+import co.edu.compensar.voltcore.data.CartItem
 import co.edu.compensar.voltcore.data.CartManager
 import co.edu.compensar.voltcore.databinding.FragmentCartBinding
+
+import co.edu.compensar.voltcore.databinding.ItemCartProductBinding
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -19,20 +22,23 @@ class CartFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         
         setupCartList()
         
         binding.btnGoToCheckout.setOnClickListener {
             if (CartManager.getCount() > 0) {
-                findNavController().navigate(R.id.checkoutFragment)
+                findNavController().navigate(R.id.action_cart_to_checkout)
             } else {
                 android.widget.Toast.makeText(context, "El carrito está vacío", android.widget.Toast.LENGTH_SHORT).show()
             }
         }
         
         updateTotal()
-        
-        return binding.root
     }
 
     private fun setupCartList() {
@@ -41,14 +47,40 @@ class CartFragment : Fragment() {
             private val items = CartManager.getItems()
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-                val view = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
-                return CartViewHolder(view)
+                val binding = ItemCartProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return CartViewHolder(binding)
             }
 
             override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
                 val item = items[position]
-                holder.textView.text = item
-                holder.textView.setTextColor(resources.getColor(R.color.white, null))
+                holder.binding.tvCartProductName.text = item.productName
+                holder.binding.tvCartProductPrice.text = "$ %,.0f".format(item.price)
+                holder.binding.tvQuantity.text = item.quantity.toString()
+
+                holder.binding.btnPlus.setOnClickListener {
+                    val currentPos = holder.adapterPosition
+                    if (currentPos != RecyclerView.NO_POSITION) {
+                        val currentItem = items[currentPos]
+                        CartManager.updateQuantity(currentItem.productId, currentItem.quantity + 1)
+                        notifyItemChanged(currentPos)
+                        updateTotal()
+                    }
+                }
+
+                holder.binding.btnMinus.setOnClickListener {
+                    val currentPos = holder.adapterPosition
+                    if (currentPos != RecyclerView.NO_POSITION) {
+                        val currentItem = items[currentPos]
+                        if (currentItem.quantity > 1) {
+                            CartManager.updateQuantity(currentItem.productId, currentItem.quantity - 1)
+                            notifyItemChanged(currentPos)
+                        } else {
+                            CartManager.removeItem(currentItem.productId)
+                            notifyDataSetChanged()
+                        }
+                        updateTotal()
+                    }
+                }
             }
 
             override fun getItemCount() = items.size
@@ -56,13 +88,11 @@ class CartFragment : Fragment() {
     }
 
     private fun updateTotal() {
-        val total = CartManager.getCount() * 100000 // Precio ficticio promedio
-        binding.tvTotal.text = "$ $total"
+        val total = CartManager.getTotalPrice()
+        binding.tvTotal.text = "$ %,.0f".format(total)
     }
 
-    class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(android.R.id.text1)
-    }
+    class CartViewHolder(val binding: ItemCartProductBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onDestroyView() {
         super.onDestroyView()

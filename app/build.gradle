@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -46,10 +47,24 @@ dependencies {
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
     implementation libs.androidx.biometric
+    implementation libs.androidx.security.crypto
     implementation libs.androidx.camera.core
     implementation libs.androidx.camera.camera2
     implementation libs.androidx.camera.lifecycle
     implementation libs.androidx.camera.view
+    
+    // Firebase
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.auth
+    implementation libs.firebase.firestore
+    implementation libs.firebase.storage
+
+    // Google Play Services
+    implementation libs.play.services.location
+
+    // Glide
+    implementation libs.glide
+
     testImplementation libs.junit
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation libs.androidx.junit

@@ -1,6 +1,7 @@
 package co.edu.compensar.voltcore.ui.vendor
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import co.edu.compensar.voltcore.R
+import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentVendorProductsBinding
 import co.edu.compensar.voltcore.databinding.ItemVendorProductBinding
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class VendorProductsFragment : Fragment() {
     private var _binding: FragmentVendorProductsBinding? = null
     private val binding get() = _binding!!
+
+    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val storage by lazy { FirebaseStorage.getInstance() }
+    private val productList = mutableListOf<Product>()
+    private lateinit var adapter: VendorProductAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVendorProductsBinding.inflate(inflater, container, false)
@@ -25,36 +37,81 @@ class VendorProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mockProducts = mutableListOf(
-            VendorProduct("Filtro de Aceite XP", 45000.0, "ACTIVO"),
-            VendorProduct("Batería 12V Volt", 280000.0, "ACTIVO"),
-            VendorProduct("Pastillas de Freno", 120000.0, "EN REVISIÓN")
+        adapter = VendorProductAdapter(
+            products = productList,
+            onDelete = { product -> showDeleteDialog(product) },
+            onEdit = { product ->
+                val bundle = Bundle().apply {
+                    putString("productId", product.id)
+                }
+                findNavController().navigate(R.id.action_vendorProducts_to_form, bundle)
+            }
         )
-
-        val adapter = VendorProductAdapter(mockProducts) { product ->
-            showArchiveDialog(product)
-        }
         binding.rvVendorProducts.adapter = adapter
 
         binding.fabAddProduct.setOnClickListener {
             findNavController().navigate(R.id.action_vendorProducts_to_form)
         }
+
+        fetchVendorProducts()
     }
 
-    private fun showArchiveDialog(product: VendorProduct) {
+    private fun fetchVendorProducts() {
+        val vendorId = auth.currentUser?.uid ?: return
+        db.collection("products")
+            .whereEqualTo("vendorId", vendorId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Toast.makeText(context, "Error al cargar productos", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    productList.clear()
+                    for (doc in snapshot.documents) {
+                        val product = doc.toObject(Product::class.java)?.copy(id = doc.id)
+                        if (product != null) {
+                            productList.add(product)
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            }
+    }
+
+    private fun showDeleteDialog(product: Product) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Archivar Producto")
-            .setMessage("¿Deseas archivar '${product.name}'? Ya no será visible para los compradores.")
-            .setPositiveButton("Archivar") { _, _ ->
-                Toast.makeText(context, "${product.name} archivado (Soft Delete)", Toast.LENGTH_SHORT).show()
+            .setTitle("Eliminar Producto")
+            .setMessage("¿Estás seguro de que deseas eliminar '${product.name}'?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                if (product.id.isEmpty()) return@setPositiveButton
+                
+                db.collection("products").document(product.id).delete()
+                    .addOnSuccessListener {
+                        // Delete image from storage
+                        if (product.imageUrl.isNotEmpty()) {
+                            try {
+                                storage.getReferenceFromUrl(product.imageUrl).delete()
+                                    .addOnFailureListener { e ->
+                                        Log.e("VendorProducts", "Error deleting image: ${e.message}")
+                                    }
+                            } catch (e: Exception) {
+                                Log.e("VendorProducts", "Invalid image URL: ${e.message}")
+                            }
+                        }
+                        Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(context, "Error al eliminar producto", Toast.LENGTH_SHORT).show()
+                    }
             }
             .setNegativeButton("Cancelar", null)
             .show()
     }
 
     class VendorProductAdapter(
-        private val products: List<VendorProduct>,
-        private val onArchive: (VendorProduct) -> Unit
+        private val products: List<Product>,
+        private val onDelete: (Product) -> Unit,
+        private val onEdit: (Product) -> Unit
     ) : RecyclerView.Adapter<VendorProductAdapter.ViewHolder>() {
 
         class ViewHolder(val binding: ItemVendorProductBinding) : RecyclerView.ViewHolder(binding.root)
@@ -69,16 +126,21 @@ class VendorProductsFragment : Fragment() {
             with(holder.binding) {
                 tvProductName.text = product.name
                 tvProductPrice.text = String.format("$ %,.0f", product.price)
-                chipStatus.text = product.status
+                chipStatus.text = "ACTIVO"
                 
-                btnArchive.setOnClickListener { onArchive(product) }
+                Glide.with(ivProduct.context)
+                    .load(product.imageUrl)
+                    .placeholder(R.drawable.ic_voltcore_logo)
+                    .centerCrop()
+                    .into(ivProduct)
+                
+                btnEdit.setOnClickListener { onEdit(product) }
+                btnArchive.setOnClickListener { onDelete(product) }
             }
         }
 
         override fun getItemCount() = products.size
     }
-
-    data class VendorProduct(val name: String, val price: Double, val status: String)
 
     override fun onDestroyView() {
         super.onDestroyView()

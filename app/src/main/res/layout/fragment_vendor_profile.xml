@@ -142,6 +142,17 @@
             android:backgroundTint="@color/volt_primary"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:cornerRadius="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="CERRAR SESIÓN"
+            android:backgroundTint="#FF4B4B"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:cornerRadius="12dp" />
 
     </LinearLayout>

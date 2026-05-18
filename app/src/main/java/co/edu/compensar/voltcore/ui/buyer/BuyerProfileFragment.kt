@@ -10,9 +10,13 @@ import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.databinding.FragmentBuyerProfileBinding
 
+import com.google.firebase.auth.FirebaseAuth
+
 class BuyerProfileFragment : Fragment() {
     private var _binding: FragmentBuyerProfileBinding? = null
     private val binding get() = _binding!!
+
+    private val auth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentBuyerProfileBinding.inflate(inflater, container, false)
@@ -28,6 +32,15 @@ class BuyerProfileFragment : Fragment() {
 
         binding.btnMyOrders.setOnClickListener {
             findNavController().navigate(R.id.action_profile_to_orders)
+        }
+
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+            findNavController().navigate(R.id.loginFragment, null, 
+                androidx.navigation.NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_graph, true)
+                    .build()
+            )
         }
     }
 

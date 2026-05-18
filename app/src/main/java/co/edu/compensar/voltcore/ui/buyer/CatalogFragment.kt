@@ -8,60 +8,84 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.CartManager
+import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentCatalogBinding
 import co.edu.compensar.voltcore.databinding.ItemProductCardBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class CatalogFragment : Fragment() {
     private var _binding: FragmentCatalogBinding? = null
     private val binding get() = _binding!!
 
+    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val productList = mutableListOf<Product>()
+    private lateinit var adapter: CatalogAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCatalogBinding.inflate(inflater, container, false)
-        setupFakeCatalog()
         return binding.root
     }
 
-    private fun setupFakeCatalog() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter = CatalogAdapter(productList) { product ->
+            val bundle = Bundle().apply {
+                putString("productId", product.id)
+            }
+            findNavController().navigate(R.id.productDetailFragment, bundle)
+        }
+        
         binding.rvCatalog.layoutManager = GridLayoutManager(context, 2)
-        binding.rvCatalog.adapter = object : androidx.recyclerview.widget.RecyclerView.Adapter<CatalogViewHolder>() {
-            private val items = listOf(
-                Product("Motor 3000W", "$1.200.000"),
-                Product("Casco Integral", "$450.000"),
-                Product("Batería Litio", "$890.000"),
-                Product("Frenos Disco", "$120.000"),
-                Product("Llantas Sport", "$310.000"),
-                Product("Controlador Pro", "$560.000")
-            )
+        binding.rvCatalog.adapter = adapter
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
-                val b = ItemProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return CatalogViewHolder(b)
+        fetchProducts()
+    }
+
+    private fun fetchProducts() {
+        db.collection("products").addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Toast.makeText(context, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
+                return@addSnapshotListener
             }
-
-            override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
-                val p = items[position]
-                holder.binding.tvProductName.text = p.name
-                holder.binding.tvProductPrice.text = p.price
-                
-                // Navegar al detalle
-                holder.binding.root.setOnClickListener {
-                    findNavController().navigate(R.id.productDetailFragment)
-                }
-
-                holder.binding.btnAddToCart.setOnClickListener {
-                    CartManager.addItem(p.name)
-                    Toast.makeText(context, "${p.name} añadido al carrito (${CartManager.getCount()} items)", Toast.LENGTH_SHORT).show()
-                }
+            if (snapshot != null) {
+                productList.clear()
+                productList.addAll(snapshot.toObjects(Product::class.java))
+                adapter.notifyDataSetChanged()
             }
-
-            override fun getItemCount() = items.size
         }
     }
 
-    class CatalogViewHolder(val binding: ItemProductCardBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
-    data class Product(val name: String, val price: String)
+    class CatalogAdapter(
+        private val products: List<Product>,
+        private val onItemClick: (Product) -> Unit
+    ) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
+
+        class ViewHolder(val binding: ItemProductCardBinding) : RecyclerView.ViewHolder(binding.root)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val binding = ItemProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return ViewHolder(binding)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val product = products[position]
+            holder.binding.tvProductName.text = product.name
+            holder.binding.tvProductPrice.text = String.format("$ %,.0f", product.price)
+            
+            holder.binding.root.setOnClickListener { onItemClick(product) }
+
+            holder.binding.btnAddToCart.setOnClickListener {
+                CartManager.addItem(product)
+                Toast.makeText(holder.itemView.context, "${product.name} añadido", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        override fun getItemCount() = products.size
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

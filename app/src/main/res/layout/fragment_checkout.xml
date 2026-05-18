@@ -47,13 +47,22 @@
                     android:src="@android:drawable/ic_menu_myplaces"
                     app:tint="@color/white"
                     android:contentDescription="Ubicación"/>
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilShippingAddress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="12dp"
-                    android:text="Calle 123 #45-67, Bogotá, Colombia"
-                    android:textColor="@color/white" />
+                    android:hint="Dirección de Envío"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="@color/volt_primary"
+                    app:hintTextColor="@color/volt_primary">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etShippingAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
                 <Button
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"

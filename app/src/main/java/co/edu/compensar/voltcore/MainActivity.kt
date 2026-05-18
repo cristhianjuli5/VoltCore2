@@ -98,6 +98,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
+        // Cerrar sesión en Firebase
+        com.google.firebase.auth.FirebaseAuth.getInstance().signOut()
+
         // Navegar a login y limpiar todo el historial
         navController.navigate(R.id.loginFragment, null, androidx.navigation.NavOptions.Builder()
             .setPopUpTo(R.id.nav_graph, true)

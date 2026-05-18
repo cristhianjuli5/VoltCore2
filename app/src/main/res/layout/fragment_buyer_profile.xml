@@ -104,7 +104,20 @@
             android:textStyle="bold"
             app:cornerRadius="12dp"
             app:icon="@android:drawable/ic_menu_agenda"
-            app:iconTint="@color/black"/>
+            app:iconTint="@color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="CERRAR SESIÓN"
+            android:backgroundTint="#FF4B4B"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:icon="@android:drawable/ic_lock_power_off"
+            app:iconTint="@color/white" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

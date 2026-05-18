@@ -27,13 +27,38 @@
             android:layout_marginBottom="16dp"
             android:background="#33FFFFFF" />
 
-        <Button
-            android:id="@+id/btnCapture"
+        <ImageView
+            android:id="@+id/ivProductPreview"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:contentDescription="Vista previa del producto" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tomar Foto del Producto"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:layout_marginBottom="24dp"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/btnCapture"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cámara"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnGallery"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Galería"
+                style="@style/Widget.Material3.Button.TonalButton" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -132,6 +157,14 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             app:cornerRadius="12dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
