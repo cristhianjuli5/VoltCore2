@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "913959583324",
+    "project_id": "voltcore2",
+    "storage_bucket": "voltcore2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913959583324:android:a248600af9c49b0882b099",
+        "android_client_info": {
+          "package_name": "co.edu.compensar.voltcore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtBY3hO7HwVZ69Mbd-JStFs3fO5HKXkww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
