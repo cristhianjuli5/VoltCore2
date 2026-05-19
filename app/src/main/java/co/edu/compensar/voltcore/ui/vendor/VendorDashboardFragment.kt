@@ -28,15 +28,6 @@ class VendorDashboardFragment : Fragment() {
 
         setupNavigation()
         fetchStats()
-
-        binding.btnLogout.setOnClickListener {
-            auth.signOut()
-            findNavController().navigate(R.id.loginFragment, null,
-                androidx.navigation.NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_graph, true)
-                    .build()
-            )
-        }
     }
 
     private fun setupNavigation() {

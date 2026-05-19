@@ -42,15 +42,6 @@ class BuyerProfileFragment : Fragment() {
         binding.btnMyOrders.setOnClickListener {
             findNavController().navigate(R.id.action_profile_to_orders)
         }
-
-        binding.btnLogout.setOnClickListener {
-            auth.signOut()
-            findNavController().navigate(R.id.loginFragment, null, 
-                androidx.navigation.NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_graph, true)
-                    .build()
-            )
-        }
     }
 
     private fun fetchUserData() {

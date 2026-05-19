@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.Order
 import co.edu.compensar.voltcore.databinding.FragmentAdminDashboardBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
@@ -17,7 +16,6 @@ class AdminDashboardFragment : Fragment() {
     private var _binding: FragmentAdminDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private val auth by lazy { FirebaseAuth.getInstance() }
     private val db by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -28,8 +26,11 @@ class AdminDashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupNavigation()
         fetchRealStats()
+    }
 
+    private fun setupNavigation() {
         binding.btnManageUsers.setOnClickListener {
             findNavController().navigate(R.id.adminUsersFragment)
         }
@@ -45,15 +46,6 @@ class AdminDashboardFragment : Fragment() {
         binding.btnModeration.setOnClickListener {
             findNavController().navigate(R.id.adminModerationFragment)
         }
-
-        binding.btnLogout.setOnClickListener {
-            auth.signOut()
-            findNavController().navigate(R.id.loginFragment, null,
-                androidx.navigation.NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_graph, true)
-                    .build()
-            )
-        }
     }
 
     private fun fetchRealStats() {
@@ -63,9 +55,17 @@ class AdminDashboardFragment : Fragment() {
             binding.tvUserCount.text = snapshot.size().toString()
         }
 
-        // Ventas Reales (Suma de todos los pedidos)
+        // Productos Totales
+        db.collection("products").get().addOnSuccessListener { snapshot ->
+            if (_binding == null) return@addOnSuccessListener
+            binding.tvProductCount.text = snapshot.size().toString()
+        }
+
+        // Pedidos y Ventas
         db.collection("orders").get().addOnSuccessListener { snapshot ->
             if (_binding == null) return@addOnSuccessListener
+            binding.tvOrderCount.text = snapshot.size().toString()
+
             var totalSales = 0.0
             for (doc in snapshot.documents) {
                 val order = doc.toObject(Order::class.java)

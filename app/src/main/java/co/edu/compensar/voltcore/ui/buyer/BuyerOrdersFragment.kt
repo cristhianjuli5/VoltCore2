@@ -45,15 +45,17 @@ class BuyerOrdersFragment : Fragment() {
         val buyerId = auth.currentUser?.uid ?: return
         db.collection("orders")
             .whereEqualTo("buyerId", buyerId)
-            .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
+                    android.util.Log.e("BuyerOrders", "Firestore Error: ${e.message}")
                     Toast.makeText(context, "Error al cargar pedidos", Toast.LENGTH_SHORT).show()
                     return@addSnapshotListener
                 }
                 if (snapshot != null) {
                     orderList.clear()
-                    orderList.addAll(snapshot.toObjects(Order::class.java))
+                    val orders = snapshot.toObjects(Order::class.java)
+                        .sortedByDescending { it.timestamp }
+                    orderList.addAll(orders)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -75,8 +77,11 @@ class BuyerOrdersFragment : Fragment() {
                 tvOrderNum.text = "Pedido #${order.id.takeLast(6)}"
                 tvOrderDate.text = dateFormat.format(order.timestamp)
                 tvOrderTotal.text = "Total: $ %,.0f".format(order.total)
-                chipOrderStatus.text = order.status
                 
+                // Reset visibility for recycling
+                tvShippingGuide.visibility = if (order.shippingGuide.isNotEmpty()) View.VISIBLE else View.GONE
+                tvShippingGuide.text = "Guía de envío: ${order.shippingGuide}"
+
                 // Pipeline logic
                 val activeColor = ContextCompat.getColor(holder.itemView.context, R.color.volt_primary)
                 val inactiveColor = ContextCompat.getColor(holder.itemView.context, R.color.glass_stroke)
@@ -85,8 +90,8 @@ class BuyerOrdersFragment : Fragment() {
                 viewStep2.setBackgroundColor(inactiveColor)
                 viewStep3.setBackgroundColor(inactiveColor)
 
-                when(order.status) {
-                    "PAID" -> {
+                when(order.status.uppercase()) {
+                    "PENDING", "PAID" -> {
                         chipOrderStatus.text = "PAGADO"
                         chipOrderStatus.setChipBackgroundColorResource(android.R.color.holo_blue_dark)
                         viewStep1.setBackgroundColor(activeColor)
@@ -106,15 +111,17 @@ class BuyerOrdersFragment : Fragment() {
                         viewStep2.setBackgroundColor(activeColor)
                         viewStep3.setBackgroundColor(activeColor)
                         tvStatusDescription.text = "¡Tu pedido va en camino!"
-                        
-                        if (order.shippingGuide.isNotEmpty()) {
-                            tvShippingGuide.visibility = View.VISIBLE
-                            tvShippingGuide.text = "Guía de envío: ${order.shippingGuide}"
-                        } else {
-                            tvShippingGuide.visibility = View.GONE
-                        }
+                    }
+                    "DELIVERED" -> {
+                        chipOrderStatus.text = "ENTREGADO"
+                        chipOrderStatus.setChipBackgroundColorResource(android.R.color.darker_gray)
+                        viewStep1.setBackgroundColor(activeColor)
+                        viewStep2.setBackgroundColor(activeColor)
+                        viewStep3.setBackgroundColor(activeColor)
+                        tvStatusDescription.text = "El pedido ha sido entregado."
                     }
                     else -> {
+                        chipOrderStatus.text = order.status
                         chipOrderStatus.setChipBackgroundColorResource(android.R.color.darker_gray)
                         tvStatusDescription.text = "Estado: ${order.status}"
                     }
