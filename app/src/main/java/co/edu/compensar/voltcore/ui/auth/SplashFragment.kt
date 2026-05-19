@@ -41,59 +41,123 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        validateFirebaseConfig()
+        // 1. Validate Firebase config before anything else
+        val firebaseReady = validateFirebaseConfig()
+        if (!firebaseReady) return
 
+        // 2. Delay then check session
         Handler(Looper.getMainLooper()).postDelayed({
             checkSession()
         }, 2000)
     }
 
-    private fun validateFirebaseConfig() {
-        try {
+    /**
+     * Validates that Firebase is correctly initialized and that
+     * FirebaseAuth is reachable. Returns false if a critical error
+     * is detected so the splash can stop early.
+     */
+    private fun validateFirebaseConfig(): Boolean {
+        return try {
             val app = FirebaseApp.getInstance()
-            Log.d(TAG, "Firebase initialized: ${app.name}")
-            Log.d(TAG, "Project ID: ${app.options.projectId}")
-            Log.d(TAG, "Application ID: ${app.options.applicationId}")
+            val options = app.options
+
+            Log.d(TAG, "✅ Firebase initialized → name: ${app.name}")
+            Log.d(TAG, "   Project ID       : ${options.projectId}")
+            Log.d(TAG, "   Application ID   : ${options.applicationId}")
+            Log.d(TAG, "   API Key present  : ${options.apiKey.isNotBlank()}")
+
+            // Warm-up FirebaseAuth so any configuration error surfaces here,
+            // not silently inside checkSession().
+            val authInstance = FirebaseAuth.getInstance()
+            Log.d(TAG, "✅ FirebaseAuth instance ready")
+
+            // Log current session state for diagnostics
+            val currentUser = authInstance.currentUser
+            if (currentUser != null) {
+                Log.d(TAG, "👤 Existing session → uid: ${currentUser.uid}, email: ${currentUser.email}")
+            } else {
+                Log.d(TAG, "🔑 No active session, will navigate to login")
+            }
+
+            true
+
+        } catch (e: IllegalStateException) {
+            // FirebaseApp.getInstance() throws this when google-services.json
+            // is missing or the Gradle plugin did not apply it.
+            Log.e(TAG, "❌ Firebase NOT initialized — google-services.json may be missing or misplaced", e)
+            Log.e(TAG, "   ➜ Make sure google-services.json is inside the /app folder (not the project root)")
+            showFatalError("Firebase no está inicializado. Revisa google-services.json.")
+            false
+
         } catch (e: Exception) {
-            Log.e(TAG, "Firebase initialization failed", e)
-            Toast.makeText(context, "Error de configuración de Firebase", Toast.LENGTH_LONG).show()
+            // Any other exception here likely maps to CONFIGURATION_NOT_FOUND,
+            // which means the Authentication provider is disabled in the Console.
+            Log.e(TAG, "❌ Firebase config error — possible CONFIGURATION_NOT_FOUND", e)
+            Log.e(TAG, "   ➜ Go to Firebase Console → Authentication → Sign-in method → enable Email/Password")
+            Log.e(TAG, "   ➜ Also confirm a Support email is set in Project Settings → General")
+            showFatalError("Error de configuración de Firebase. Verifica la consola.")
+            false
         }
     }
 
     private fun checkSession() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
+            Log.d(TAG, "Session found → fetching user data for uid: ${currentUser.uid}")
             fetchUserData(currentUser.uid)
         } else {
-            findNavController().navigate(R.id.action_splash_to_login)
+            Log.d(TAG, "No session → navigating to login")
+            navigateSafely { findNavController().navigate(R.id.action_splash_to_login) }
         }
     }
 
     private fun fetchUserData(uid: String) {
         db.collection("users").document(uid).get()
             .addOnSuccessListener { snapshot ->
-                if (isAdded) {
-                    val user = snapshot.toObject(User::class.java)
-                    if (user != null) {
-                        navigateToDashboard(user.role)
-                    } else {
-                        auth.signOut()
-                        findNavController().navigate(R.id.action_splash_to_login)
-                    }
+                if (!isAdded) return@addOnSuccessListener
+
+                val user = snapshot.toObject(User::class.java)
+                if (user != null) {
+                    Log.d(TAG, "✅ User fetched → role: ${user.role}")
+                    navigateToDashboard(user.role)
+                } else {
+                    Log.w(TAG, "⚠️ User document not found in Firestore → signing out")
+                    auth.signOut()
+                    navigateSafely { findNavController().navigate(R.id.action_splash_to_login) }
                 }
             }
-            .addOnFailureListener {
-                if (isAdded) {
-                    findNavController().navigate(R.id.action_splash_to_login)
-                }
+            .addOnFailureListener { e ->
+                if (!isAdded) return@addOnFailureListener
+                Log.e(TAG, "❌ Failed to fetch user data", e)
+                navigateSafely { findNavController().navigate(R.id.action_splash_to_login) }
             }
     }
 
     private fun navigateToDashboard(role: UserRole) {
-        when (role) {
-            UserRole.ADMIN -> findNavController().navigate(R.id.action_splash_to_adminDashboard)
-            UserRole.VENDOR -> findNavController().navigate(R.id.action_splash_to_vendorDashboard)
-            UserRole.BUYER -> findNavController().navigate(R.id.action_splash_to_buyerHome)
+        navigateSafely {
+            when (role) {
+                UserRole.ADMIN  -> findNavController().navigate(R.id.action_splash_to_adminDashboard)
+                UserRole.VENDOR -> findNavController().navigate(R.id.action_splash_to_vendorDashboard)
+                UserRole.BUYER  -> findNavController().navigate(R.id.action_splash_to_buyerHome)
+            }
+        }
+    }
+
+    /**
+     * Guards every NavController call: navigation is only executed when
+     * the fragment is still attached and the view is alive.
+     */
+    private fun navigateSafely(action: () -> Unit) {
+        if (isAdded && _binding != null) {
+            action()
+        } else {
+            Log.w(TAG, "⚠️ navigateSafely: fragment detached, navigation skipped")
+        }
+    }
+
+    private fun showFatalError(message: String) {
+        if (isAdded) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
         }
     }
 

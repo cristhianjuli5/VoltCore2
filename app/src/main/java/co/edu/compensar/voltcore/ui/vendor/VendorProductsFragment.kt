@@ -128,11 +128,19 @@ class VendorProductsFragment : Fragment() {
                 tvProductPrice.text = String.format("$ %,.0f", product.price)
                 chipStatus.text = "ACTIVO"
                 
-                Glide.with(ivProduct.context)
-                    .load(product.imageUrl)
-                    .placeholder(R.drawable.ic_voltcore_logo)
-                    .centerCrop()
-                    .into(ivProduct)
+                if (product.imageUrl.length <= 4) {
+                    ivProduct.visibility = View.GONE
+                    tvProductEmoji.visibility = View.VISIBLE
+                    tvProductEmoji.text = product.imageUrl
+                } else {
+                    ivProduct.visibility = View.VISIBLE
+                    tvProductEmoji.visibility = View.GONE
+                    Glide.with(ivProduct.context)
+                        .load(product.imageUrl)
+                        .placeholder(R.drawable.ic_voltcore_logo)
+                        .centerCrop()
+                        .into(ivProduct)
+                }
                 
                 btnEdit.setOnClickListener { onEdit(product) }
                 btnArchive.setOnClickListener { onDelete(product) }

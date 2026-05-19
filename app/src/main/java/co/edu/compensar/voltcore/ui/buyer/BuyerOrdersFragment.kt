@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.Order
 import co.edu.compensar.voltcore.databinding.FragmentBuyerOrdersBinding
 import co.edu.compensar.voltcore.databinding.ItemBuyerOrderBinding
@@ -75,12 +77,39 @@ class BuyerOrdersFragment : Fragment() {
                 tvOrderTotal.text = "Total: $ %,.0f".format(order.total)
                 chipOrderStatus.text = order.status
                 
+                // Pipeline logic
+                val activeColor = ContextCompat.getColor(holder.itemView.context, R.color.volt_primary)
+                val inactiveColor = ContextCompat.getColor(holder.itemView.context, R.color.glass_stroke)
+
+                viewStep1.setBackgroundColor(inactiveColor)
+                viewStep2.setBackgroundColor(inactiveColor)
+                viewStep3.setBackgroundColor(inactiveColor)
+
                 when(order.status) {
                     "PAID" -> {
-                        chipOrderStatus.setChipBackgroundColorResource(android.R.color.holo_green_dark)
+                        chipOrderStatus.text = "PAGADO"
+                        chipOrderStatus.setChipBackgroundColorResource(android.R.color.holo_blue_dark)
+                        viewStep1.setBackgroundColor(activeColor)
+                        tvStatusDescription.text = "Pago verificado. Pendiente por el vendedor."
                     }
-                    "PENDING" -> {
+                    "ACCEPTED" -> {
+                        chipOrderStatus.text = "ACEPTADO"
                         chipOrderStatus.setChipBackgroundColorResource(android.R.color.holo_orange_dark)
+                        viewStep1.setBackgroundColor(activeColor)
+                        viewStep2.setBackgroundColor(activeColor)
+                        tvStatusDescription.text = "El vendedor está preparando tu pedido."
+                    }
+                    "SHIPPED" -> {
+                        chipOrderStatus.text = "ENVIADO"
+                        chipOrderStatus.setChipBackgroundColorResource(android.R.color.holo_green_dark)
+                        viewStep1.setBackgroundColor(activeColor)
+                        viewStep2.setBackgroundColor(activeColor)
+                        viewStep3.setBackgroundColor(activeColor)
+                        tvStatusDescription.text = "¡Tu pedido va en camino!"
+                    }
+                    else -> {
+                        chipOrderStatus.setChipBackgroundColorResource(android.R.color.darker_gray)
+                        tvStatusDescription.text = "Estado: ${order.status}"
                     }
                 }
             }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.databinding.FragmentRecoveryBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -28,9 +29,9 @@ class RecoveryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSendRecovery.setOnClickListener {
-            val email = binding.etRecoveryEmail.text.toString()
+            val email = binding.etRecoveryEmail.text.toString().trim()
             if (email.isEmpty()) {
-                Toast.makeText(context, "Ingresa tu correo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Por favor, ingresa tu correo", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             sendRecoveryEmail(email)
@@ -38,12 +39,22 @@ class RecoveryFragment : Fragment() {
     }
 
     private fun sendRecoveryEmail(email: String) {
+        binding.btnSendRecovery.isEnabled = false
         auth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
-                Toast.makeText(context, "Enlace enviado a $email", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Enlace enviado a $email. Revisa tu bandeja de entrada.", Toast.LENGTH_LONG).show()
+                findNavController().navigateUp()
             }
-            .addOnFailureListener {
-                Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { e ->
+                binding.btnSendRecovery.isEnabled = true
+                val errorMsg = when {
+                    e.message?.contains("CONFIGURATION_NOT_FOUND") == true -> 
+                        "Error: Falta configurar el 'Correo de soporte' en la consola de Firebase."
+                    e.message?.contains("USER_NOT_FOUND") == true -> 
+                        "Error: No existe ninguna cuenta con este correo."
+                    else -> "Error: ${e.localizedMessage}"
+                }
+                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
             }
     }
 

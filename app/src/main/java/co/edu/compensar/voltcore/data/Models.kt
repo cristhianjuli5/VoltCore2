@@ -24,7 +24,8 @@ data class Product(
     val stock: Int = 0,
     val imageUrl: String = "",
     val vendorId: String = "",
-    val category: String = ""
+    val category: String = "",
+    val status: String = "AVAILABLE" // AVAILABLE, INACTIVE
 )
 
 data class CartItem(
@@ -32,7 +33,8 @@ data class CartItem(
     val productName: String = "",
     val price: Double = 0.0,
     val quantity: Int = 1,
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    val vendorId: String = ""
 )
 
 data class Order(

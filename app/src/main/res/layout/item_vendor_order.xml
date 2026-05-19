@@ -59,6 +59,16 @@
             android:text="Fecha: 20/05/2024"
             android:textColor="#80FFFFFF"
             android:textSize="12sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tvOrderItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1x Producto Ejemplo"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="italic"
             android:layout_marginBottom="12dp"/>
 
         <View
@@ -73,6 +83,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/btnAcceptOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ACEPTAR ORDEN"
+                android:backgroundTint="@color/volt_primary"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilShippingGuide"
                 android:layout_width="match_parent"
@@ -81,7 +102,8 @@
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/volt_primary"
                 app:hintTextColor="@color/volt_primary"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                android:visibility="gone">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etShippingGuide"
                     android:layout_width="match_parent"
@@ -96,7 +118,8 @@
                 android:text="MARCAR COMO ENVIADO"
                 android:backgroundTint="@color/volt_primary"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

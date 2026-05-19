@@ -14,7 +14,8 @@ object CartManager {
                 productName = product.name,
                 price = product.price,
                 quantity = 1,
-                imageUrl = product.imageUrl
+                imageUrl = product.imageUrl,
+                vendorId = product.vendorId
             ))
         }
     }

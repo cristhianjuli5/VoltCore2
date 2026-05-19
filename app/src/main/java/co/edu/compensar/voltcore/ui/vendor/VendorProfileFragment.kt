@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.R
+import co.edu.compensar.voltcore.data.User
 import co.edu.compensar.voltcore.databinding.FragmentVendorProfileBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.regex.Pattern
 
 class VendorProfileFragment : Fragment() {
@@ -17,8 +19,8 @@ class VendorProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val auth by lazy { FirebaseAuth.getInstance() }
+    private val db by lazy { FirebaseFirestore.getInstance() }
 
-    // Regex para NIT: 123456789-0
     private val nitPattern = Pattern.compile("^[0-9]{7,10}-[0-9]$")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -28,6 +30,8 @@ class VendorProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fetchVendorData()
 
         binding.btnUploadRUT.setOnClickListener {
             Toast.makeText(context, "Abriendo selector de archivos para RUT", Toast.LENGTH_SHORT).show()
@@ -47,28 +51,39 @@ class VendorProfileFragment : Fragment() {
         }
     }
 
+    private fun fetchVendorData() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).get()
+            .addOnSuccessListener { snapshot ->
+                val user = snapshot.toObject(User::class.java)
+                user?.let {
+                    binding.etRazonSocial.setText(it.name)
+                    // NIT no está en el modelo base User, pero podrías extenderlo o usar campos extras
+                }
+            }
+    }
+
     private fun validateAndSave() {
         val nit = binding.etNIT.text.toString()
-        val razonSocial = binding.etRazonSocial.text.toString()
+        val razonSocial = binding.etRazonSocial.text.toString().trim()
 
         if (razonSocial.isEmpty()) {
             binding.tilRazonSocial.error = "La razón social es obligatoria"
             return
-        } else {
-            binding.tilRazonSocial.error = null
         }
+        binding.tilRazonSocial.error = null
 
-        if (!nitPattern.matcher(nit).matches()) {
+        if (nit.isNotEmpty() && !nitPattern.matcher(nit).matches()) {
             binding.tilNIT.error = "Formato de NIT inválido (ej: 123456789-0)"
             return
-        } else {
-            binding.tilNIT.error = null
         }
+        binding.tilNIT.error = null
 
-        val vacationMode = binding.switchVacation.isChecked
-        val message = if (vacationMode) "Perfil guardado - Modo Vacaciones Activo" else "Perfil actualizado correctamente"
-        
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).update("name", razonSocial)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onDestroyView() {

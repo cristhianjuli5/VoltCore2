@@ -14,6 +14,7 @@ import co.edu.compensar.voltcore.data.CartManager
 import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentCatalogBinding
 import co.edu.compensar.voltcore.databinding.ItemProductCardBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CatalogFragment : Fragment() {
@@ -46,17 +47,20 @@ class CatalogFragment : Fragment() {
     }
 
     private fun fetchProducts() {
-        db.collection("products").addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                Toast.makeText(context, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
-                return@addSnapshotListener
+        db.collection("products")
+            .whereEqualTo("status", "AVAILABLE")
+            .whereGreaterThan("stock", 0)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Toast.makeText(context, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    productList.clear()
+                    productList.addAll(snapshot.toObjects(Product::class.java))
+                    adapter.notifyDataSetChanged()
+                }
             }
-            if (snapshot != null) {
-                productList.clear()
-                productList.addAll(snapshot.toObjects(Product::class.java))
-                adapter.notifyDataSetChanged()
-            }
-        }
     }
 
     class CatalogAdapter(
@@ -75,6 +79,19 @@ class CatalogFragment : Fragment() {
             val product = products[position]
             holder.binding.tvProductName.text = product.name
             holder.binding.tvProductPrice.text = String.format("$ %,.0f", product.price)
+            
+            if (product.imageUrl.length <= 4) {
+                holder.binding.ivProduct.visibility = View.GONE
+                holder.binding.tvProductEmoji.visibility = View.VISIBLE
+                holder.binding.tvProductEmoji.text = product.imageUrl
+            } else {
+                holder.binding.ivProduct.visibility = View.VISIBLE
+                holder.binding.tvProductEmoji.visibility = View.GONE
+                Glide.with(holder.binding.ivProduct.context)
+                    .load(product.imageUrl)
+                    .placeholder(R.drawable.ic_voltcore_logo)
+                    .into(holder.binding.ivProduct)
+            }
             
             holder.binding.root.setOnClickListener { onItemClick(product) }
 

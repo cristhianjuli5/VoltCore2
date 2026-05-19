@@ -6,13 +6,38 @@
     android:layout_height="match_parent"
     android:background="@color/volt_background">
 
+    <LinearLayout
+        android:id="@+id/headerCatalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Explorar Repuestos"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Encuentra todo para tu vehículo eléctrico"
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <HorizontalScrollView
         android:id="@+id/scrollFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="12dp"
         android:scrollbars="none"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/headerCatalog">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupFilters"

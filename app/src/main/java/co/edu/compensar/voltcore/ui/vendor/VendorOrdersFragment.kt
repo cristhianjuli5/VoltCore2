@@ -6,13 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.edu.compensar.voltcore.data.Order
 import co.edu.compensar.voltcore.databinding.FragmentVendorOrdersBinding
 import co.edu.compensar.voltcore.databinding.ItemVendorOrderBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VendorOrdersFragment : Fragment() {
     private var _binding: FragmentVendorOrdersBinding? = null
     private val binding get() = _binding!!
+
+    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val orderList = mutableListOf<Order>()
+    private lateinit var adapter: VendorOrderAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVendorOrdersBinding.inflate(inflater, container, false)
@@ -22,15 +33,55 @@ class VendorOrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mockOrders = listOf(
-            VendorOrder("VC-8291", "Juan Pérez", "20/05/2024", "PENDIENTE"),
-            VendorOrder("VC-9310", "Maria Gomez", "21/05/2024", "ENVIADO")
-        )
+        adapter = VendorOrderAdapter(orderList) { order, newStatus ->
+            updateOrderStatus(order, newStatus)
+        }
+        binding.rvOrders.layoutManager = LinearLayoutManager(context)
+        binding.rvOrders.adapter = adapter
 
-        binding.rvOrders.adapter = VendorOrderAdapter(mockOrders)
+        fetchOrders()
     }
 
-    class VendorOrderAdapter(private val orders: List<VendorOrder>) : RecyclerView.Adapter<VendorOrderAdapter.ViewHolder>() {
+    private fun fetchOrders() {
+        val vendorId = auth.currentUser?.uid ?: return
+        
+        db.collection("orders")
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Toast.makeText(context, "Error al cargar pedidos", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+                
+                if (snapshot != null) {
+                    orderList.clear()
+                    for (doc in snapshot.documents) {
+                        val order = doc.toObject(Order::class.java)
+                        // Filtrar: solo mostrar si el pedido contiene al menos un producto de este vendedor
+                        if (order != null && order.items.any { it.vendorId == vendorId }) {
+                            orderList.add(order.copy(id = doc.id))
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            }
+    }
+
+    private fun updateOrderStatus(order: Order, status: String) {
+        db.collection("orders").document(order.id)
+            .update("status", status)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Estado actualizado a $status", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error al actualizar estado", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    class VendorOrderAdapter(
+        private val orders: List<Order>,
+        private val onStatusUpdate: (Order, String) -> Unit
+    ) : RecyclerView.Adapter<VendorOrderAdapter.ViewHolder>() {
         
         class ViewHolder(val binding: ItemVendorOrderBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -41,24 +92,54 @@ class VendorOrdersFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val order = orders[position]
+            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+            
             with(holder.binding) {
-                tvOrderId.text = "Orden #${order.id}"
-                tvCustomerName.text = "Comprador: ${order.customer}"
-                tvOrderDate.text = "Fecha: ${order.date}"
+                tvOrderId.text = "Orden #${order.id.takeLast(8)}"
+                tvCustomerName.text = "Destino: ${order.address}"
+                tvOrderDate.text = "Fecha: ${sdf.format(order.timestamp)}"
                 chipStatus.text = order.status
                 
-                if (order.status == "ENVIADO") {
-                    layoutExpanded.visibility = View.GONE
-                } else {
-                    layoutExpanded.visibility = View.VISIBLE
+                // Mostrar los productos del pedido que pertenecen a este vendedor
+                val currentVendorId = FirebaseAuth.getInstance().currentUser?.uid
+                val vendorItems = order.items.filter { it.vendorId == currentVendorId }
+                tvOrderItems.text = vendorItems.joinToString("\n") { "${it.quantity}x ${it.productName}" }
+                
+                when(order.status) {
+                    "PAID" -> {
+                        chipStatus.text = "PAGADO"
+                        layoutExpanded.visibility = View.VISIBLE
+                        btnAcceptOrder.visibility = View.VISIBLE
+                        tilShippingGuide.visibility = View.GONE
+                        btnMarkAsShipped.visibility = View.GONE
+                    }
+                    "ACCEPTED" -> {
+                        chipStatus.text = "ACEPTADO"
+                        layoutExpanded.visibility = View.VISIBLE
+                        btnAcceptOrder.visibility = View.GONE
+                        tilShippingGuide.visibility = View.VISIBLE
+                        btnMarkAsShipped.visibility = View.VISIBLE
+                    }
+                    "SHIPPED" -> {
+                        chipStatus.text = "ENVIADO"
+                        layoutExpanded.visibility = View.GONE
+                    }
+                    else -> {
+                        chipStatus.text = order.status
+                        layoutExpanded.visibility = View.GONE
+                    }
+                }
+
+                btnAcceptOrder.setOnClickListener {
+                    onStatusUpdate(order, "ACCEPTED")
                 }
 
                 btnMarkAsShipped.setOnClickListener {
                     val guide = etShippingGuide.text.toString()
                     if (guide.isNotEmpty()) {
-                        Toast.makeText(root.context, "Orden ${order.id} enviada con guía $guide", Toast.LENGTH_SHORT).show()
+                        onStatusUpdate(order, "SHIPPED")
                     } else {
-                        etShippingGuide.error = "Ingresa la guía"
+                        etShippingGuide.error = "Ingresa la guía de envío"
                     }
                 }
             }
@@ -66,8 +147,6 @@ class VendorOrdersFragment : Fragment() {
 
         override fun getItemCount() = orders.size
     }
-
-    data class VendorOrder(val id: String, val customer: String, val date: String, val status: String)
 
     override fun onDestroyView() {
         super.onDestroyView()

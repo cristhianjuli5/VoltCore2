@@ -8,10 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.databinding.FragmentVendorDashboardBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class VendorDashboardFragment : Fragment() {
     private var _binding: FragmentVendorDashboardBinding? = null
     private val binding get() = _binding!!
+
+    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val auth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVendorDashboardBinding.inflate(inflater, container, false)
@@ -21,6 +26,20 @@ class VendorDashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupNavigation()
+        fetchStats()
+
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+            findNavController().navigate(R.id.loginFragment, null,
+                androidx.navigation.NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_graph, true)
+                    .build()
+            )
+        }
+    }
+
+    private fun setupNavigation() {
         binding.btnVendorProducts.setOnClickListener {
             findNavController().navigate(R.id.vendorProductsFragment)
         }
@@ -32,6 +51,25 @@ class VendorDashboardFragment : Fragment() {
         binding.btnVendorProfile.setOnClickListener {
             findNavController().navigate(R.id.vendorProfileFragment)
         }
+    }
+
+    private fun fetchStats() {
+        val vendorId = auth.currentUser?.uid ?: return
+
+        // Contar productos del vendedor
+        db.collection("products")
+            .whereEqualTo("vendorId", vendorId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                binding.tvProductCount.text = snapshot.size().toString()
+            }
+
+        // Contar pedidos (por ahora todos, ya que el modelo de pedidos es global)
+        db.collection("orders")
+            .get()
+            .addOnSuccessListener { snapshot ->
+                binding.tvOrderCount.text = snapshot.size().toString()
+            }
     }
 
     override fun onDestroyView() {

@@ -16,11 +16,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
+            android:background="@color/volt_background"
+            android:elevation="0dp"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="@color/white" />
+
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"

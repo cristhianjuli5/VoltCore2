@@ -63,19 +63,22 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
             android:layout_marginBottom="12dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/etProductCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:contentDescription="Seleccionar o crear categoría" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

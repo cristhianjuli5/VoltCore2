@@ -31,22 +31,25 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
+            android:id="@+id/tvProfileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Usuario Comprador"
+            android:text="Cargando..."
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_marginBottom="4dp"/>
 
         <TextView
+            android:id="@+id/tvProfileEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="comprador@voltcore.com"
+            android:text="..."
             android:textColor="#B3FFFFFF"
             android:layout_marginBottom="32dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre Completo"
@@ -55,26 +58,28 @@
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Juan Pérez"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Teléfono de contacto"
+            android:hint="Dirección de envío"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="16dp"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="+57 300 123 4567"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveProfile"
@@ -86,7 +91,21 @@
             app:strokeColor="@color/volt_primary"
             app:strokeWidth="1dp"
             app:cornerRadius="12dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="12dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="CAMBIAR CONTRASEÑA"
+            android:backgroundTint="@color/glass_surface"
+            android:textColor="@color/white"
+            app:strokeColor="@color/volt_primary"
+            app:strokeWidth="1dp"
+            app:cornerRadius="12dp"
+            android:layout_marginBottom="16dp"
+            app:icon="@android:drawable/ic_lock_idle_lock"
+            app:iconTint="@color/volt_primary"/>
 
         <View
             android:layout_width="match_parent"

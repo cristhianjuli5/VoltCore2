@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/margin_standard">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,7 +17,8 @@
             android:layout_marginBottom="8dp"
             android:text="CONSOLA DE CONTROL GLOBAL"
             android:textColor="@color/volt_primary"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:letterSpacing="0.1"
             android:textStyle="bold" />
 
         <TextView
@@ -26,7 +27,7 @@
             android:layout_marginBottom="24dp"
             android:text="Estado de la Plataforma"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <GridLayout
@@ -38,27 +39,36 @@
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.VoltCore.Card"
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="4dp">
+                android:layout_margin="6dp"
+                app:cardElevation="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="20dp">
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@android:drawable/ic_menu_myplaces"
+                        app:tint="@color/volt_primary"
+                        android:layout_marginBottom="12dp"
+                        android:contentDescription="Ventas" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ventas Totales"
+                        android:text="Ventas"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvTotalSales"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$ 0"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$ 45M"
-                        android:textColor="@color/volt_primary"
-                        android:textSize="24sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -66,27 +76,36 @@
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.VoltCore.Card"
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="4dp">
+                android:layout_margin="6dp"
+                app:cardElevation="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="20dp">
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@android:drawable/ic_menu_agenda"
+                        app:tint="@color/volt_primary"
+                        android:layout_marginBottom="12dp"
+                        android:contentDescription="Usuarios" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usuarios Activos"
+                        android:text="Usuarios"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvUserCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1,240"
-                        android:textColor="@color/volt_primary"
-                        android:textSize="24sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -114,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:progress="85"
+                    android:progress="98"
                     android:progressTint="@color/volt_primary" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
