@@ -63,14 +63,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Sincronizar el ícono de la hamburguesa (Drawer Arrow Toggle)
-        val toggle = androidx.appcompat.app.ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar,
-            R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             updateNavigationUI(destination.id)
         }
@@ -116,6 +108,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return androidx.navigation.ui.NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
