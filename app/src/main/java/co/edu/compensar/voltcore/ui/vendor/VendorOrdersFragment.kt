@@ -33,8 +33,8 @@ class VendorOrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = VendorOrderAdapter(orderList) { order, newStatus ->
-            updateOrderStatus(order, newStatus)
+        adapter = VendorOrderAdapter(orderList) { order, newStatus, guide ->
+            updateOrderStatus(order, newStatus, guide)
         }
         binding.rvOrders.layoutManager = LinearLayoutManager(context)
         binding.rvOrders.adapter = adapter
@@ -67,9 +67,14 @@ class VendorOrdersFragment : Fragment() {
             }
     }
 
-    private fun updateOrderStatus(order: Order, status: String) {
+    private fun updateOrderStatus(order: Order, status: String, shippingGuide: String = "") {
+        val updates = mutableMapOf<String, Any>("status" to status)
+        if (shippingGuide.isNotEmpty()) {
+            updates["shippingGuide"] = shippingGuide
+        }
+
         db.collection("orders").document(order.id)
-            .update("status", status)
+            .update(updates)
             .addOnSuccessListener {
                 Toast.makeText(context, "Estado actualizado a $status", Toast.LENGTH_SHORT).show()
             }
@@ -80,7 +85,7 @@ class VendorOrdersFragment : Fragment() {
 
     class VendorOrderAdapter(
         private val orders: List<Order>,
-        private val onStatusUpdate: (Order, String) -> Unit
+        private val onStatusUpdate: (Order, String, String) -> Unit
     ) : RecyclerView.Adapter<VendorOrderAdapter.ViewHolder>() {
         
         class ViewHolder(val binding: ItemVendorOrderBinding) : RecyclerView.ViewHolder(binding.root)
@@ -131,13 +136,13 @@ class VendorOrdersFragment : Fragment() {
                 }
 
                 btnAcceptOrder.setOnClickListener {
-                    onStatusUpdate(order, "ACCEPTED")
+                    onStatusUpdate(order, "ACCEPTED", "")
                 }
 
                 btnMarkAsShipped.setOnClickListener {
                     val guide = etShippingGuide.text.toString()
                     if (guide.isNotEmpty()) {
-                        onStatusUpdate(order, "SHIPPED")
+                        onStatusUpdate(order, "SHIPPED", guide)
                     } else {
                         etShippingGuide.error = "Ingresa la guía de envío"
                     }

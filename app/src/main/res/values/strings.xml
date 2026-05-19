@@ -70,4 +70,6 @@
     <string name="back_to_login">¿Ya tienes cuenta? Inicia sesión</string>
     <string name="no_account">¿No tienes cuenta? Regístrate aquí</string>
     <string name="address_hint">Dirección</string>
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
 </resources>

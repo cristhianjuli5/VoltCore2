@@ -44,5 +44,6 @@ data class Order(
     val total: Double = 0.0,
     val status: String = "PENDING",
     val address: String = "",
-    val timestamp: Date = Date()
+    val timestamp: Date = Date(),
+    val shippingGuide: String = ""
 )

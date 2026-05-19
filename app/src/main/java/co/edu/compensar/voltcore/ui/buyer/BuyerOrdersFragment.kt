@@ -106,6 +106,13 @@ class BuyerOrdersFragment : Fragment() {
                         viewStep2.setBackgroundColor(activeColor)
                         viewStep3.setBackgroundColor(activeColor)
                         tvStatusDescription.text = "¡Tu pedido va en camino!"
+                        
+                        if (order.shippingGuide.isNotEmpty()) {
+                            tvShippingGuide.visibility = View.VISIBLE
+                            tvShippingGuide.text = "Guía de envío: ${order.shippingGuide}"
+                        } else {
+                            tvShippingGuide.visibility = View.GONE
+                        }
                     }
                     else -> {
                         chipOrderStatus.setChipBackgroundColorResource(android.R.color.darker_gray)

@@ -1,6 +1,8 @@
 package co.edu.compensar.voltcore.ui.buyer
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentCatalogBinding
 import co.edu.compensar.voltcore.databinding.ItemProductCardBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CatalogFragment : Fragment() {
@@ -22,8 +25,12 @@ class CatalogFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val db by lazy { FirebaseFirestore.getInstance() }
-    private val productList = mutableListOf<Product>()
+    private val allProducts = mutableListOf<Product>()
+    private val displayList = mutableListOf<Product>()
     private lateinit var adapter: CatalogAdapter
+    
+    private var selectedCategory: String? = null
+    private var searchQuery: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCatalogBinding.inflate(inflater, container, false)
@@ -33,7 +40,13 @@ class CatalogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CatalogAdapter(productList) { product ->
+        // Recuperar categoría inicial si viene de Home
+        selectedCategory = arguments?.getString("category")
+        if (selectedCategory != null) {
+            binding.chipAll.isChecked = false
+        }
+
+        adapter = CatalogAdapter(displayList) { product ->
             val bundle = Bundle().apply {
                 putString("productId", product.id)
             }
@@ -43,24 +56,95 @@ class CatalogFragment : Fragment() {
         binding.rvCatalog.layoutManager = GridLayoutManager(context, 2)
         binding.rvCatalog.adapter = adapter
 
+        setupSearch()
+        setupCategoryFilters()
         fetchProducts()
+    }
+
+    private fun setupSearch() {
+        binding.etSearchCatalog.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchQuery = s.toString()
+                applyFilters()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun setupCategoryFilters() {
+        binding.chipAll.setOnClickListener {
+            selectedCategory = null
+            applyFilters()
+        }
     }
 
     private fun fetchProducts() {
         db.collection("products")
             .whereEqualTo("status", "AVAILABLE")
-            .whereGreaterThan("stock", 0)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
+                    android.util.Log.e("CatalogFragment", "Error Firestore: ${e.message}")
                     Toast.makeText(context, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
                     return@addSnapshotListener
                 }
                 if (snapshot != null) {
-                    productList.clear()
-                    productList.addAll(snapshot.toObjects(Product::class.java))
-                    adapter.notifyDataSetChanged()
+                    allProducts.clear()
+                    val products = snapshot.toObjects(Product::class.java).filter { it.stock > 0 }
+                    allProducts.addAll(products)
+                    
+                    updateCategoryChips(products)
+                    applyFilters()
                 }
             }
+    }
+
+    private fun updateCategoryChips(products: List<Product>) {
+        val categories = products.map { it.category }.distinct().filter { it.isNotEmpty() }.sorted()
+        
+        // Mantener el chip "Todos"
+        val count = binding.chipGroupFilters.childCount
+        if (count > 1) {
+            binding.chipGroupFilters.removeViews(1, count - 1)
+        }
+
+        for (category in categories) {
+            val chip = Chip(requireContext()).apply {
+                text = category
+                isCheckable = true
+                setChipBackgroundColorResource(R.color.glass_surface)
+                setTextColor(resources.getColor(R.color.white, null))
+                
+                // Marcar si es la categoría seleccionada inicialmente
+                if (category == selectedCategory) {
+                    isChecked = true
+                }
+
+                setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        selectedCategory = category
+                        binding.chipAll.isChecked = false
+                    } else if (selectedCategory == category) {
+                        selectedCategory = null
+                    }
+                    applyFilters()
+                }
+            }
+            binding.chipGroupFilters.addView(chip)
+        }
+    }
+
+    private fun applyFilters() {
+        displayList.clear()
+        val filtered = allProducts.filter { product ->
+            val matchesCategory = selectedCategory == null || product.category == selectedCategory
+            val matchesSearch = searchQuery.isEmpty() || 
+                    product.name.contains(searchQuery, ignoreCase = true) ||
+                    product.description.contains(searchQuery, ignoreCase = true)
+            matchesCategory && matchesSearch
+        }
+        displayList.addAll(filtered)
+        adapter.notifyDataSetChanged()
     }
 
     class CatalogAdapter(

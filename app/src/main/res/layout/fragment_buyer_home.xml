@@ -33,13 +33,31 @@
 
         <!-- Buscador -->
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/searchBar"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Buscar repuestos, BMS, motores..."
-            app:backgroundTint="@color/glass_surface"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            app:boxBackgroundColor="@color/glass_surface"
+            app:boxCornerRadiusBottomEnd="28dp"
+            app:boxCornerRadiusBottomStart="28dp"
+            app:boxCornerRadiusTopEnd="28dp"
+            app:boxCornerRadiusTopStart="28dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            app:startIconDrawable="@android:drawable/ic_menu_search"
+            app:startIconTint="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Buscar repuestos, BMS, motores..."
+                android:textColor="@color/white"
+                android:textColorHint="#80FFFFFF"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Ofertas/Banners -->
         <TextView
@@ -62,6 +80,7 @@
 
         <!-- Categorías Rápidas -->
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
