@@ -27,6 +27,7 @@ class AdminProductsFragment : Fragment() {
     private val productList = mutableListOf<Product>()
     private var filteredList = mutableListOf<Product>()
     private lateinit var adapter: ProductAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAdminProductsBinding.inflate(inflater, container, false)
@@ -77,9 +78,12 @@ class AdminProductsFragment : Fragment() {
     }
 
     private fun fetchProducts() {
-        db.collection("products").addSnapshotListener { snapshot, e ->
+        snapshotListener = db.collection("products").addSnapshotListener { snapshot, e ->
+            if (_binding == null) return@addSnapshotListener
             if (e != null) {
-                Toast.makeText(context, "Error al cargar productos", Toast.LENGTH_SHORT).show()
+                context?.let {
+                    Toast.makeText(it, "Error al cargar productos", Toast.LENGTH_SHORT).show()
+                }
                 return@addSnapshotListener
             }
             if (snapshot != null) {
@@ -198,6 +202,7 @@ class AdminProductsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

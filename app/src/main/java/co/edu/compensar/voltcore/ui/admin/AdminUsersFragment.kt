@@ -27,6 +27,7 @@ class AdminUsersFragment : Fragment() {
     private val userList = mutableListOf<User>()
     private var filteredList = mutableListOf<User>()
     private lateinit var adapter: UserAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAdminUsersBinding.inflate(inflater, container, false)
@@ -77,9 +78,12 @@ class AdminUsersFragment : Fragment() {
     }
 
     private fun fetchUsers() {
-        db.collection("users").addSnapshotListener { snapshot, e ->
+        snapshotListener = db.collection("users").addSnapshotListener { snapshot, e ->
+            if (_binding == null) return@addSnapshotListener
             if (e != null) {
-                Toast.makeText(context, "Error al cargar usuarios", Toast.LENGTH_SHORT).show()
+                context?.let {
+                    Toast.makeText(it, "Error al cargar usuarios", Toast.LENGTH_SHORT).show()
+                }
                 return@addSnapshotListener
             }
             if (snapshot != null) {
@@ -211,6 +215,7 @@ class AdminUsersFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

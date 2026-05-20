@@ -26,6 +26,7 @@ class BuyerHomeFragment : Fragment() {
     private val allProducts = mutableListOf<Product>()
     private val featuredProducts = mutableListOf<Product>()
     private lateinit var adapter: CatalogFragment.CatalogAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentBuyerHomeBinding.inflate(inflater, container, false)
@@ -46,7 +47,7 @@ class BuyerHomeFragment : Fragment() {
         if (uid != null) {
             db.collection("users").document(uid).get()
                 .addOnSuccessListener { snapshot ->
-                    if (!isAdded) return@addOnSuccessListener
+                    if (_binding == null || !isAdded) return@addOnSuccessListener
                     val user = snapshot.toObject(User::class.java)
                     user?.let {
                         binding.tvWelcomeUser.text = "Hola, ${it.name} 👋"
@@ -76,6 +77,7 @@ class BuyerHomeFragment : Fragment() {
     }
 
     private fun filterFeatured(query: String) {
+        if (_binding == null) return
         val filtered = if (query.isEmpty()) {
             allProducts.take(10)
         } else {
@@ -90,10 +92,10 @@ class BuyerHomeFragment : Fragment() {
     }
 
     private fun fetchData() {
-        db.collection("products")
+        snapshotListener = db.collection("products")
             .whereEqualTo("status", "AVAILABLE")
             .addSnapshotListener { snapshot, e ->
-                if (e != null || snapshot == null) return@addSnapshotListener
+                if (_binding == null || !isAdded || e != null || snapshot == null) return@addSnapshotListener
                 
                 val products = snapshot.toObjects(Product::class.java).filter { it.stock > 0 }
                 allProducts.clear()
@@ -108,6 +110,7 @@ class BuyerHomeFragment : Fragment() {
     }
 
     private fun updateCategories(products: List<Product>) {
+        if (_binding == null) return
         val categories = products.map { it.category }.distinct().filter { it.isNotEmpty() }.sorted()
         
         binding.chipGroupCategories.removeAllViews()
@@ -132,6 +135,7 @@ class BuyerHomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

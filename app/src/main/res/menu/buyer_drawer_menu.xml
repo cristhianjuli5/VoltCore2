@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/buyerHomeFragment"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/catalogFragment"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Catálogo" />
+        <item
+            android:id="@+id/buyerOrdersFragment"
+            android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="Mis Pedidos" />
+        <item
+            android:id="@+id/buyerProfileFragment"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Mi Perfil" />
+    </group>
+
+    <item android:title="Cuenta">
+        <menu>
+            <item
+                android:id="@+id/logout_action"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+</menu>

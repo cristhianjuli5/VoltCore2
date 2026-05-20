@@ -78,7 +78,9 @@ class MainActivity : AppCompatActivity() {
             R.id.buyerHomeFragment, R.id.catalogFragment, R.id.cartFragment, R.id.productDetailFragment, R.id.checkoutFragment, R.id.buyerProfileFragment, R.id.buyerOrdersFragment -> {
                 binding.toolbar.visibility = View.VISIBLE
                 binding.bottomNavigation.visibility = View.VISIBLE
-                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
+                binding.navView.menu.clear()
+                binding.navView.inflateMenu(R.menu.buyer_drawer_menu)
             }
             R.id.vendorDashboardFragment, R.id.vendorProductsFragment, R.id.vendorOrdersFragment, R.id.vendorProfileFragment, R.id.vendorProductFormFragment -> {
                 binding.toolbar.visibility = View.VISIBLE

@@ -21,6 +21,7 @@ class AdminModerationFragment : Fragment() {
     private val db by lazy { FirebaseFirestore.getInstance() }
     private val pendingProducts = mutableListOf<Product>()
     private lateinit var adapter: ModerationAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAdminModerationBinding.inflate(inflater, container, false)
@@ -41,7 +42,8 @@ class AdminModerationFragment : Fragment() {
     }
 
     private fun fetchPendingProducts() {
-        db.collection("products").addSnapshotListener { snapshot, e ->
+        snapshotListener = db.collection("products").addSnapshotListener { snapshot, e ->
+            if (_binding == null) return@addSnapshotListener
             if (e != null) return@addSnapshotListener
             if (snapshot != null) {
                 pendingProducts.clear()
@@ -92,6 +94,7 @@ class AdminModerationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.Order
 import co.edu.compensar.voltcore.data.CartManager
+import co.edu.compensar.voltcore.data.User
 import co.edu.compensar.voltcore.databinding.FragmentCheckoutBinding
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
@@ -39,8 +40,6 @@ class CheckoutFragment : Fragment() {
         if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
             permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
             getCurrentLocation()
-        } else {
-            Toast.makeText(context, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -49,8 +48,13 @@ class CheckoutFragment : Fragment() {
         return binding.root
     }
 
+    private var selectedPaymentMethod = "CARD"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadUserData()
+        setupPaymentMethods()
 
         binding.btnConfirmPayment.setOnClickListener {
             processPayment()
@@ -59,89 +63,203 @@ class CheckoutFragment : Fragment() {
         requestLocationPermissions()
     }
 
-    private fun requestLocationPermissions() {
-        locationPermissionRequest.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ))
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getCurrentLocation() {
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                if (!addresses.isNullOrEmpty()) {
-                    val address = addresses[0].getAddressLine(0)
-                    binding.etShippingAddress.setText(address)
+    private fun setupPaymentMethods() {
+        binding.cgPaymentMethods.setOnCheckedStateChangeListener { group, checkedIds ->
+            when (checkedIds.firstOrNull()) {
+                R.id.chipCard -> {
+                    selectedPaymentMethod = "CARD"
+                    binding.cvCardDetails.visibility = View.VISIBLE
+                    binding.cvWalletDetails.visibility = View.GONE
+                    binding.cvCashDetails.visibility = View.GONE
+                }
+                R.id.chipWallet -> {
+                    selectedPaymentMethod = "WALLET"
+                    binding.cvCardDetails.visibility = View.GONE
+                    binding.cvWalletDetails.visibility = View.VISIBLE
+                    binding.cvCashDetails.visibility = View.GONE
+                }
+                R.id.chipCash -> {
+                    selectedPaymentMethod = "CASH"
+                    binding.cvCardDetails.visibility = View.GONE
+                    binding.cvWalletDetails.visibility = View.GONE
+                    binding.cvCashDetails.visibility = View.VISIBLE
+                }
+                R.id.chipTransfer -> {
+                    selectedPaymentMethod = "TRANSFER"
+                    binding.cvCardDetails.visibility = View.GONE
+                    binding.cvWalletDetails.visibility = View.GONE
+                    binding.cvCashDetails.visibility = View.GONE
+                    Toast.makeText(context, "Próximamente PSE", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    private val EPAYCO_PUBLIC_KEY = "e0401e64b8824a32b6a9c5ab25dbd487"
-    private val EPAYCO_CLIENT_ID = "1582221"
+    private fun loadUserData() {
+        // ... (existing code remains same)
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).get().addOnSuccessListener { snapshot ->
+            if (_binding == null) return@addOnSuccessListener
+            val user = snapshot.toObject(User::class.java)
+            user?.let {
+                binding.etFullName.setText(it.name)
+                binding.etShippingAddress.setText(it.address)
+                binding.etReceiver.setText(it.name)
+            }
+        }
+    }
+
+    private fun requestLocationPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation()
+        } else {
+            locationPermissionRequest.launch(arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ))
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            val currentContext = context ?: return@addOnSuccessListener
+            if (location != null && _binding != null) {
+                try {
+                    val geocoder = Geocoder(currentContext, Locale.getDefault())
+                    val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                    if (!addresses.isNullOrEmpty()) {
+                        val address = addresses[0].getAddressLine(0)
+                        binding.etShippingAddress.setText(address)
+                        val city = "${addresses[0].locality ?: ""}, ${addresses[0].adminArea ?: ""}"
+                        binding.etCity.setText(city)
+                    }
+                } catch (e: Exception) {
+                    android.util.Log.e("Checkout", "Error geocoding", e)
+                }
+            }
+        }
+    }
 
     private fun processPayment() {
+        if (!validateFields()) return
+
         val address = binding.etShippingAddress.text.toString()
-        if (address.isEmpty()) {
-            Toast.makeText(context, "Por favor ingresa la dirección", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val city = binding.etCity.text.toString()
 
         binding.btnConfirmPayment.isEnabled = false
         binding.pbPayment.visibility = View.VISIBLE
 
-        // Lógica de Integración Real con ePayco
-        // En un entorno real con el SDK instalado se llamaría a co.epayco.android.Epayco(EPAYCO_PUBLIC_KEY)
-        // Por ahora, simulamos la respuesta exitosa usando tus credenciales para el registro
-        
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(2000) 
-            
-            val transactionId = "EP-" + UUID.randomUUID().toString().take(8).uppercase()
-            Toast.makeText(context, "Conectado con ePayco (Cliente: $EPAYCO_CLIENT_ID)", Toast.LENGTH_SHORT).show()
-            saveOrder(address, transactionId)
+            try {
+                delay(2000) // Simulación de procesamiento de pasarela
+                val transactionId = "VC-" + UUID.randomUUID().toString().take(8).uppercase()
+                saveOrder(address, city, transactionId)
+            } catch (e: Exception) {
+                if (_binding != null) {
+                    binding.btnConfirmPayment.isEnabled = true
+                    binding.pbPayment.visibility = View.GONE
+                    Toast.makeText(context, "Error en el pago: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
-    private fun saveOrder(address: String, transactionId: String) {
+    private fun validateFields(): Boolean {
+        var isValid = true
+        
+        // Validación de campos personales y de envío
+        val commonFields = listOf(
+            binding.tilFullName to binding.etFullName,
+            binding.tilDocument to binding.etDocument,
+            binding.tilPhone to binding.etPhone,
+            binding.tilShippingAddress to binding.etShippingAddress,
+            binding.tilCity to binding.etCity,
+            binding.tilReceiver to binding.etReceiver
+        )
+
+        for ((layout, editText) in commonFields) {
+            if (editText.text.toString().trim().isEmpty()) {
+                layout.error = "Campo obligatorio"
+                isValid = false
+            } else {
+                layout.error = null
+            }
+        }
+
+        // Validación específica según método de pago
+        when (selectedPaymentMethod) {
+            "CARD" -> {
+                if (binding.etCardNumber.text?.length ?: 0 < 16) {
+                    binding.tilCardNumber.error = "Número incompleto"
+                    isValid = false
+                }
+                if (binding.etCvv.text?.length ?: 0 < 3) {
+                    binding.tilCvv.error = "CVV inválido"
+                    isValid = false
+                }
+            }
+            "WALLET" -> {
+                if (binding.etWalletPhone.text.toString().trim().isEmpty()) {
+                    binding.tilWalletPhone.error = "Número de celular obligatorio"
+                    isValid = false
+                }
+            }
+        }
+
+        return isValid
+    }
+
+    private fun saveOrder(address: String, city: String, transactionId: String) {
         val buyerId = auth.currentUser?.uid ?: return
         val items = CartManager.getItems()
+        if (items.isEmpty()) {
+            Toast.makeText(context, "El carrito está vacío", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val paymentDetails = when(selectedPaymentMethod) {
+            "CARD" -> "VISA-****" + binding.etCardNumber.text.toString().takeLast(4)
+            "WALLET" -> "Wallet: " + binding.etWalletPhone.text.toString()
+            else -> "Convenio: " + transactionId.takeLast(6)
+        }
+
         val order = Order(
             id = transactionId,
             buyerId = buyerId,
             items = items,
             total = CartManager.getTotalPrice(),
-            status = "PAID",
-            address = address,
-            timestamp = Date() // En una app real usaría FieldValue.serverTimestamp()
+            status = if (selectedPaymentMethod == "CASH") "PENDING_CASH" else "PAID",
+            address = "$address, $city",
+            timestamp = Date(),
+            paymentMethod = selectedPaymentMethod,
+            paymentDetails = paymentDetails
         )
 
         val batch = db.batch()
-        
-        // Guardar la orden
         val orderRef = db.collection("orders").document(transactionId)
         batch.set(orderRef, order)
 
-        // Actualizar stock de cada producto
-        items.forEach { item: co.edu.compensar.voltcore.data.CartItem ->
+        items.forEach { item ->
             val productRef = db.collection("products").document(item.productId)
             batch.update(productRef, "stock", com.google.firebase.firestore.FieldValue.increment(-item.quantity.toLong()))
         }
 
         batch.commit()
             .addOnSuccessListener {
-                binding.pbPayment.visibility = View.GONE
-                CartManager.clear()
-                Toast.makeText(context, "¡PAGO EXITOSO! Pedido registrado y stock actualizado.", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_checkout_to_buyerHome)
+                if (_binding != null) {
+                    binding.pbPayment.visibility = View.GONE
+                    CartManager.clear()
+                    Toast.makeText(context, "¡PAGO EXITOSO! Orden: $transactionId", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_checkout_to_buyerHome)
+                }
             }
             .addOnFailureListener {
-                binding.btnConfirmPayment.isEnabled = true
-                binding.pbPayment.visibility = View.GONE
-                Toast.makeText(context, "Error al procesar el pedido en la base de datos", Toast.LENGTH_SHORT).show()
+                if (_binding != null) {
+                    binding.btnConfirmPayment.isEnabled = true
+                    binding.pbPayment.visibility = View.GONE
+                    Toast.makeText(context, "Error al guardar orden", Toast.LENGTH_SHORT).show()
+                }
             }
     }
 

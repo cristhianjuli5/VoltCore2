@@ -24,6 +24,7 @@ class VendorOrdersFragment : Fragment() {
     private val auth by lazy { FirebaseAuth.getInstance() }
     private val orderList = mutableListOf<Order>()
     private lateinit var adapter: VendorOrderAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVendorOrdersBinding.inflate(inflater, container, false)
@@ -45,11 +46,14 @@ class VendorOrdersFragment : Fragment() {
     private fun fetchOrders() {
         val vendorId = auth.currentUser?.uid ?: return
         
-        db.collection("orders")
+        snapshotListener = db.collection("orders")
             .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, e ->
+                if (_binding == null) return@addSnapshotListener
                 if (e != null) {
-                    Toast.makeText(context, "Error al cargar pedidos", Toast.LENGTH_SHORT).show()
+                    context?.let {
+                        Toast.makeText(it, "Error al cargar pedidos", Toast.LENGTH_SHORT).show()
+                    }
                     return@addSnapshotListener
                 }
                 
@@ -155,6 +159,7 @@ class VendorOrdersFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

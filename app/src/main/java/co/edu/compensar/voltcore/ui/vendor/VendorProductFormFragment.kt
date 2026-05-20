@@ -2,9 +2,9 @@ package co.edu.compensar.voltcore.ui.vendor
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,20 +22,16 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentVendorProductFormBinding
-import com.bumptech.glide.Glide
+import co.edu.compensar.voltcore.utils.ImageUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.*
 
 class VendorProductFormFragment : Fragment() {
     private var _binding: FragmentVendorProductFormBinding? = null
@@ -46,14 +42,20 @@ class VendorProductFormFragment : Fragment() {
     private var productId: String? = null
     private var currentImageUrl: String? = null
 
-    // Client ID de Imgur (Uso uno de prueba, en producción deberías crear uno propio)
-    private val IMGUR_CLIENT_ID = "3954546452292f7" 
-
     private val db by lazy { FirebaseFirestore.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
 
     private val cameraPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) startCamera()
+    }
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            capturedImageUri = it
+            binding.ivProductPreview.setImageURI(it)
+            binding.ivProductPreview.visibility = View.VISIBLE
+            binding.viewFinder.visibility = View.GONE
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -72,6 +74,7 @@ class VendorProductFormFragment : Fragment() {
         if (allPermissionsGranted()) startCamera() else cameraPermissionRequest.launch(Manifest.permission.CAMERA)
 
         binding.btnCapture.setOnClickListener { takePhoto() }
+        binding.btnGallery.setOnClickListener { galleryLauncher.launch("image/*") }
         binding.btnSaveProduct.setOnClickListener { saveProduct() }
         
         binding.ivProductPreview.setOnClickListener {
@@ -85,13 +88,16 @@ class VendorProductFormFragment : Fragment() {
         db.collection("products")
             .get()
             .addOnSuccessListener { snapshot ->
+                val currentContext = context ?: return@addOnSuccessListener
+                if (_binding == null) return@addOnSuccessListener
+                
                 val categories = snapshot.documents
                     .mapNotNull { it.getString("category") }
                     .filter { it.isNotEmpty() }
                     .distinct()
                     .sorted()
                 
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
+                val adapter = ArrayAdapter(currentContext, android.R.layout.simple_dropdown_item_1line, categories)
                 (binding.etProductCategory as? AutoCompleteTextView)?.setAdapter(adapter)
             }
     }
@@ -105,7 +111,7 @@ class VendorProductFormFragment : Fragment() {
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageCapture)
-            } catch (exc: Exception) { Log.e("Imgur", "Error cámara", exc) }
+            } catch (exc: Exception) { Log.e("Camera", "Error cámara", exc) }
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
@@ -146,43 +152,33 @@ class VendorProductFormFragment : Fragment() {
         if (emoji.isNotEmpty()) {
             saveToFirestore(emoji)
         } else if (capturedImageUri != null) {
-            uploadToImgur(capturedImageUri!!) { url ->
-                if (url != null) saveToFirestore(url)
-                else {
-                    binding.progressBar.visibility = View.GONE
-                    binding.btnSaveProduct.isEnabled = true
-                    Toast.makeText(context, "Error al subir a Imgur. Prueba usando un Emoji.", Toast.LENGTH_SHORT).show()
-                }
-            }
+            processAndSaveImage(capturedImageUri!!)
         } else {
             saveToFirestore(currentImageUrl!!)
         }
     }
 
-    private fun uploadToImgur(uri: Uri, callback: (String?) -> Unit) {
-        lifecycleScope.launch(Dispatchers.IO) {
+    private fun processAndSaveImage(uri: Uri) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val bytes = requireContext().contentResolver.openInputStream(uri)?.readBytes() ?: return@launch
-                val base64Image = Base64.encodeToString(bytes, Base64.DEFAULT)
-
-                val url = URL("https://api.imgur.com/3/image")
-                val conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.setRequestProperty("Authorization", "Client-ID $IMGUR_CLIENT_ID")
-                conn.doOutput = true
-
-                val body = "image=" + java.net.URLEncoder.encode(base64Image, "UTF-8")
-                conn.outputStream.use { it.write(body.toByteArray()) }
-
-                if (conn.responseCode == 200) {
-                    val response = conn.inputStream.bufferedReader().use { it.readText() }
-                    val link = JSONObject(response).getJSONObject("data").getString("link")
-                    withContext(Dispatchers.Main) { callback(link) }
-                } else {
-                    withContext(Dispatchers.Main) { callback(null) }
+                val currentContext = context ?: return@launch
+                val inputStream = currentContext.contentResolver.openInputStream(uri)
+                val originalBitmap = BitmapFactory.decodeStream(inputStream)
+                
+                // Redimensionar a 400px y calidad 50% para que pese MUY POCO
+                val base64Image = ImageUtils.compressBitmapToBase64(originalBitmap, quality = 50, maxSize = 400)
+                
+                withContext(Dispatchers.Main) {
+                    saveToFirestore("data:image/jpeg;base64,$base64Image")
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) { callback(null) }
+                withContext(Dispatchers.Main) {
+                    if (_binding != null) {
+                        binding.progressBar.visibility = View.GONE
+                        binding.btnSaveProduct.isEnabled = true
+                        Toast.makeText(context, "Error procesando imagen: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -200,13 +196,27 @@ class VendorProductFormFragment : Fragment() {
         )
 
         val ref = if (productId == null) db.collection("products").document() else db.collection("products").document(productId!!)
-        ref.set(product.copy(id = ref.id)).addOnSuccessListener {
-            findNavController().popBackStack()
-        }
+        ref.set(product.copy(id = ref.id))
+            .addOnSuccessListener {
+                if (_binding != null) {
+                    Toast.makeText(context, "Producto guardado con éxito", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
+            }
+            .addOnFailureListener { e ->
+                if (_binding != null) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.btnSaveProduct.isEnabled = true
+                    // Mostrar error específico (podría ser por tamaño o reglas)
+                    Log.e("FirestoreError", "Error al guardar", e)
+                    Toast.makeText(context, "Error al guardar: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
     private fun loadProductData(id: String) {
         db.collection("products").document(id).get().addOnSuccessListener { doc ->
+            if (_binding == null) return@addOnSuccessListener
             val p = doc.toObject(Product::class.java)
             p?.let {
                 binding.etProductName.setText(it.name)
@@ -216,12 +226,16 @@ class VendorProductFormFragment : Fragment() {
                 binding.etProductCategory.setText(it.category)
                 currentImageUrl = it.imageUrl
                 
-                if (it.imageUrl.length <= 4) {
-                    binding.etProductEmoji.setText(it.imageUrl)
-                } else {
+                ImageUtils.loadImage(
+                    requireContext(),
+                    it.imageUrl,
+                    binding.ivProductPreview,
+                    emojiTextView = null // En el form no usamos el textview para emoji
+                )
+                
+                if (it.imageUrl.length > 4) {
                     binding.ivProductPreview.visibility = View.VISIBLE
                     binding.viewFinder.visibility = View.GONE
-                    Glide.with(this).load(it.imageUrl).into(binding.ivProductPreview)
                 }
             }
         }

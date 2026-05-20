@@ -20,6 +20,7 @@ class AdminReportsFragment : Fragment() {
     private val db by lazy { FirebaseFirestore.getInstance() }
     private val recentOrders = mutableListOf<Order>()
     private lateinit var adapter: OrdersAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAdminReportsBinding.inflate(inflater, container, false)
@@ -37,34 +38,49 @@ class AdminReportsFragment : Fragment() {
     }
 
     private fun fetchRealStats() {
-        // Contar usuarios reales
+        // Contar usuarios
         db.collection("users").get().addOnSuccessListener { snapshot ->
             if (_binding == null) return@addOnSuccessListener
             binding.tvUserCount.text = snapshot.size().toString()
         }
 
-        // Contar productos reales
+        // Contar productos
         db.collection("products").get().addOnSuccessListener { snapshot ->
             if (_binding == null) return@addOnSuccessListener
             binding.tvProductCount.text = snapshot.size().toString()
+            
+            var totalInventory = 0.0
+            snapshot.toObjects(Product::class.java).forEach { 
+                totalInventory += (it.price * it.stock)
+            }
+            binding.tvInventoryValue.text = String.format(Locale.getDefault(), "$ %,.0f", totalInventory)
         }
 
-        // Calcular valor total de inventario
-        db.collection("products").get().addOnSuccessListener { snapshot ->
+        // Estadísticas de Pedidos
+        db.collection("orders").get().addOnSuccessListener { snapshot ->
             if (_binding == null) return@addOnSuccessListener
-            var totalValue = 0.0
-            for (doc in snapshot.documents) {
-                val p = doc.toObject(Product::class.java)
-                if (p != null) {
-                    totalValue += (p.price * p.stock)
-                }
+            val orders = snapshot.toObjects(Order::class.java)
+            binding.tvOrderCountReport.text = orders.size.toString()
+
+            val totalSales = orders.sumOf { it.total }
+            binding.tvTotalSales.text = String.format(Locale.getDefault(), "$ %,.0f", totalSales)
+
+            val avgTicket = if (orders.isNotEmpty()) totalSales / orders.size else 0.0
+            binding.tvAvgTicket.text = String.format(Locale.getDefault(), "$ %,.0f", avgTicket)
+
+            // Alertas Sospechosas (ej. pedidos > 5M)
+            val suspiciousOrders = orders.filter { it.total > 5000000 }
+            if (suspiciousOrders.isNotEmpty()) {
+                binding.cvSuspicious.visibility = View.VISIBLE
+                binding.tvSuspiciousCount.text = "${suspiciousOrders.size} transacciones de alto valor detectadas"
+            } else {
+                binding.cvSuspicious.visibility = View.GONE
             }
-            binding.tvInventoryValue.text = String.format(Locale.getDefault(), "$ %,.0f", totalValue)
         }
     }
 
     private fun fetchRecentOrders() {
-        db.collection("orders")
+        snapshotListener = db.collection("orders")
             .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
             .limit(10)
             .addSnapshotListener { snapshot, e ->
@@ -103,6 +119,7 @@ class AdminReportsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

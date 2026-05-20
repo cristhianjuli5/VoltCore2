@@ -27,4 +27,16 @@
         app:layout_constraintTop_toBottomOf="@id/tvOrdersTitle"
         tools:listitem="@layout/item_buyer_order" />
 
+    <TextView
+        android:id="@+id/tvEmptyOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No tienes pedidos aún"
+        android:textColor="#80FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOrdersTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

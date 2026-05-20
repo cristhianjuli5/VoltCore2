@@ -16,7 +16,7 @@ import co.edu.compensar.voltcore.data.CartManager
 import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentCatalogBinding
 import co.edu.compensar.voltcore.databinding.ItemProductCardBinding
-import com.bumptech.glide.Glide
+import co.edu.compensar.voltcore.utils.ImageUtils
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -28,6 +28,7 @@ class CatalogFragment : Fragment() {
     private val allProducts = mutableListOf<Product>()
     private val displayList = mutableListOf<Product>()
     private lateinit var adapter: CatalogAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
     
     private var selectedCategory: String? = null
     private var searchQuery: String = ""
@@ -80,12 +81,15 @@ class CatalogFragment : Fragment() {
     }
 
     private fun fetchProducts() {
-        db.collection("products")
+        snapshotListener = db.collection("products")
             .whereEqualTo("status", "AVAILABLE")
             .addSnapshotListener { snapshot, e ->
+                if (_binding == null) return@addSnapshotListener
                 if (e != null) {
                     android.util.Log.e("CatalogFragment", "Error Firestore: ${e.message}")
-                    Toast.makeText(context, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
+                    context?.let {
+                        Toast.makeText(it, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
+                    }
                     return@addSnapshotListener
                 }
                 if (snapshot != null) {
@@ -164,18 +168,12 @@ class CatalogFragment : Fragment() {
             holder.binding.tvProductName.text = product.name
             holder.binding.tvProductPrice.text = String.format("$ %,.0f", product.price)
             
-            if (product.imageUrl.length <= 4) {
-                holder.binding.ivProduct.visibility = View.GONE
-                holder.binding.tvProductEmoji.visibility = View.VISIBLE
-                holder.binding.tvProductEmoji.text = product.imageUrl
-            } else {
-                holder.binding.ivProduct.visibility = View.VISIBLE
-                holder.binding.tvProductEmoji.visibility = View.GONE
-                Glide.with(holder.binding.ivProduct.context)
-                    .load(product.imageUrl)
-                    .placeholder(R.drawable.ic_voltcore_logo)
-                    .into(holder.binding.ivProduct)
-            }
+            ImageUtils.loadImage(
+                holder.itemView.context,
+                product.imageUrl,
+                holder.binding.ivProduct,
+                holder.binding.tvProductEmoji
+            )
             
             holder.binding.root.setOnClickListener { onItemClick(product) }
 
@@ -190,6 +188,7 @@ class CatalogFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

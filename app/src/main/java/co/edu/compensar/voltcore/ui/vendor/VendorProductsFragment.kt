@@ -14,10 +14,9 @@ import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentVendorProductsBinding
 import co.edu.compensar.voltcore.databinding.ItemVendorProductBinding
-import com.bumptech.glide.Glide
+import co.edu.compensar.voltcore.utils.ImageUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 class VendorProductsFragment : Fragment() {
     private var _binding: FragmentVendorProductsBinding? = null
@@ -25,9 +24,9 @@ class VendorProductsFragment : Fragment() {
 
     private val db by lazy { FirebaseFirestore.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
-    private val storage by lazy { FirebaseStorage.getInstance() }
     private val productList = mutableListOf<Product>()
     private lateinit var adapter: VendorProductAdapter
+    private var snapshotListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVendorProductsBinding.inflate(inflater, container, false)
@@ -58,11 +57,14 @@ class VendorProductsFragment : Fragment() {
 
     private fun fetchVendorProducts() {
         val vendorId = auth.currentUser?.uid ?: return
-        db.collection("products")
+        snapshotListener = db.collection("products")
             .whereEqualTo("vendorId", vendorId)
             .addSnapshotListener { snapshot, e ->
+                if (_binding == null) return@addSnapshotListener
                 if (e != null) {
-                    Toast.makeText(context, "Error al cargar productos", Toast.LENGTH_SHORT).show()
+                    context?.let {
+                        Toast.makeText(it, "Error al cargar productos", Toast.LENGTH_SHORT).show()
+                    }
                     return@addSnapshotListener
                 }
                 if (snapshot != null) {
@@ -87,17 +89,6 @@ class VendorProductsFragment : Fragment() {
                 
                 db.collection("products").document(product.id).delete()
                     .addOnSuccessListener {
-                        // Delete image from storage
-                        if (product.imageUrl.isNotEmpty()) {
-                            try {
-                                storage.getReferenceFromUrl(product.imageUrl).delete()
-                                    .addOnFailureListener { e ->
-                                        Log.e("VendorProducts", "Error deleting image: ${e.message}")
-                                    }
-                            } catch (e: Exception) {
-                                Log.e("VendorProducts", "Invalid image URL: ${e.message}")
-                            }
-                        }
                         Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {
@@ -128,19 +119,12 @@ class VendorProductsFragment : Fragment() {
                 tvProductPrice.text = String.format("$ %,.0f", product.price)
                 chipStatus.text = "ACTIVO"
                 
-                if (product.imageUrl.length <= 4) {
-                    ivProduct.visibility = View.GONE
-                    tvProductEmoji.visibility = View.VISIBLE
-                    tvProductEmoji.text = product.imageUrl
-                } else {
-                    ivProduct.visibility = View.VISIBLE
-                    tvProductEmoji.visibility = View.GONE
-                    Glide.with(ivProduct.context)
-                        .load(product.imageUrl)
-                        .placeholder(R.drawable.ic_voltcore_logo)
-                        .centerCrop()
-                        .into(ivProduct)
-                }
+                ImageUtils.loadImage(
+                    holder.itemView.context,
+                    product.imageUrl,
+                    ivProduct,
+                    tvProductEmoji
+                )
                 
                 btnEdit.setOnClickListener { onEdit(product) }
                 btnArchive.setOnClickListener { onDelete(product) }
@@ -152,6 +136,7 @@ class VendorProductsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snapshotListener?.remove()
         _binding = null
     }
 }

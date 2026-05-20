@@ -45,5 +45,7 @@ data class Order(
     val status: String = "PENDING",
     val address: String = "",
     val timestamp: Date = Date(),
-    val shippingGuide: String = ""
+    val shippingGuide: String = "",
+    val paymentMethod: String = "CARD",
+    val paymentDetails: String = "" // Phone for wallet, or "CASH_CONVENIO" etc.
 )
