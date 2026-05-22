@@ -64,32 +64,50 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun setupPaymentMethods() {
-        binding.cgPaymentMethods.setOnCheckedStateChangeListener { group, checkedIds ->
+        // Bancos PSE
+        val banks = listOf("Bancolombia", "Banco de Bogotá", "Davivienda", "BBVA", "Scotiabank Colpatria", "Banco Falabella", "RappiPay", "Lulo Bank")
+        val bankAdapter = android.widget.ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, banks)
+        binding.actvBank.setAdapter(bankAdapter)
+
+        // Tipos de Persona
+        val personTypes = listOf("Persona Natural", "Persona Jurídica")
+        val personAdapter = android.widget.ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, personTypes)
+        binding.actvPersonType.setAdapter(personAdapter)
+
+        // Tipos de Documento
+        val docTypes = listOf("CC", "CE", "NIT", "PP")
+        val docAdapter = android.widget.ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, docTypes)
+        binding.actvDocType.setAdapter(docAdapter)
+
+        binding.cgPaymentMethods.setOnCheckedStateChangeListener { _, checkedIds ->
             when (checkedIds.firstOrNull()) {
                 R.id.chipCard -> {
                     selectedPaymentMethod = "CARD"
                     binding.cvCardDetails.visibility = View.VISIBLE
                     binding.cvWalletDetails.visibility = View.GONE
                     binding.cvCashDetails.visibility = View.GONE
+                    binding.cvTransferDetails.visibility = View.GONE
                 }
                 R.id.chipWallet -> {
                     selectedPaymentMethod = "WALLET"
                     binding.cvCardDetails.visibility = View.GONE
                     binding.cvWalletDetails.visibility = View.VISIBLE
                     binding.cvCashDetails.visibility = View.GONE
+                    binding.cvTransferDetails.visibility = View.GONE
                 }
                 R.id.chipCash -> {
                     selectedPaymentMethod = "CASH"
                     binding.cvCardDetails.visibility = View.GONE
                     binding.cvWalletDetails.visibility = View.GONE
                     binding.cvCashDetails.visibility = View.VISIBLE
+                    binding.cvTransferDetails.visibility = View.GONE
                 }
                 R.id.chipTransfer -> {
                     selectedPaymentMethod = "TRANSFER"
                     binding.cvCardDetails.visibility = View.GONE
                     binding.cvWalletDetails.visibility = View.GONE
                     binding.cvCashDetails.visibility = View.GONE
-                    Toast.makeText(context, "Próximamente PSE", Toast.LENGTH_SHORT).show()
+                    binding.cvTransferDetails.visibility = View.VISIBLE
                 }
             }
         }
@@ -152,8 +170,24 @@ class CheckoutFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                delay(2000) // Simulación de procesamiento de pasarela
                 val transactionId = "VC-" + UUID.randomUUID().toString().take(8).uppercase()
+                
+                when (selectedPaymentMethod) {
+                    "WALLET" -> {
+                        Toast.makeText(context, "Notificación enviada a Nequi. Confirma en tu app...", Toast.LENGTH_LONG).show()
+                        delay(4000) // Simulación de espera de aprobación PUSH
+                    }
+                    "TRANSFER" -> {
+                        Toast.makeText(context, "Redirigiendo a portal bancario seguro...", Toast.LENGTH_SHORT).show()
+                        delay(3000)
+                        Toast.makeText(context, "Procesando código de seguridad (OTP)...", Toast.LENGTH_SHORT).show()
+                        delay(2000)
+                    }
+                    else -> {
+                        delay(2000) // Simulación estándar (Tarjeta/Efectivo)
+                    }
+                }
+                
                 saveOrder(address, city, transactionId)
             } catch (e: Exception) {
                 if (_binding != null) {
@@ -205,6 +239,20 @@ class CheckoutFragment : Fragment() {
                     isValid = false
                 }
             }
+            "TRANSFER" -> {
+                if (binding.actvBank.text.toString().isEmpty()) {
+                    binding.tilBankName.error = "Selecciona un banco"
+                    isValid = false
+                }
+                if (binding.actvPersonType.text.toString().isEmpty()) {
+                    binding.tilPersonType.error = "Selecciona tipo de persona"
+                    isValid = false
+                }
+                if (binding.etDocNumber.text.toString().isEmpty()) {
+                    binding.tilDocNumber.error = "Número de documento obligatorio"
+                    isValid = false
+                }
+            }
         }
 
         return isValid
@@ -220,8 +268,9 @@ class CheckoutFragment : Fragment() {
 
         val paymentDetails = when(selectedPaymentMethod) {
             "CARD" -> "VISA-****" + binding.etCardNumber.text.toString().takeLast(4)
-            "WALLET" -> "Wallet: " + binding.etWalletPhone.text.toString()
-            else -> "Convenio: " + transactionId.takeLast(6)
+            "WALLET" -> "Nequi PUSH: " + binding.etWalletPhone.text.toString()
+            "TRANSFER" -> "PSE " + binding.actvBank.text.toString() + " - " + binding.etDocNumber.text.toString()
+            else -> "Convenio Efecty: " + transactionId.takeLast(6)
         }
 
         val order = Order(

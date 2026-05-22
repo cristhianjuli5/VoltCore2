@@ -292,20 +292,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ingresa tu número de celular vinculado"
+                    android:text="Pago rápido con Nequi"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="12dp" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enviaremos una notificación a tu celular para que confirmes el pago."
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="16dp" />
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilWalletPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Celular (Nequi/Daviplata)"
+                    android:hint="Número Celular Nequi"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etWalletPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone"
+                        android:maxLength="10"
                         android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -326,8 +335,104 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Se generará un convenio para pagar en puntos físicos."
-                    android:textColor="@color/white" />
+                    android:text="Convenio de Pago en Efectivo"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Se generará un convenio para pagar en puntos físicos (Efecty/Baloto)."
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvTransferDetails"
+            style="@style/Widget.VoltCore.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transferencia Segura via PSE"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilBankName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Selecciona tu Banco"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_marginBottom="8dp">
+                    <AutoCompleteTextView
+                        android:id="@+id/actvBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPersonType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tipo de Persona"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_marginBottom="8dp">
+                    <AutoCompleteTextView
+                        android:id="@+id/actvPersonType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDocType"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Doc"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_marginEnd="8dp">
+                        <AutoCompleteTextView
+                            android:id="@+id/actvDocType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDocNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Número de Documento"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDocNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
