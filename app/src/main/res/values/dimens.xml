@@ -3,10 +3,32 @@
     <dimen name="min_touch_target">48dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="dialog_padding">20dp</dimen>
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_xtiny">2dp</dimen>
+
     <dimen name="text_size_h1">24sp</dimen>
+    <dimen name="text_size_h2">28sp</dimen>
     <dimen name="text_size_body">16sp</dimen>
+    <dimen name="text_size_price">14sp</dimen>
+    <dimen name="text_size_caption">12sp</dimen>
+    <dimen name="text_size_emoji_large">64sp</dimen>
+
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
-    <dimen name="dialog_padding">20dp</dimen>
-    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="card_corner_radius_medium">16dp</dimen>
+    <dimen name="card_corner_radius_large">20dp</dimen>
+    <dimen name="card_corner_radius_xlarge">24dp</dimen>
+
+    <dimen name="button_height_large">60dp</dimen>
+    <dimen name="doc_type_width">120dp</dimen>
+    <dimen name="tab_indicator_height">3dp</dimen>
+    <dimen name="camera_preview_height">250dp</dimen>
+    <dimen name="product_image_height">140dp</dimen>
+    <dimen name="thumbnail_size_small">60dp</dimen>
+    <dimen name="thumbnail_size_medium">70dp</dimen>
+    <dimen name="form_max_width">488dp</dimen>
 </resources>

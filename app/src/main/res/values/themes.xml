@@ -10,7 +10,7 @@
 
     <style name="Widget.VoltCore.Card" parent="Widget.Material3.CardView.Filled">
         <item name="cardCornerRadius">24dp</item>
-        <item name="cardBackgroundColor">@color/glass_surface</item>
+        <item name="cardBackgroundColor">@color/volt_card_background</item>
         <item name="strokeColor">@color/glass_stroke</item>
         <item name="strokeWidth">1dp</item>
     </style>

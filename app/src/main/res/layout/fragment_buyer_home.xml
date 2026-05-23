@@ -5,32 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/volt_background"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/margin_standard">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/margin_standard">
 
         <TextView
             android:id="@+id/tvWelcomeUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="4dp"
             android:text="@string/welcome_to_voltcore"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"/>
+            android:textColor="@color/volt_text_primary"
+            android:textSize="@dimen/text_size_h1"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_standard"
             android:text="@string/energy_question"
-            android:textColor="@color/white_70"
-            android:textSize="14sp"
-            android:layout_marginBottom="24dp"/>
+            android:textColor="@color/volt_text_secondary"
+            android:textSize="14sp" />
 
         <!-- Buscador -->
 
@@ -38,7 +38,9 @@
             android:id="@+id/tilSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/margin_standard"
+            android:maxWidth="488dp"
+            android:layout_gravity="center_horizontal"
             app:boxBackgroundColor="@color/glass_surface"
             app:boxCornerRadiusBottomEnd="28dp"
             app:boxCornerRadiusBottomStart="28dp"
@@ -48,85 +50,88 @@
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
             app:startIconDrawable="@android:drawable/ic_menu_search"
-            app:startIconTint="@color/white">
+            app:startIconTint="@color/volt_text_primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_hint"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white_50"
-                android:padding="16dp" />
+                android:padding="@dimen/margin_standard"
+                android:textColor="@color/volt_text_primary"
+                android:textColorHint="@color/volt_text_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Ofertas/Banners -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/volt_offers"
             android:textColor="@color/volt_primary"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp"/>
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOffers"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:layout_marginBottom="@dimen/margin_standard"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_banner_promo"
-            android:layout_marginBottom="24dp"/>
+            tools:listitem="@layout/item_banner_promo" />
 
         <!-- Categorías Rápidas -->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/margin_standard"
             app:singleSelection="true">
+
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category_batteries"
-                app:chipBackgroundColor="@color/glass_surface"
-                android:textColor="@color/white"/>
+                android:textColor="@color/volt_text_primary"
+                app:chipBackgroundColor="@color/glass_surface" />
+
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category_motors"
-                app:chipBackgroundColor="@color/glass_surface"
-                android:textColor="@color/white"/>
+                android:textColor="@color/volt_text_primary"
+                app:chipBackgroundColor="@color/glass_surface" />
+
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category_controllers"
-                app:chipBackgroundColor="@color/glass_surface"
-                android:textColor="@color/white"/>
+                android:textColor="@color/volt_text_primary"
+                app:chipBackgroundColor="@color/glass_surface" />
         </com.google.android.material.chip.ChipGroup>
 
         <!-- Destacados -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/featured_products"
-            android:textColor="@color/white"
+            android:textColor="@color/volt_text_primary"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp"/>
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFeatured"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_standard"
             android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_product_card"
-            android:layout_marginBottom="24dp" />
+            tools:listitem="@layout/item_product_card" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

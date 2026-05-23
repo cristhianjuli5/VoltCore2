@@ -4,36 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/volt_background"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/margin_standard">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="@dimen/dialog_padding"
         android:baselineAligned="false">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/product_info"
-            android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textColor="@color/volt_text_primary"
+            android:textSize="@dimen/text_size_h1"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="@dimen/margin_large"/>
 
         <androidx.camera.view.PreviewView
             android:id="@+id/viewFinder"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/camera_preview_height"
+            android:layout_marginBottom="@dimen/margin_standard"
             android:background="@color/glass_surface" />
 
         <ImageView
             android:id="@+id/ivProductPreview"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/camera_preview_height"
+            android:layout_marginBottom="@dimen/margin_standard"
             android:scaleType="centerCrop"
             android:visibility="gone"
             android:contentDescription="@string/product_preview" />
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/margin_large"
             android:baselineAligned="false">
 
             <Button
@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 android:text="@string/camera"
                 style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="@dimen/margin_small"/>
 
             <Button
                 android:id="@+id/btnGallery"
@@ -70,12 +70,12 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="@dimen/margin_medium">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textColor="@color/volt_text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -85,12 +85,12 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="@dimen/margin_medium">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/volt_text_primary"
                 android:minLines="3"
                 android:gravity="top" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,13 +109,13 @@
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/volt_primary"
                 app:hintTextColor="@color/volt_primary"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 app:prefixText="@string/price_prefix">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etProductPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/volt_text_primary"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,7 +131,7 @@
                     android:id="@+id/etProductStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/volt_text_primary"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -144,13 +144,13 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp">
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium">
             <AutoCompleteTextView
                 android:id="@+id/etProductCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/volt_text_primary"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,32 +161,31 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="24dp"
-            app:helperText="Ej: 🚗, 🔧, 🔋">
+            android:layout_marginBottom="@dimen/margin_large">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductEmoji"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/volt_text_primary"
                 android:maxLength="4" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveProduct"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/button_height_large"
             android:text="@string/publish_product"
             android:backgroundTint="@color/volt_primary"
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:cornerRadius="12dp" />
+            app:cornerRadius="@dimen/card_corner_radius" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_standard"
             android:visibility="gone" />
 
     </LinearLayout>

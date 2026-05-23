@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.VoltCore.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/glass_surface"
-    app:cardCornerRadius="20dp"
-    app:strokeColor="@color/glass_stroke"
-    app:strokeWidth="1dp"
+    android:layout_margin="@dimen/margin_small"
+    app:cardCornerRadius="@dimen/card_corner_radius_large"
     app:cardElevation="0dp">
 
     <LinearLayout
@@ -17,7 +15,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="@dimen/product_image_height"
             android:background="@color/glass_surface">
             <ImageView
                 android:id="@+id/ivProduct"
@@ -31,9 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="64sp"
+                android:textSize="@dimen/text_size_emoji_large"
                 android:visibility="gone"
-                android:textColor="@color/white" />
+                android:textColor="@color/volt_text_primary" />
         </FrameLayout>
 
 
@@ -41,10 +39,10 @@
             android:id="@+id/tvProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:text="@string/product_name_placeholder"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textColor="@color/volt_text_primary"
+            android:textSize="@dimen/text_size_body"
             android:textStyle="bold" />
 
         <TextView
@@ -53,16 +51,16 @@
             android:layout_height="wrap_content"
             android:text="@string/price_placeholder"
             android:textColor="@color/volt_primary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_price" />
 
         <Button
             android:id="@+id/btnAddToCart"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:text="@string/add_to_cart"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_caption"
             app:backgroundTint="@color/volt_primary"
             android:textColor="@color/black" />
 

@@ -53,7 +53,7 @@
     <string name="stock_label">Stock: %1$d</string>
     <string name="category_hint">Categoría</string>
     <string name="featured_products">Productos Destacados</string>
-    <string name="search_hint">Buscar repuestos, BMS, motores...</string>
+    <string name="search_hint">Buscar repuestos, BMS, motores&#8230;</string>
     <string name="technical_sheet">Ficha Técnica</string>
     <string name="add_to_cart_full">AÑADIR AL CARRITO</string>
     <string name="order_number">Pedido #%s</string>
@@ -141,7 +141,7 @@
     <string name="empty_cart_error">El carrito está vacío</string>
     <string name="full_name_label">Nombre Completo</string>
     <string name="shipping_address_label">Dirección de envío</string>
-    <string name="profile_loading">Cargando...</string>
+    <string name="profile_loading">Cargando&#8230;</string>
     <string name="profile_photo_desc">Foto de perfil</string>
     <string name="product_image_desc">Imagen del producto</string>
     <string name="technical_sheet_default_content">Voltaje Nominal: 48V\nCapacidad: 20Ah\nCeldas: Samsung 35E\nCiclos de vida: 1000+\nBMS Integrado: 50A Balanceado\nPeso: 4.5kg</string>
@@ -177,7 +177,7 @@
     <string name="product_placeholder">Producto</string>
     <string name="vendedor_prefix">Vendedor: %s</string>
     <string name="order_summary_placeholder">• 1x Producto A\n• 2x Producto B</string>
-    <string name="processing_payment">Procesando pago...</string>
+    <string name="processing_payment">Procesando pago&#8230;</string>
     <string name="tracking_guide">Guía: %s</string>
     <string name="shipping_guide_hint">Número de Guía</string>
     <string name="confirm_received">CONFIRMAR RECIBIDO</string>
@@ -187,12 +187,12 @@
     <string name="product_preview">Vista previa del producto</string>
     <string name="emoji_hint">Emoji (si no usas foto)</string>
     <string name="razon_social">Razón Social</string>
-    <string name="nit_format">NIT (Formato: 123456789&#8211;0)</string>
+    <string name="nit_format">NIT (Formato: 123456789–0)</string>
     <string name="promo_title">¡DESCUENTOS ELÉCTRICOS!</string>
-    <string name="promo_desc">Hasta 30% en Baterías Li-ion</string>
+    <string name="promo_desc">Hasta 30% en Baterías Li–ion</string>
     <string name="promotion_label">Promoción</string>
     <string name="placeholder_email">correo@ejemplo.com</string>
-    <string name="placeholder_address">Calle 123 #45-67</string>
+    <string name="placeholder_address">Calle 123 #45–67</string>
     <string name="global_inventory_label">Inventario Global</string>
     <string name="reports_stats_label">Informes y Estadísticas</string>
     <string name="add_product_label">Agregar Producto</string>
@@ -216,9 +216,13 @@
     <string name="person_type_hint">Tipo de Persona</string>
     <string name="doc_type_short_hint">Doc</string>
     <string name="doc_number_hint">Número de Documento</string>
+    <string name="zero">0</string>
     <string name="get_my_location">Obtener mi ubicación</string>
-    <string name="fetching_location">Obteniendo ubicación...</string>
+    <string name="fetching_location">Obteniendo ubicación&#8230;</string>
     <string name="location_not_found">No se pudo obtener la ubicación</string>
+    <string name="nequi_confirmation_msg">Notificación enviada a Nequi. Confirma en tu app&#8230;</string>
+    <string name="redirecting_bank_msg">Redirigiendo a portal bancario seguro&#8230;</string>
+    <string name="processing_otp_msg">Procesando código de seguridad (OTP)&#8230;</string>
 
     <!-- Error and Status Messages -->
     <string name="error_catalog_load">Error al cargar catálogo</string>

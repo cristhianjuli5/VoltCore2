@@ -4,6 +4,7 @@
     <color name="volt_background">#0F111A</color>
     <color name="glass_surface">#1AFFFFFF</color>
     <color name="glass_stroke">#33FFFFFF</color>
+    <color name="volt_card_background">#272931</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_70">#B3FFFFFF</color>
     <color name="white_50">#80FFFFFF</color>

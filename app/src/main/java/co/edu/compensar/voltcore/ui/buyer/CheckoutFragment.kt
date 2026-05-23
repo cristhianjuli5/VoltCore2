@@ -197,13 +197,13 @@ class CheckoutFragment : Fragment() {
                 
                 when (selectedPaymentMethod) {
                     "WALLET" -> {
-                        Toast.makeText(context, "Notificación enviada a Nequi. Confirma en tu app...", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, getString(R.string.nequi_confirmation_msg), Toast.LENGTH_LONG).show()
                         delay(4000) // Simulación de espera de aprobación PUSH
                     }
                     "TRANSFER" -> {
-                        Toast.makeText(context, "Redirigiendo a portal bancario seguro...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.redirecting_bank_msg), Toast.LENGTH_SHORT).show()
                         delay(3000)
-                        Toast.makeText(context, "Procesando código de seguridad (OTP)...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.processing_otp_msg), Toast.LENGTH_SHORT).show()
                         delay(2000)
                     }
                     else -> {

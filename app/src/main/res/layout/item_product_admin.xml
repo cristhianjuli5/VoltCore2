@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.VoltCore.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@color/glass_surface"
-    app:cardCornerRadius="12dp"
-    app:strokeColor="@color/glass_stroke"
-    app:strokeWidth="1dp">
+    android:layout_marginBottom="@dimen/margin_small"
+    app:cardCornerRadius="@dimen/card_corner_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="@dimen/margin_medium"
         android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/ivProduct"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/thumbnail_size_small"
+            android:layout_height="@dimen/thumbnail_size_small"
             android:src="@drawable/ic_voltcore_logo"
             android:scaleType="centerInside"
             android:background="@color/glass_surface"
-            android:padding="4dp"
+            android:padding="@dimen/margin_tiny"
             android:contentDescription="@string/product_image_desc"/>
 
         <LinearLayout
@@ -31,14 +29,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="12dp">
+            android:layout_marginStart="@dimen/margin_medium">
 
             <TextView
                 android:id="@+id/tvProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textColor="@color/volt_text_primary"
+                android:textSize="@dimen/text_size_body"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,30 +44,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/volt_primary"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_price"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvProductStock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white_70"
-                android:textSize="12sp" />
+                android:textColor="@color/volt_text_secondary"
+                android:textSize="@dimen/text_size_caption" />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnEditProduct"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/min_touch_target"
+            android:layout_height="@dimen/min_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_edit"
-            app:tint="@color/white"
+            app:tint="@color/volt_text_primary"
             android:contentDescription="@string/edit_icon_desc"/>
 
         <ImageButton
             android:id="@+id/btnDeleteProduct"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/min_touch_target"
+            android:layout_height="@dimen/min_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_delete"
             app:tint="@color/volt_error"
