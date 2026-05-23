@@ -2,82 +2,94 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/volt_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/dialog_padding"
-        android:background="@color/volt_background">
+        android:maxWidth="488dp"
+        android:layout_gravity="center_horizontal">
 
+        <!-- Nombre del Producto -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:hint="@string/name_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
-            app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="@dimen/margin_medium">
+            app:hintTextColor="@color/volt_primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/volt_text_primary" />
+                android:importantForAccessibility="yes"
+                android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Precio -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:hint="@string/price_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="@dimen/margin_medium"
-            app:prefixText="@string/price_prefix">
+            app:prefixText="@string/price_prefix"
+            app:prefixTextColor="@color/volt_primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/volt_text_primary"
-                android:inputType="numberDecimal" />
+                android:importantForAccessibility="yes"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Stock -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:hint="@string/stock_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
-            app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="@dimen/margin_medium">
+            app:hintTextColor="@color/volt_primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductStock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/volt_text_primary"
-                android:inputType="number" />
+                android:importantForAccessibility="yes"
+                android:inputType="number"
+                android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Categoría -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCategory"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:hint="@string/category_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:boxStrokeColor="@color/volt_primary"
-            app:hintTextColor="@color/volt_primary"
-            android:layout_marginBottom="@dimen/margin_medium">
+            app:hintTextColor="@color/volt_primary">
 
             <AutoCompleteTextView
                 android:id="@+id/etProductCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/volt_text_primary"
-                android:inputType="text" />
+                android:hint="@string/category_hint"
+                android:importantForAccessibility="yes"
+                android:inputType="text"
+                android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
