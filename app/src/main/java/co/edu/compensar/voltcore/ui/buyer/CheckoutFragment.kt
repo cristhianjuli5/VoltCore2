@@ -60,6 +60,10 @@ class CheckoutFragment : Fragment() {
             processPayment()
         }
 
+        binding.btnGetLocation.setOnClickListener {
+            requestLocationPermissions()
+        }
+
         requestLocationPermissions()
     }
 
@@ -140,22 +144,41 @@ class CheckoutFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
+        if (_binding == null) return
+        Toast.makeText(context, getString(R.string.fetching_location), Toast.LENGTH_SHORT).show()
+        
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             val currentContext = context ?: return@addOnSuccessListener
             if (location != null && _binding != null) {
                 try {
                     val geocoder = Geocoder(currentContext, Locale.getDefault())
-                    val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                    if (!addresses.isNullOrEmpty()) {
-                        val address = addresses[0].getAddressLine(0)
-                        binding.etShippingAddress.setText(address)
-                        val city = "${addresses[0].locality ?: ""}, ${addresses[0].adminArea ?: ""}"
-                        binding.etCity.setText(city)
+                    
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                        geocoder.getFromLocation(location.latitude, location.longitude, 1) { addresses ->
+                            viewLifecycleOwner.lifecycleScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+                                updateLocationUI(addresses)
+                            }
+                        }
+                    } else {
+                        @Suppress("DEPRECATION")
+                        val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        updateLocationUI(addresses)
                     }
                 } catch (e: Exception) {
                     android.util.Log.e("Checkout", "Error geocoding", e)
                 }
+            } else {
+                Toast.makeText(context, getString(R.string.location_not_found), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun updateLocationUI(addresses: List<android.location.Address>?) {
+        if (_binding != null && !addresses.isNullOrEmpty()) {
+            val address = addresses[0].getAddressLine(0)
+            binding.etShippingAddress.setText(address)
+            val city = "${addresses[0].locality ?: ""}, ${addresses[0].adminArea ?: ""}"
+            binding.etCity.setText(city)
         }
     }
 

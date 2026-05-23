@@ -216,6 +216,9 @@
     <string name="person_type_hint">Tipo de Persona</string>
     <string name="doc_type_short_hint">Doc</string>
     <string name="doc_number_hint">Número de Documento</string>
+    <string name="get_my_location">Obtener mi ubicación</string>
+    <string name="fetching_location">Obteniendo ubicación...</string>
+    <string name="location_not_found">No se pudo obtener la ubicación</string>
 
     <!-- Error and Status Messages -->
     <string name="error_catalog_load">Error al cargar catálogo</string>
