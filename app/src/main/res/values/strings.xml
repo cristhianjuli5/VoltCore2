@@ -179,6 +179,7 @@
     <string name="order_summary_placeholder">• 1x Producto A\n• 2x Producto B</string>
     <string name="processing_payment">Procesando pago...</string>
     <string name="tracking_guide">Guía: %s</string>
+    <string name="shipping_guide_hint">Número de Guía</string>
     <string name="confirm_received">CONFIRMAR RECIBIDO</string>
     <string name="avg_ticket">Ticket Prom.</string>
     <string name="inventory_value">Valor de Inventario</string>
@@ -215,4 +216,47 @@
     <string name="person_type_hint">Tipo de Persona</string>
     <string name="doc_type_short_hint">Doc</string>
     <string name="doc_number_hint">Número de Documento</string>
+
+    <!-- Error and Status Messages -->
+    <string name="error_catalog_load">Error al cargar catálogo</string>
+    <string name="product_added_msg">%s añadido</string>
+    <string name="firebase_not_init_error">Firebase no está inicializado. Revisa google-services.json.</string>
+    <string name="firebase_config_error">Error de configuración de Firebase. Verifica la consola.</string>
+    <string name="suspicious_activity_msg">%d transacciones de alto valor detectadas</string>
+    <string name="order_label">Pedido: %s</string>
+    <string name="order_summary_format">Total: %1$s - Estado: %2$s</string>
+    <string name="price_format">$ %,.0f</string>
+
+    <!-- Success and Error Messages for Toasts -->
+    <string name="error_products_load">Error al cargar productos</string>
+    <string name="error_save">Error al guardar: %s</string>
+    <string name="error_required_fields">Por favor completa los campos obligatorios</string>
+    <string name="success_product_deleted">Producto eliminado</string>
+    <string name="error_users_load">Error al cargar usuarios</string>
+    <string name="success_user_deleted">Usuario eliminado</string>
+    <string name="success_order_received">Pedido marcado como recibido</string>
+    <string name="error_confirm">Error al confirmar</string>
+    <string name="error_orders_load">Error al cargar pedidos</string>
+    <string name="success_profile_updated">Perfil actualizado correctamente</string>
+    <string name="success_recovery_sent">Enlace enviado. Revisa tu bandeja de entrada.</string>
+    <string name="error_msg">Error: %s</string>
+    <string name="success_product_saved">Producto guardado con éxito</string>
+    <string name="error_name_required">El nombre es obligatorio</string>
+    <string name="error_image_required">Debes poner un Emoji o tomar una Foto</string>
+    <string name="error_login_fields">Por favor ingresa correo y contraseña</string>
+    <string name="error_biometric_setup">Inicia sesión con contraseña primero para habilitar biométricos</string>
+    <string name="error_profile_not_found">Error: No se encontró el perfil</string>
+    <string name="error_auth_failed">Autenticación fallida</string>
+    <string name="success_registration">Registro exitoso</string>
+    <string name="success_payment">¡PAGO EXITOSO! Orden: %s</string>
+    <string name="error_empty_cart_msg">El carrito está vacío</string>
+    <string name="biometric_title">Autenticación Biométrica</string>
+    <string name="biometric_subtitle">Ingresa con tu huella o rostro</string>
+    <string name="add_product_title">Agregar Producto</string>
+    <string name="edit_product_title">Editar Producto</string>
+    <string name="success_product_created">Producto creado</string>
+    <string name="success_product_updated">Producto actualizado</string>
+    <string name="delete_product_title">Eliminar Producto</string>
+    <string name="delete_product_confirm">¿Estás seguro de que deseas eliminar %s?</string>
+    <string name="stock_category_format">Stock: %1$d | %2$s</string>
 </resources>

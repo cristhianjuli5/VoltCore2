@@ -25,7 +25,7 @@
             android:elevation="0dp"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/volt_text_primary" />
 
         <!-- Contenedor central para fragmentos (NavHostFragment) -->
         <androidx.fragment.app.FragmentContainerView
@@ -48,7 +48,7 @@
             android:background="@color/glass_surface"
             android:visibility="gone"
             app:itemIconTint="@color/volt_primary"
-            app:itemTextColor="@color/white"
+            app:itemTextColor="@color/volt_text_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/buyer_bottom_menu" />
 
@@ -63,6 +63,6 @@
         android:background="@color/volt_background"
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/volt_primary"
-        app:itemTextColor="@color/white" />
+        app:itemTextColor="@color/volt_text_primary" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

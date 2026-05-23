@@ -24,7 +24,7 @@
                 android:id="@+id/etProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textColor="@color/volt_text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -41,7 +41,7 @@
                 android:id="@+id/etProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/volt_text_primary"
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,7 +58,7 @@
                 android:id="@+id/etProductStock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/volt_text_primary"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,7 +76,7 @@
                 android:id="@+id/etProductCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/volt_text_primary"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 

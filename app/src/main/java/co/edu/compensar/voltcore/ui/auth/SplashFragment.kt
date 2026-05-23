@@ -86,7 +86,7 @@ class SplashFragment : Fragment() {
             // is missing or the Gradle plugin did not apply it.
             Log.e(TAG, "❌ Firebase NOT initialized — google-services.json may be missing or misplaced", e)
             Log.e(TAG, "   ➜ Make sure google-services.json is inside the /app folder (not the project root)")
-            showFatalError("Firebase no está inicializado. Revisa google-services.json.")
+            showFatalError(getString(R.string.firebase_not_init_error))
             false
 
         } catch (e: Exception) {
@@ -95,7 +95,7 @@ class SplashFragment : Fragment() {
             Log.e(TAG, "❌ Firebase config error — possible CONFIGURATION_NOT_FOUND", e)
             Log.e(TAG, "   ➜ Go to Firebase Console → Authentication → Sign-in method → enable Email/Password")
             Log.e(TAG, "   ➜ Also confirm a Support email is set in Project Settings → General")
-            showFatalError("Error de configuración de Firebase. Verifica la consola.")
+            showFatalError(getString(R.string.firebase_config_error))
             false
         }
     }

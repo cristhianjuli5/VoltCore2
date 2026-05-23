@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import co.edu.compensar.voltcore.R
 import co.edu.compensar.voltcore.data.Order
 import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.FragmentAdminReportsBinding
@@ -53,7 +54,7 @@ class AdminReportsFragment : Fragment() {
             snapshot.toObjects(Product::class.java).forEach { 
                 totalInventory += (it.price * it.stock)
             }
-            binding.tvInventoryValue.text = String.format(Locale.getDefault(), "$ %,.0f", totalInventory)
+            binding.tvInventoryValue.text = getString(R.string.price_format, totalInventory)
         }
 
         // Estadísticas de Pedidos
@@ -63,16 +64,16 @@ class AdminReportsFragment : Fragment() {
             binding.tvOrderCountReport.text = orders.size.toString()
 
             val totalSales = orders.sumOf { it.total }
-            binding.tvTotalSales.text = String.format(Locale.getDefault(), "$ %,.0f", totalSales)
+            binding.tvTotalSales.text = getString(R.string.price_format, totalSales)
 
             val avgTicket = if (orders.isNotEmpty()) totalSales / orders.size else 0.0
-            binding.tvAvgTicket.text = String.format(Locale.getDefault(), "$ %,.0f", avgTicket)
+            binding.tvAvgTicket.text = getString(R.string.price_format, avgTicket)
 
             // Alertas Sospechosas (ej. pedidos > 5M)
             val suspiciousOrders = orders.filter { it.total > 5000000 }
             if (suspiciousOrders.isNotEmpty()) {
                 binding.cvSuspicious.visibility = View.VISIBLE
-                binding.tvSuspiciousCount.text = "${suspiciousOrders.size} transacciones de alto valor detectadas"
+                binding.tvSuspiciousCount.text = getString(R.string.suspicious_activity_msg, suspiciousOrders.size)
             } else {
                 binding.cvSuspicious.visibility = View.GONE
             }
@@ -108,10 +109,14 @@ class AdminReportsFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val order = orders[position]
-            holder.text1.text = "Pedido: ${order.id.take(8).uppercase()}"
-            holder.text1.setTextColor(android.graphics.Color.WHITE)
-            holder.text2.text = "Total: ${String.format(Locale.getDefault(), "$ %,.0f", order.total)} - Estado: ${order.status}"
-            holder.text2.setTextColor(android.graphics.Color.parseColor("#B3FFFFFF"))
+            val context = holder.itemView.context
+            
+            holder.text1.text = context.getString(R.string.order_label, order.id.take(8).uppercase())
+            holder.text1.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.volt_text_primary))
+            
+            val totalFormatted = context.getString(R.string.price_format, order.total)
+            holder.text2.text = context.getString(R.string.order_summary_format, totalFormatted, order.status)
+            holder.text2.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.volt_text_secondary))
         }
 
         override fun getItemCount() = orders.size

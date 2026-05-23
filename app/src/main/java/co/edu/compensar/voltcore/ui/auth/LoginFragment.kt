@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
             val password = binding.etPassword.text.toString()
             
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Por favor ingresa correo y contraseña", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_login_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             
@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
             if (hasStoredCredentials()) {
                 biometricPrompt.authenticate(promptInfo)
             } else {
-                Toast.makeText(requireContext(), "Inicia sesión con contraseña primero para habilitar la biometría", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.error_biometric_setup), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -91,7 +91,7 @@ class LoginFragment : Fragment() {
                 fetchUserData(uid)
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_msg, it.message), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -102,11 +102,11 @@ class LoginFragment : Fragment() {
                 if (user != null) {
                     navigateToDashboard(user.role)
                 } else {
-                    Toast.makeText(context, "Error: No se encontró el perfil", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.error_profile_not_found), Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Error al obtener datos: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_msg, it.message), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -133,19 +133,19 @@ class LoginFragment : Fragment() {
                     if (credentials != null) {
                         handleLogin(credentials.first, credentials.second)
                     } else {
-                        Toast.makeText(requireContext(), "Error al recuperar credenciales", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.error_msg, "Error al recuperar credenciales"), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    Toast.makeText(requireContext(), "Autenticación fallida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_auth_failed), Toast.LENGTH_SHORT).show()
                 }
             })
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Autenticación Biométrica")
-            .setSubtitle("Ingresa con tu huella o rostro")
+            .setTitle(getString(R.string.biometric_title))
+            .setSubtitle(getString(R.string.biometric_subtitle))
             // No se puede usar setNegativeButtonText si DEVICE_CREDENTIAL está permitido
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
             .build()

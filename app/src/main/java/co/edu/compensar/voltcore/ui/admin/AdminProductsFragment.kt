@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import co.edu.compensar.voltcore.R
 import androidx.recyclerview.widget.RecyclerView
 import co.edu.compensar.voltcore.data.Product
 import co.edu.compensar.voltcore.databinding.DialogEditProductBinding
@@ -82,7 +83,7 @@ class AdminProductsFragment : Fragment() {
             if (_binding == null) return@addSnapshotListener
             if (e != null) {
                 context?.let {
-                    Toast.makeText(it, "Error al cargar productos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(it, getString(R.string.error_products_load), Toast.LENGTH_SHORT).show()
                 }
                 return@addSnapshotListener
             }
@@ -121,10 +122,10 @@ class AdminProductsFragment : Fragment() {
         }
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle(if (product == null) "Agregar Producto" else "Editar Producto")
+            .setTitle(if (product == null) getString(R.string.add_product_title) else getString(R.string.edit_product_title))
             .setView(dialogBinding.root)
-            .setPositiveButton("Guardar", null)
-            .setNegativeButton("Cancelar", null)
+            .setPositiveButton(getString(R.string.save), null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .create()
 
         dialog.setOnShowListener {
@@ -146,14 +147,14 @@ class AdminProductsFragment : Fragment() {
                     
                     db.collection("products").document(productId).set(updatedProduct)
                         .addOnSuccessListener { 
-                            Toast.makeText(context, if (product == null) "Producto creado" else "Producto actualizado", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, if (product == null) getString(R.string.success_product_created) else getString(R.string.success_product_updated), Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
                         }
                         .addOnFailureListener {
-                            Toast.makeText(context, "Error al guardar: ${it.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, getString(R.string.error_save, it.message), Toast.LENGTH_SHORT).show()
                         }
                 } else {
-                    Toast.makeText(requireContext(), "Por favor completa los campos obligatorios", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_required_fields), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -162,13 +163,13 @@ class AdminProductsFragment : Fragment() {
 
     private fun deleteProduct(product: Product) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Eliminar Producto")
-            .setMessage("¿Estás seguro de que deseas eliminar ${product.name}?")
-            .setPositiveButton("Eliminar") { _, _ ->
+            .setTitle(getString(R.string.delete_product_title))
+            .setMessage(getString(R.string.delete_product_confirm, product.name))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 db.collection("products").document(product.id).delete()
-                    .addOnSuccessListener { Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show() }
+                    .addOnSuccessListener { Toast.makeText(context, getString(R.string.success_product_deleted), Toast.LENGTH_SHORT).show() }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -189,8 +190,9 @@ class AdminProductsFragment : Fragment() {
             val product = products[position]
             with(holder.binding) {
                 tvProductName.text = product.name
-                tvProductPrice.text = String.format(Locale.getDefault(), "$ %.2f", product.price)
-                tvProductStock.text = String.format(Locale.getDefault(), "Stock: %d | %s", product.stock, product.category)
+                val context = holder.itemView.context
+                tvProductPrice.text = context.getString(R.string.price_format, product.price)
+                tvProductStock.text = context.getString(R.string.stock_category_format, product.stock, product.category)
                 
                 btnEditProduct.setOnClickListener { onEdit(product) }
                 btnDeleteProduct.setOnClickListener { onDelete(product) }

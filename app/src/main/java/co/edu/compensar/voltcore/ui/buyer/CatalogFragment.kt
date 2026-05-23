@@ -88,7 +88,7 @@ class CatalogFragment : Fragment() {
                 if (e != null) {
                     android.util.Log.e("CatalogFragment", "Error Firestore: ${e.message}")
                     context?.let {
-                        Toast.makeText(it, "Error al cargar catálogo", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(it, getString(R.string.error_catalog_load), Toast.LENGTH_SHORT).show()
                     }
                     return@addSnapshotListener
                 }
@@ -117,7 +117,7 @@ class CatalogFragment : Fragment() {
                 text = category
                 isCheckable = true
                 setChipBackgroundColorResource(R.color.glass_surface)
-                setTextColor(resources.getColor(R.color.white, null))
+                setTextColor(resources.getColor(R.color.volt_text_primary, null))
                 
                 // Marcar si es la categoría seleccionada inicialmente
                 if (category == selectedCategory) {
@@ -166,7 +166,7 @@ class CatalogFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val product = products[position]
             holder.binding.tvProductName.text = product.name
-            holder.binding.tvProductPrice.text = String.format("$ %,.0f", product.price)
+            holder.binding.tvProductPrice.text = holder.itemView.context.getString(R.string.price_format, product.price)
             
             ImageUtils.loadImage(
                 holder.itemView.context,
@@ -179,7 +179,7 @@ class CatalogFragment : Fragment() {
 
             holder.binding.btnAddToCart.setOnClickListener {
                 CartManager.addItem(product)
-                Toast.makeText(holder.itemView.context, "${product.name} añadido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(holder.itemView.context, holder.itemView.context.getString(R.string.product_added_msg, product.name), Toast.LENGTH_SHORT).show()
             }
         }
 
