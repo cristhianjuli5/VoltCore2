@@ -1,60 +1,90 @@
 # VoltCore ⚡
+**Potenciando la movilidad eléctrica desde tu bolsillo.**
 
-VoltCore es una plataforma integral de E-commerce especializada en repuestos y componentes para vehículos eléctricos. El proyecto está diseñado para conectar a compradores, vendedores y administradores en un ecosistema eficiente y seguro.
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9%2B-blue.svg)](https://kotlinlang.org/)
+[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com/android)
+[![Firebase](https://img.shields.io/badge/Backend-Firebase-orange.svg)](https://firebase.google.com/)
+[![Material3](https://img.shields.io/badge/Design-Material3-purple.svg)](https://m3.material.io/)
+
+VoltCore es una solución móvil integral de E-commerce de nicho, diseñada específicamente para el ecosistema de vehículos eléctricos (EV). Facilita la comercialización de repuestos especializados como baterías de Litio, BMS, motores Hub y controladores, conectando de manera eficiente a compradores, vendedores y administradores.
+
+---
 
 ## 🚀 Características Principales
 
-### 👤 Roles de Usuario
-- **Compradores**: Búsqueda de productos, carrito de compras, gestión de perfil, geolocalización de pedidos y pasarela de pagos.
-- **Vendedores**: Panel de control (Dashboard), gestión de inventario (CRUD), seguimiento de pedidos recibidos.
-- **Administradores**: Moderación de contenido, gestión de usuarios, reportes de ventas y estado del sistema.
+### 👤 Experiencia Multirrol
+*   **Compradores 🛒**: 
+    *   Catálogo inteligente con filtrado por categorías.
+    *   Gestión de carrito de compras persistente.
+    *   Pasarela de pagos simulada (Nequi, Daviplata, Tarjetas).
+    *   Seguimiento de pedidos en tiempo real.
+*   **Vendedores (Vendors) 🏪**: 
+    *   Publicación de productos con integración de cámara (CameraX).
+    *   Gestión de inventario y stock.
+    *   Dashboard de ventas y estados de pedidos.
+*   **Administradores ⚖️**: 
+    *   Consola de gestión de usuarios globales.
+    *   Moderación de productos para asegurar calidad.
+    *   Reportes estadísticos e Inteligencia de Negocio.
 
-### 🛠️ Funcionalidades Técnicas
-- **Autenticación**: Registro e inicio de sesión seguro mediante Firebase Auth.
-- **Biometría**: Acceso rápido y seguro mediante huella dactilar o reconocimiento facial.
-- **Base de Datos**: Persistencia en tiempo real con Firebase Firestore.
-- **Almacenamiento**: Gestión de imágenes de productos con Firebase Storage.
-- **Geolocalización**: Integración con Google Maps API para ubicación de envíos.
-- **Pasarela de Pagos**: Simulación de pagos con múltiples métodos (Tarjeta, Nequi, Daviplata, Efecty).
-- **Cámara**: Captura de fotos de productos directamente desde la app (CameraX).
+### 🛠️ Ecosistema Tecnológico
+*   **Seguridad Biométrica 🔒**: Integración con Android BiometricPrompt para login rápido (Huella/Rostro).
+*   **Backend Serverless ☁️**: Persistencia en tiempo real con Firebase Firestore y autenticación con Firebase Auth.
+*   **Multimedia 📸**: Gestión de imágenes optimizada con Firebase Storage y carga asíncrona mediante Glide.
+*   **UX/UI Moderna 🎨**: Interfaz basada en Material Design 3 con soporte total para temas dinámicos y accesibilidad.
 
-## 🏗️ Arquitectura y Tecnologías
+---
 
-- **Lenguaje**: Kotlin 1.9+
-- **Interfaz**: XML Layouts con Material Design 3.
-- **Componentes**:
-    - Navigation Component (Navegación centralizada).
-    - View Binding (Acceso seguro a vistas).
-    - Coroutines (Operaciones asíncronas).
-    - Glide (Carga eficiente de imágenes).
-- **Patrón**: MVVM (Model-View-ViewModel) para una separación clara de responsabilidades.
+## 🏗️ Arquitectura y Mejores Prácticas
+
+El proyecto se rige por los más altos estándares de calidad en el desarrollo de aplicaciones Android:
+
+*   **Arquitectura MVVM**: Separación clara entre la lógica de negocio (ViewModel) y la representación visual (View).
+*   **Clean Resources (Zero Hardcoding) 🚫**:
+    *   **Textos**: 100% de las cadenas están localizadas en `strings.xml`.
+    *   **Colores**: Uso de paleta semántica en `colors.xml` para garantizar consistencia de marca.
+    *   **Dimensiones**: Márgenes y espaciados estandarizados en `dimens.xml`.
+*   **Accesibilidad (A11y)**: Diseñado para ser compatible con lectores de pantalla (TalkBack), cumpliendo con ratios de contraste y etiquetas de ayuda.
+*   **Manejo de Ciclo de Vida**: Uso de ViewBinding y FragmentContainerView para una navegación robusta y libre de fugas de memoria.
+
+---
 
 ## 📦 Estructura del Proyecto
 
 ```
-app/src/main/
-├── java/co/edu/compensar/voltcore/
-│   ├── data/          # Modelos de datos y gestores (CartManager)
-│   ├── ui/            # Fragmentos y Actividades organizados por rol
-│   └── utils/         # Clases de utilidad y helpers
-├── res/
-│   ├── layout/        # Definiciones de interfaz de usuario
-│   ├── navigation/    # Grafo de navegación de la aplicación
-│   └── values/        # Recursos de strings, colores y temas (Sin valores hardcodeados)
+VoltCore/
+├── app/src/main/
+│   ├── java/co/edu/compensar/voltcore/
+│   │   ├── data/       # Modelos (Product, Order, User) y Repositorios
+│   │   ├── ui/         # Capa de UI (Fragmentos, Adapters) por módulos
+│   │   └── utils/      # Helpers (ImageUtils, DateFormatters)
+│   ├── res/
+│   │   ├── layout/     # Interfaces XML optimizadas
+│   │   ├── navigation/ # Grafo de navegación (Jetpack Navigation)
+│   │   └── values/     # Recursos centralizados (strings, colors, dimens, styles)
+│   └── AndroidManifest.xml
+└── build.gradle    # Configuración de dependencias (Firebase, CameraX, etc.)
 ```
 
-## 🛠️ Instalación y Uso
+---
 
-1. Clonar el repositorio.
-2. Abrir el proyecto en **Android Studio Hedgehog** o superior.
-3. Sincronizar el proyecto con Gradle.
-4. Ejecutar en un dispositivo físico o emulador (API 24+ recomendado).
+## 🛠️ Requisitos e Instalación
 
-## 📝 Estándares de Calidad
-Este proyecto sigue estrictamente las buenas prácticas de desarrollo Android:
-- Uso exclusivo de recursos para textos y colores (`strings.xml`, `colors.xml`).
-- Documentación interna mediante KDoc.
-- Manejo de estados de carga y errores.
+1.  **Android Studio**: Versión Ladybug (2024.2.1) o superior recomendada.
+2.  **JDK**: Java 11 o superior.
+3.  **Firebase**:
+    *   Es **obligatorio** colocar el archivo `google-services.json` en la carpeta `app/`.
+    *   Habilitar *Email/Password Authentication* en la consola de Firebase.
+    *   Habilitar *Cloud Firestore* en modo prueba.
+
+---
+
+## 📈 Roadmap / Próximas Mejoras
+- [ ] Implementación de notificaciones Push para estados de pedidos.
+- [ ] Integración real con Google Maps para geocodificación inversa de direcciones.
+- [ ] Soporte para Modo Oscuro (Dark Mode) adaptativo.
+- [ ] Generación de facturas PDF automatizadas.
 
 ---
 © 2024 VoltCore Team - Educación Compensar
+*"Potencia tu vida, protege el planeta"* ⚡🌳
