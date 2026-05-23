@@ -16,22 +16,23 @@ VoltCore es una solución móvil integral de E-commerce de nicho, diseñada espe
 *   **Compradores 🛒**: 
     *   Catálogo inteligente con filtrado por categorías.
     *   Gestión de carrito de compras persistente.
-    *   Pasarela de pagos simulada (Nequi, Daviplata, Tarjetas).
-    *   Seguimiento de pedidos en tiempo real.
+    *   Simulación de pagos con múltiples métodos (Nequi, PSE, Tarjetas).
+    *   Estados de pedido actualizados en tiempo real.
 *   **Vendedores (Vendors) 🏪**: 
     *   Publicación de productos con integración de cámara (CameraX).
-    *   Gestión de inventario y stock.
-    *   Dashboard de ventas y estados de pedidos.
+    *   Gestión de inventario y stock (CRUD).
+    *   Panel de control (Dashboard) con resumen de ventas.
 *   **Administradores ⚖️**: 
     *   Consola de gestión de usuarios globales.
-    *   Moderación de productos para asegurar calidad.
-    *   Reportes estadísticos e Inteligencia de Negocio.
+    *   Panel de moderación para revisión de productos.
+    *   Estadísticas generales del sistema e inventario.
 
-### 🛠️ Ecosistema Tecnológico
+### 🛠️ Funcionalidades Técnicas
 *   **Seguridad Biométrica 🔒**: Integración con Android BiometricPrompt para login rápido (Huella/Rostro).
 *   **Backend Serverless ☁️**: Persistencia en tiempo real con Firebase Firestore y autenticación con Firebase Auth.
+*   **Detección de Ubicación 📍**: Uso de `FusedLocationProvider` para autocompletado de dirección de envío mediante GPS.
 *   **Multimedia 📸**: Gestión de imágenes optimizada con Firebase Storage y carga asíncrona mediante Glide.
-*   **UX/UI Moderna 🎨**: Interfaz basada en Material Design 3 con soporte total para temas dinámicos y accesibilidad.
+*   **UX/UI Moderna 🎨**: Interfaz basada en Material Design 3 con soporte total para temas y accesibilidad.
 
 ---
 
@@ -45,7 +46,6 @@ El proyecto se rige por los más altos estándares de calidad en el desarrollo d
     *   **Colores**: Uso de paleta semántica en `colors.xml` para garantizar consistencia de marca.
     *   **Dimensiones**: Márgenes y espaciados estandarizados en `dimens.xml`.
 *   **Accesibilidad (A11y)**: Diseñado para ser compatible con lectores de pantalla (TalkBack), cumpliendo con ratios de contraste y etiquetas de ayuda.
-*   **Manejo de Ciclo de Vida**: Uso de ViewBinding y FragmentContainerView para una navegación robusta y libre de fugas de memoria.
 
 ---
 
@@ -70,18 +70,18 @@ VoltCore/
 
 ## 🛠️ Requisitos e Instalación
 
-1.  **Android Studio**: Versión Ladybug (2024.2.1) o superior recomendada.
+1.  **Android Studio**: Versión Ladybug o superior recomendada.
 2.  **JDK**: Java 11 o superior.
 3.  **Firebase**:
     *   Es **obligatorio** colocar el archivo `google-services.json` en la carpeta `app/`.
     *   Habilitar *Email/Password Authentication* en la consola de Firebase.
-    *   Habilitar *Cloud Firestore* en modo prueba.
+    *   Habilitar *Cloud Firestore*.
 
 ---
 
 ## 📈 Roadmap / Próximas Mejoras
-- [ ] Implementación de notificaciones Push para estados de pedidos.
-- [ ] Integración real con Google Maps para geocodificación inversa de direcciones.
+- [ ] Integración visual con Google Maps para seguimiento de envíos.
+- [ ] Implementación de notificaciones Push para cambios de estado.
 - [ ] Soporte para Modo Oscuro (Dark Mode) adaptativo.
 - [ ] Generación de facturas PDF automatizadas.
 
