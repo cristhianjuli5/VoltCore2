@@ -28,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pedido #10293"
+                android:text="@string/order_number"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -36,10 +36,10 @@
                 android:id="@+id/chipOrderStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ENVIADO"
-                app:chipBackgroundColor="#33008080"
-                android:textColor="#008080"
-                android:textSize="10sp"
+                android:text="@string/tab_shipped"
+                app:chipBackgroundColor="@color/glass_surface"
+                android:textColor="@color/volt_primary"
+                android:textSize="12sp"
                 app:chipStrokeWidth="0dp" />
         </LinearLayout>
 
@@ -47,8 +47,8 @@
             android:id="@+id/tvOrderDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24 de Mayo, 2024"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/order_date_placeholder"
+            android:textColor="@color/white_70"
             android:textSize="12sp"
             android:layout_marginBottom="4dp"/>
 
@@ -56,7 +56,7 @@
             android:id="@+id/tvOrderTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: $ 450.000"
+            android:text="@string/total"
             android:textColor="@color/volt_primary"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
@@ -65,8 +65,8 @@
             android:id="@+id/tvOrderItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="• 1x Producto A\n• 2x Producto B"
-            android:textColor="#CCFFFFFF"
+            android:text="@string/order_summary_placeholder"
+            android:textColor="@color/white_70"
             android:textSize="13sp"
             android:layout_marginBottom="12dp" />
 
@@ -81,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
+                android:background="@color/glass_stroke"
                 android:layout_marginEnd="4dp" />
 
             <View
@@ -89,7 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
+                android:background="@color/glass_stroke"
                 android:layout_marginHorizontal="4dp" />
 
             <View
@@ -97,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
+                android:background="@color/glass_stroke"
                 android:layout_marginStart="4dp" />
         </LinearLayout>
 
@@ -105,16 +105,16 @@
             android:id="@+id/tvStatusDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Procesando pago..."
-            android:textColor="#80FFFFFF"
-            android:textSize="10sp"
+            android:text="@string/processing_payment"
+            android:textColor="@color/white_50"
+            android:textSize="12sp"
             android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/tvShippingGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guía: 123456789"
+            android:text="@string/tracking_guide"
             android:textColor="@color/volt_primary"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -127,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="CONFIRMAR RECIBIDO"
+            android:text="@string/confirm_received"
             android:visibility="gone"
             app:cornerRadius="8dp"
             android:textColor="@color/black"

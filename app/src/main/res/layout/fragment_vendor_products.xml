@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:id="@+id/headerVendor"
@@ -16,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mi Inventario"
+            android:text="@string/my_inventory"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -24,8 +25,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Administra tus productos publicados"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/manage_inventory_desc"
+            android:textColor="@color/white_70"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -45,13 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:text="NUEVO PRODUCTO"
+        android:text="@string/new_product_button"
         android:textColor="@color/black"
         app:icon="@android:drawable/ic_input_add"
         app:iconTint="@color/black"
         app:backgroundTint="@color/volt_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Agregar Producto" />
+        android:contentDescription="@string/add_user_desc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

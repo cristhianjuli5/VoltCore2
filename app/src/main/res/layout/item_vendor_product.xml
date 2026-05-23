@@ -23,9 +23,10 @@
                 android:id="@+id/ivProduct"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#1AFFFFFF"
+                android:background="@color/glass_surface"
                 android:src="@drawable/ic_voltcore_logo"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/product_image_desc"/>
             <TextView
                 android:id="@+id/tvProductEmoji"
                 android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                 android:id="@+id/tvProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Filtro de Aceite"
+                android:text="@string/product_name_placeholder"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -56,18 +57,28 @@
                 android:id="@+id/tvProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$ 45.000"
+                android:text="@string/price_placeholder"
                 android:textColor="@color/volt_primary"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProductStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stock_hint"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:alpha="0.8"
+                android:layout_marginTop="2dp"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ACTIVO"
-                app:chipBackgroundColor="#33C6FF00"
+                android:text="@string/online_status"
+                app:chipBackgroundColor="@color/glass_surface"
                 android:textColor="@color/volt_primary"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 app:chipMinHeight="24dp"
                 app:chipStrokeWidth="0dp"
                 android:layout_marginTop="4dp"/>
@@ -75,21 +86,21 @@
 
         <ImageButton
             android:id="@+id/btnEdit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_edit"
             app:tint="@color/volt_primary"
-            android:contentDescription="Editar" />
+            android:contentDescription="@string/edit_icon_desc" />
 
         <ImageButton
             android:id="@+id/btnArchive"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            app:tint="#FF5252"
-            android:contentDescription="Archivar" />
+            app:tint="@color/volt_error"
+            android:contentDescription="@string/delete_icon_desc" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

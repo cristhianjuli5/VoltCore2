@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:baselineAligned="false">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Información del Producto"
+            android:text="@string/product_info"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -25,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginBottom="16dp"
-            android:background="#33FFFFFF" />
+            android:background="@color/glass_surface" />
 
         <ImageView
             android:id="@+id/ivProductPreview"
@@ -34,20 +36,21 @@
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
             android:visibility="gone"
-            android:contentDescription="Vista previa del producto" />
+            android:contentDescription="@string/product_preview" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            android:baselineAligned="false">
 
             <Button
                 android:id="@+id/btnCapture"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cámara"
+                android:text="@string/camera"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_marginEnd="8dp"/>
 
@@ -56,14 +59,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Galería"
+                android:text="@string/gallery"
                 style="@style/Widget.Material3.Button.TonalButton" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre del repuesto/producto"
+            android:hint="@string/name_hint"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
@@ -78,7 +81,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descripción detallada"
+            android:hint="@string/description_label"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
@@ -95,18 +98,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Precio"
+                android:hint="@string/price_hint"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/volt_primary"
                 app:hintTextColor="@color/volt_primary"
                 android:layout_marginEnd="8dp"
-                app:prefixText="$ ">
+                app:prefixText="@string/price_prefix">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etProductPrice"
                     android:layout_width="match_parent"
@@ -119,7 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Stock"
+                android:hint="@string/stock_hint"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/volt_primary"
                 app:hintTextColor="@color/volt_primary">
@@ -136,7 +140,7 @@
             android:id="@+id/tilCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Categoría"
+            android:hint="@string/category_hint"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
@@ -147,14 +151,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:inputType="text"
-                android:contentDescription="Seleccionar o crear categoría" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Emoji (si no usas foto)"
+            android:hint="@string/emoji_hint"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/volt_primary"
             app:hintTextColor="@color/volt_primary"
@@ -172,7 +175,7 @@
             android:id="@+id/btnSaveProduct"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="PUBLICAR PRODUCTO"
+            android:text="@string/publish_product"
             android:backgroundTint="@color/volt_primary"
             android:textColor="@color/black"
             android:textStyle="bold"

@@ -5,7 +5,15 @@
     <color name="glass_surface">#1AFFFFFF</color>
     <color name="glass_stroke">#33FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
     <color name="black">#FF000000</color>
+
+    <color name="volt_text_primary">@color/white</color>
+    <color name="volt_text_secondary">@color/white_70</color>
+    <color name="volt_text_hint">@color/white_50</color>
+    <color name="volt_error">#FF5252</color>
+    <color name="volt_warning">#FFC107</color>
 
     <!-- Mapeo para retrocompatibilidad de layouts -->
     <color name="colorPrimary">@color/volt_primary</color>

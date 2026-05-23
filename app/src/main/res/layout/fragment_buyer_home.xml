@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:id="@+id/tvWelcomeUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bienvenido a VoltCore"
+            android:text="@string/welcome_to_voltcore"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -26,8 +27,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿Qué energía necesitas hoy?"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/energy_question"
+            android:textColor="@color/white_70"
             android:textSize="14sp"
             android:layout_marginBottom="24dp"/>
 
@@ -53,9 +54,9 @@
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Buscar repuestos, BMS, motores..."
+                android:hint="@string/search_hint"
                 android:textColor="@color/white"
-                android:textColorHint="#80FFFFFF"
+                android:textColorHint="@color/white_50"
                 android:padding="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,21 +90,21 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Baterías"
+                android:text="@string/category_batteries"
                 app:chipBackgroundColor="@color/glass_surface"
                 android:textColor="@color/white"/>
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Motores"
+                android:text="@string/category_motors"
                 app:chipBackgroundColor="@color/glass_surface"
                 android:textColor="@color/white"/>
             <com.google.android.material.chip.Chip
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Controladores"
+                android:text="@string/category_controllers"
                 app:chipBackgroundColor="@color/glass_surface"
                 android:textColor="@color/white"/>
         </com.google.android.material.chip.ChipGroup>
@@ -112,7 +113,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Productos Destacados"
+            android:text="@string/featured_products"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,9 +16,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INTELIGENCIA DE NEGOCIO"
+            android:text="@string/business_intelligence"
             android:textColor="@color/volt_primary"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:letterSpacing="0.1"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
@@ -25,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reportes Detallados"
+            android:text="@string/detailed_reports"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -53,9 +54,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usuarios"
-                        android:textColor="#B3FFFFFF"
-                        android:textSize="12sp"/>
+                        android:text="@string/users"
+                        android:textColor="@color/white_70"
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/tvUserCount"
                         android:layout_width="wrap_content"
@@ -80,9 +81,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Productos"
-                        android:textColor="#B3FFFFFF"
-                        android:textSize="12sp"/>
+                        android:text="@string/products"
+                        android:textColor="@color/white_70"
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/tvProductCount"
                         android:layout_width="wrap_content"
@@ -107,9 +108,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pedidos"
-                        android:textColor="#B3FFFFFF"
-                        android:textSize="12sp"/>
+                        android:text="@string/orders"
+                        android:textColor="@color/white_70"
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/tvOrderCountReport"
                         android:layout_width="wrap_content"
@@ -134,14 +135,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ventas Totales"
-                        android:textColor="#B3FFFFFF"
-                        android:textSize="12sp"/>
+                        android:text="@string/total_sales"
+                        android:textColor="@color/white_70"
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/tvTotalSales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$ 0"
+                        android:text="@string/price_placeholder"
                         android:textColor="@color/volt_primary"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
@@ -161,14 +162,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ticket Prom."
-                        android:textColor="#B3FFFFFF"
-                        android:textSize="12sp"/>
+                        android:text="@string/avg_ticket"
+                        android:textColor="@color/white_70"
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/tvAvgTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$ 0"
+                        android:text="@string/price_placeholder"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
@@ -181,7 +182,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:strokeColor="#FF5252"
+            app:strokeColor="@color/volt_error"
             app:strokeWidth="1dp"
             android:id="@+id/cvSuspicious"
             android:visibility="gone">
@@ -193,15 +194,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ALERTA: Transacciones Sospechosas"
-                    android:textColor="#FF5252"
+                    android:text="@string/suspicious_activity"
+                    android:textColor="@color/volt_error"
                     android:textStyle="bold"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
                 <TextView
                     android:id="@+id/tvSuspiciousCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 transacciones de alto valor detectadas"
+                    android:text="@string/quantity_placeholder"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -220,13 +221,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Valor Total del Inventario"
-                    android:textColor="#B3FFFFFF"/>
+                    android:text="@string/inventory_value"
+                    android:textColor="@color/white_70"
+                    android:textSize="14sp"/>
                 <TextView
                     android:id="@+id/tvInventoryValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ 0"
+                    android:text="@string/price_placeholder"
                     android:textColor="@color/volt_primary"
                     android:textSize="32sp"
                     android:textStyle="bold"/>
@@ -236,7 +238,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pedidos Recientes"
+            android:text="@string/orders"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -256,8 +258,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="No hay pedidos registrados aún"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/no_orders_yet"
+            android:textColor="@color/white_70"
             android:layout_marginTop="16dp"
             android:visibility="gone"/>
 

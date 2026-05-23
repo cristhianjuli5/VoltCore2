@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <TextView
         android:id="@+id/tvCartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Mi Carrito"
+        android:text="@string/cart"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -53,13 +54,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Subtotal"
-                    android:textColor="#B3FFFFFF" />
+                    android:text="@string/subtotal"
+                    android:textColor="@color/white_70" />
                 <TextView
                     android:id="@+id/tvSubtotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ 0.00"
+                    android:text="@string/price_placeholder"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -72,13 +73,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Impuestos (IVA)"
-                    android:textColor="#B3FFFFFF" />
+                    android:text="@string/taxes_iva"
+                    android:textColor="@color/white_70" />
                 <TextView
                     android:id="@+id/tvTaxes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ 0.00"
+                    android:text="@string/price_placeholder"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -97,7 +98,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total"
+                    android:text="@string/total"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -105,7 +106,7 @@
                     android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ 0.00"
+                    android:text="@string/price_placeholder"
                     android:textColor="@color/volt_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -115,7 +116,7 @@
                 android:id="@+id/btnGoToCheckout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="PROCEDER AL PAGO"
+                android:text="@string/proceed_to_payment"
                 android:backgroundTint="@color/volt_primary"
                 android:textColor="@color/black"
                 android:textStyle="bold"

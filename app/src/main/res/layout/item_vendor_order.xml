@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="@color/glass_surface"
     app:cardCornerRadius="16dp"
@@ -19,15 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tvOrderId"
+                android:id="@+id/tvOrderNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Orden #VC-8291"
+                android:text="@string/order_id_placeholder"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
@@ -36,91 +36,82 @@
                 android:id="@+id/chipStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PENDIENTE"
-                app:chipBackgroundColor="#33FFC107"
-                android:textColor="#FFC107"
-                android:textSize="10sp"
+                android:text="@string/status_pending"
+                app:chipBackgroundColor="@color/volt_warning"
+                android:textColor="@color/black"
+                android:textSize="12sp"
                 app:chipStrokeWidth="0dp"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvCustomerName"
+            android:id="@+id/tvBuyerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comprador: Juan Pérez"
-            android:textColor="#B3FFFFFF"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginTop="12dp"
+            android:text="@string/buyer_placeholder"
+            android:textColor="@color/white_70"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tvOrderDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha: 20/05/2024"
-            android:textColor="#80FFFFFF"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginTop="4dp"
+            android:text="@string/order_date_placeholder"
+            android:textColor="@color/white_50"
+            android:textSize="12sp"/>
 
         <TextView
-            android:id="@+id/tvOrderItems"
-            android:layout_width="match_parent"
+            android:id="@+id/tvOrderSummary"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1x Producto Ejemplo"
+            android:layout_marginTop="12dp"
+            android:text="@string/product_example_placeholder"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="italic"
-            android:layout_marginBottom="12dp"/>
+            android:textStyle="italic"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/glass_stroke"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginVertical="16dp"/>
 
         <LinearLayout
-            android:id="@+id/layoutExpanded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAcceptOrder"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="ACEPTAR ORDEN"
+                android:layout_weight="1"
+                android:minHeight="48dp"
+                android:text="@string/accept_order"
+                android:textSize="11sp"
+                app:cornerRadius="8dp"
                 android:backgroundTint="@color/volt_primary"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"
-                android:visibility="gone" />
+                android:layout_marginEnd="4dp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilShippingGuide"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShipOrder"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Número de Guía de Envío"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                app:boxStrokeColor="@color/volt_primary"
-                app:hintTextColor="@color/volt_primary"
-                android:layout_marginBottom="12dp"
-                android:visibility="gone">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etShippingGuide"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1"
+                android:minHeight="48dp"
+                android:text="@string/mark_as_shipped"
+                android:textSize="11sp"
+                app:cornerRadius="8dp"
+                android:backgroundTint="@color/glass_surface"
+                android:textColor="@color/white"
+                app:strokeColor="@color/volt_primary"
+                app:strokeWidth="1dp"
+                android:layout_marginStart="4dp"/>
 
-            <Button
-                android:id="@+id/btnMarkAsShipped"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MARCAR COMO ENVIADO"
-                android:backgroundTint="@color/volt_primary"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

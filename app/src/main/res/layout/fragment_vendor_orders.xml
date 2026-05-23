@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/volt_background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pedidos Recibidos"
+            android:text="@string/vendor_orders_title"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -24,8 +25,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gestiona las solicitudes de tus clientes"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/manage_business"
+            android:textColor="@color/white_70"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -46,17 +47,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pendientes" />
+            android:text="@string/tab_pending" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enviados" />
+            android:text="@string/tab_shipped" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entregados" />
+            android:text="@string/tab_delivered" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView

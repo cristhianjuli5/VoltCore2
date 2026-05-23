@@ -1,7 +1,6 @@
 package co.edu.compensar.voltcore.ui.vendor
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import co.edu.compensar.voltcore.databinding.ItemVendorProductBinding
 import co.edu.compensar.voltcore.utils.ImageUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 class VendorProductsFragment : Fragment() {
     private var _binding: FragmentVendorProductsBinding? = null
@@ -116,8 +116,9 @@ class VendorProductsFragment : Fragment() {
             val product = products[position]
             with(holder.binding) {
                 tvProductName.text = product.name
-                tvProductPrice.text = String.format("$ %,.0f", product.price)
-                chipStatus.text = "ACTIVO"
+                tvProductPrice.text = String.format(Locale.getDefault(), "$ %,.0f", product.price)
+                tvProductStock.text = holder.itemView.context.getString(R.string.stock_label, product.stock)
+                chipStatus.text = holder.itemView.context.getString(R.string.online_status)
                 
                 ImageUtils.loadImage(
                     holder.itemView.context,

@@ -22,7 +22,8 @@
             android:layout_height="70dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
-            android:src="@drawable/ic_voltcore_logo" />
+            android:src="@drawable/ic_voltcore_logo"
+            android:contentDescription="@string/product_image_desc"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -35,7 +36,7 @@
                 android:id="@+id/tvProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del Producto"
+                android:text="@string/product_name_placeholder"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -44,7 +45,7 @@
                 android:id="@+id/tvVendorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vendedor: ..."
+                android:text="@string/vendedor_prefix"
                 android:textColor="@color/volt_primary"
                 android:textSize="12sp"
                 android:layout_marginTop="2dp" />
@@ -52,20 +53,22 @@
 
         <ImageButton
             android:id="@+id/btnReject"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            app:tint="#FF5252" />
+            app:tint="@color/volt_error"
+            android:contentDescription="@string/delete"/>
 
         <ImageButton
             android:id="@+id/btnApprove"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/checkbox_on_background"
-            app:tint="@color/colorSuccess" />
+            app:tint="@color/colorSuccess"
+            android:contentDescription="@string/save"/>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

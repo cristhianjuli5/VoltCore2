@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/volt_background"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dashboard Vendedor"
+            android:text="@string/vendor_dashboard"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -23,8 +24,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gestiona tu negocio y pedidos"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/manage_business_desc"
+            android:textColor="@color/white_70"
             android:textSize="16sp"
             android:layout_marginBottom="24dp"/>
 
@@ -52,18 +53,19 @@
                         android:layout_height="32dp"
                         android:src="@android:drawable/ic_menu_agenda"
                         app:tint="@color/volt_primary"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="8dp"
+                        android:contentDescription="@string/icon_desc"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pedidos"
-                        android:textColor="#B3FFFFFF"
+                        android:text="@string/orders"
+                        android:textColor="@color/white_70"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/tvOrderCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="@string/quantity_placeholder"
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -87,18 +89,19 @@
                         android:layout_height="32dp"
                         android:src="@android:drawable/ic_menu_gallery"
                         app:tint="@color/volt_primary"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="8dp"
+                        android:contentDescription="@string/icon_desc"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Productos"
-                        android:textColor="#B3FFFFFF"
+                        android:text="@string/products"
+                        android:textColor="@color/white_70"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/tvProductCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="@string/quantity_placeholder"
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -110,7 +113,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Accesos Rápidos"
+            android:text="@string/quick_access"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -133,20 +136,22 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_gallery"
-                    app:tint="@color/volt_primary"/>
+                    app:tint="@color/volt_primary"
+                    android:contentDescription="@string/icon_desc"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="16dp"
-                    android:text="Gestionar Inventario"
+                    android:text="@string/manage_inventory"
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="#4DFFFFFF"/>
+                    app:tint="@color/white_50"
+                    android:contentDescription="@string/nav_icon_desc"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -167,20 +172,22 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_agenda"
-                    app:tint="@color/volt_primary"/>
+                    app:tint="@color/volt_primary"
+                    android:contentDescription="@string/icon_desc"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="16dp"
-                    android:text="Ver Mis Pedidos"
+                    android:text="@string/view_my_orders"
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="#4DFFFFFF"/>
+                    app:tint="@color/white_50"
+                    android:contentDescription="@string/nav_icon_desc"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -201,20 +208,22 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_edit"
-                    app:tint="@color/volt_primary"/>
+                    app:tint="@color/volt_primary"
+                    android:contentDescription="@string/icon_desc"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="16dp"
-                    android:text="Editar Perfil"
+                    android:text="@string/edit_profile"
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="#4DFFFFFF"/>
+                    app:tint="@color/white_50"
+                    android:contentDescription="@string/nav_icon_desc"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

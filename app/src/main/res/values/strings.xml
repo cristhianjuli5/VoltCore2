@@ -50,6 +50,7 @@
     <string name="name_hint">Nombre</string>
     <string name="price_hint">Precio</string>
     <string name="stock_hint">Stock</string>
+    <string name="stock_label">Stock: %1$d</string>
     <string name="category_hint">Categoría</string>
     <string name="featured_products">Productos Destacados</string>
     <string name="search_hint">Buscar repuestos, BMS, motores...</string>
@@ -72,4 +73,146 @@
     <string name="address_hint">Dirección</string>
     <string name="navigation_drawer_open">Abrir menú de navegación</string>
     <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+
+    <!-- Additional UI Strings -->
+    <string name="price_prefix">$ </string>
+    <string name="category_content_desc">Seleccionar o crear categoría</string>
+    <string name="personal_data">Datos Personales</string>
+    <string name="shipping_data">Datos de Envío</string>
+    <string name="card_payment">Tarjeta</string>
+    <string name="nequi_daviplata">Nequi / Daviplata</string>
+    <string name="efecty">Efectivo (Efecty)</string>
+    <string name="transfer">Transferencia</string>
+    <string name="quick_nequi">Pago rápido con Nequi</string>
+    <string name="nequi_notification">Enviaremos una notificación a tu celular para que confirmes el pago</string>
+    <string name="efecty_convenio">Convenio de Pago en Efectivo</string>
+    <string name="efecty_desc">Se generará un convenio para pagar en puntos físicos (Efecty/Baloto)</string>
+    <string name="pse_transfer">Transferencia Segura via PSE</string>
+    <string name="moderation_queue">Cola de Moderación</string>
+    <string name="no_pending_products">No hay productos pendientes</string>
+    <string name="product_info">Información del Producto</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
+    <string name="publish_product">PUBLICAR PRODUCTO</string>
+    <string name="manage_business">Gestiona las solicitudes de tus clientes</string>
+    <string name="order_number_short">Orden #%s</string>
+    <string name="status_pending">PENDIENTE</string>
+    <string name="buyer_name_prefix">Comprador: %s</string>
+    <string name="date_prefix">Fecha: %s</string>
+    <string name="my_inventory">Mi Inventario</string>
+    <string name="manage_inventory_desc">Administra tus productos publicados</string>
+    <string name="new_product_button">NUEVO PRODUCTO</string>
+    <string name="welcome_to_voltcore">Bienvenido a VoltCore</string>
+    <string name="energy_question">¿Qué energía necesitas hoy?</string>
+    <string name="category_batteries">Baterías</string>
+    <string name="category_motors">Motores</string>
+    <string name="category_controllers">Controladores</string>
+    <string name="user_role_label">Rol del Usuario</string>
+    <string name="admin_console">CONSOLA DE ADMINISTRACIÓN</string>
+    <string name="control_panel">Panel de Control</string>
+    <string name="total_sales">Ventas Totales</string>
+    <string name="system_status">Estado del Sistema</string>
+    <string name="online_status">ONLINE</string>
+    <string name="all_services_operational">Todos los servicios operativos</string>
+    <string name="explore_parts">Explorar Repuestos</string>
+    <string name="find_everything_desc">Encuentra todo para tu vehículo eléctrico</string>
+    <string name="all_categories">Todos</string>
+    <string name="electric_discounts">¡DESCUENTOS ELÉCTRICOS!</string>
+    <string name="manage_inventory">Gestionar Inventario</string>
+    <string name="view_my_orders">Ver Mis Pedidos</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="business_intelligence">INTELIGENCIA DE NEGOCIO</string>
+    <string name="detailed_reports">Reportes Detallados</string>
+    <string name="buy_now">COMPRAR AHORA</string>
+    <string name="change_password">CAMBIAR CONTRASEÑA</string>
+    <string name="store_legal_record">REGISTRO LEGAL DE TIENDA</string>
+    <string name="vendor_config">Configuración de Vendedor</string>
+    <string name="upload_rut">CARGAR RUT (PDF/JPG)</string>
+    <string name="vacation_mode">Modo Vacaciones</string>
+    <string name="vacation_mode_desc">Pausa tus ventas temporalmente</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="taxes_iva">Impuestos (IVA)</string>
+    <string name="total">Total</string>
+    <string name="proceed_to_payment">PROCEDER AL PAGO</string>
+
+    <!-- Additional UI Labels -->
+    <string name="description_label">Descripción</string>
+    <string name="cart_label">CARRITO</string>
+    <string name="empty_cart_error">El carrito está vacío</string>
+    <string name="full_name_label">Nombre Completo</string>
+    <string name="shipping_address_label">Dirección de envío</string>
+    <string name="profile_loading">Cargando...</string>
+    <string name="profile_photo_desc">Foto de perfil</string>
+    <string name="product_image_desc">Imagen del producto</string>
+    <string name="technical_sheet_default_content">Voltaje Nominal: 48V\nCapacidad: 20Ah\nCeldas: Samsung 35E\nCiclos de vida: 1000+\nBMS Integrado: 50A Balanceado\nPeso: 4.5kg</string>
+    <string name="product_description_default">Batería de alta densidad energética ideal para bicicletas eléctricas y scooters de alto rendimiento. Construida con celdas de grado A.</string>
+
+    <!-- Placeholders -->
+    <string name="product_name_placeholder">Nombre del Producto</string>
+    <string name="price_placeholder">$ 0.00</string>
+    <string name="quantity_placeholder">1</string>
+    <string name="order_id_placeholder">Orden #%s</string>
+    <string name="order_date_placeholder">Fecha: %s</string>
+    <string name="buyer_placeholder">Comprador: %s</string>
+
+    <string name="resource_management">Gestión de Recursos</string>
+    <string name="control_users">Control de Usuarios</string>
+    <string name="global_inventory">Inventario Global</string>
+    <string name="reports_stats">Informes y Estadísticas</string>
+    <string name="content_moderation">Moderación de Contenido</string>
+    <string name="manage_business_desc">Gestiona tu negocio y pedidos</string>
+    <string name="quick_access">Accesos Rápidos</string>
+
+    <string name="accept_order">ACEPTAR ORDEN</string>
+    <string name="mark_as_shipped">MARCAR COMO ENVIADO</string>
+    <string name="product_example_placeholder">1x Producto Ejemplo</string>
+
+    <!-- Generic Descriptions and Labels -->
+    <string name="icon_desc">Icono decorativo</string>
+    <string name="nav_icon_desc">Icono de navegación</string>
+    <string name="delete_icon_desc">Icono de eliminar</string>
+    <string name="edit_icon_desc">Icono de editar</string>
+    <string name="add_icon_desc">Icono de agregar</string>
+    <string name="no_orders_yet">No tienes pedidos aún</string>
+    <string name="product_placeholder">Producto</string>
+    <string name="vendedor_prefix">Vendedor: %s</string>
+    <string name="order_summary_placeholder">• 1x Producto A\n• 2x Producto B</string>
+    <string name="processing_payment">Procesando pago...</string>
+    <string name="tracking_guide">Guía: %s</string>
+    <string name="confirm_received">CONFIRMAR RECIBIDO</string>
+    <string name="avg_ticket">Ticket Prom.</string>
+    <string name="inventory_value">Valor de Inventario</string>
+    <string name="suspicious_activity">Actividad Sospechosa</string>
+    <string name="product_preview">Vista previa del producto</string>
+    <string name="emoji_hint">Emoji (si no usas foto)</string>
+    <string name="razon_social">Razón Social</string>
+    <string name="nit_format">NIT (Formato: 123456789&#8211;0)</string>
+    <string name="promo_title">¡DESCUENTOS ELÉCTRICOS!</string>
+    <string name="promo_desc">Hasta 30% en Baterías Li-ion</string>
+    <string name="promotion_label">Promoción</string>
+    <string name="placeholder_email">correo@ejemplo.com</string>
+    <string name="placeholder_address">Calle 123 #45-67</string>
+    <string name="global_inventory_label">Inventario Global</string>
+    <string name="reports_stats_label">Informes y Estadísticas</string>
+    <string name="add_product_label">Agregar Producto</string>
+    <string name="search_catalog_hint">Buscar en el catálogo</string>
+    <string name="search_products_hint">Buscar productos</string>
+    <string name="logout_label">CERRAR SESIÓN</string>
+
+    <!-- Checkout Form Hints -->
+    <string name="full_name_hint">Nombre completo</string>
+    <string name="document_hint">Número de cédula o documento</string>
+    <string name="phone_hint">Número de teléfono</string>
+    <string name="shipping_address_hint">Dirección completa</string>
+    <string name="city_hint">Ciudad / Departamento</string>
+    <string name="receiver_hint">Nombre del receptor</string>
+    <string name="card_number_hint">Número de tarjeta</string>
+    <string name="card_holder_hint">Nombre del titular</string>
+    <string name="expiry_hint">MM/AA</string>
+    <string name="cvv_hint">CVV</string>
+    <string name="nequi_phone_hint">Número Celular Nequi</string>
+    <string name="bank_selection_hint">Selecciona tu Banco</string>
+    <string name="person_type_hint">Tipo de Persona</string>
+    <string name="doc_type_short_hint">Doc</string>
+    <string name="doc_number_hint">Número de Documento</string>
 </resources>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="REGISTRO LEGAL DE TIENDA"
+            android:text="@string/store_legal_record"
             android:textColor="@color/volt_primary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Configuración de Vendedor"
+            android:text="@string/vendor_config"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -49,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Razón Social"
+                    android:hint="@string/razon_social"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/volt_primary"
                     app:hintTextColor="@color/volt_primary">
@@ -65,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="NIT (Formato: 123456789-0)"
+                    android:hint="@string/nit_format"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/volt_primary"
                     app:hintTextColor="@color/volt_primary">
@@ -81,10 +82,11 @@
                     android:id="@+id/btnUploadRUT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CARGAR RUT (PDF/JPG)"
+                    android:text="@string/upload_rut"
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_marginBottom="8dp"
-                    app:icon="@android:drawable/ic_menu_upload" />
+                    app:icon="@android:drawable/ic_menu_upload"
+                    android:contentDescription="@string/icon_desc"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -113,14 +115,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Modo Vacaciones"
+                        android:text="@string/vacation_mode"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pausa tus ventas temporalmente"
-                        android:textColor="#B3FFFFFF"
+                        android:text="@string/vacation_mode_desc"
+                        android:textColor="@color/white_70"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -138,7 +140,7 @@
             android:id="@+id/btnSaveProfile"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="GUARDAR CAMBIOS"
+            android:text="@string/save_data"
             android:backgroundTint="@color/volt_primary"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -149,8 +151,8 @@
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="CERRAR SESIÓN"
-            android:backgroundTint="#FF4B4B"
+            android:text="@string/logout_label"
+            android:backgroundTint="@color/volt_error"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:cornerRadius="12dp" />

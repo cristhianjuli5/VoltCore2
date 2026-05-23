@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout de detalle del producto.
+    Presenta información exhaustiva sobre un producto específico, incluyendo
+    imágenes, ficha técnica, descripción y opciones de compra inmediata.
+-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="80dp">
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:contentDescription="Imagen del producto" />
+                    android:contentDescription="@string/product_image_desc" />
                 <TextView
                     android:id="@+id/tvDetailEmoji"
                     android:layout_width="match_parent"
@@ -45,7 +51,7 @@
                     android:id="@+id/tvDetailName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Batería Litio 48V 20Ah"
+                    android:text="@string/product_name_placeholder"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -55,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="$ 1.250.000"
+                    android:text="@string/price_placeholder"
                     android:textColor="@color/volt_primary"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -64,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Ficha Técnica"
+                    android:text="@string/technical_sheet"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -82,8 +88,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Voltaje Nominal: 48V\nCapacidad: 20Ah\nCeldas: Samsung 35E\nCiclos de vida: 1000+\nBMS Integrado: 50A Balanceado\nPeso: 4.5kg"
-                        android:textColor="#B3FFFFFF"
+                        android:text="@string/technical_sheet_default_content"
+                        android:textColor="@color/white_70"
                         android:lineSpacingExtra="4dp"/>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -91,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Descripción"
+                    android:text="@string/description_label"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -100,8 +106,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Batería de alta densidad energética ideal para bicicletas eléctricas y scooters de alto rendimiento. Construida con celdas de grado A."
-                    android:textColor="#B3FFFFFF" />
+                    android:text="@string/product_description_default"
+                    android:textColor="@color/white_70" />
 
             </LinearLayout>
         </LinearLayout>
@@ -118,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:paddingEnd="16dp"
+            android:paddingHorizontal="16dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -126,7 +132,7 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
-                android:text="CARRITO"
+                android:text="@string/cart_label"
                 android:backgroundTint="@color/glass_surface"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -138,7 +144,7 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1.5"
-                android:text="COMPRAR AHORA"
+                android:text="@string/buy_now"
                 android:backgroundTint="@color/volt_primary"
                 android:textColor="@color/black"
                 android:textStyle="bold"

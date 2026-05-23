@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <LinearLayout
         android:id="@+id/headerCatalog"
@@ -17,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Explorar Repuestos"
+            android:text="@string/explore_parts"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -25,8 +26,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Encuentra todo para tu vehículo eléctrico"
-            android:textColor="#B3FFFFFF"
+            android:text="@string/find_everything_desc"
+            android:textColor="@color/white_70"
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -49,9 +50,9 @@
                 android:id="@+id/etSearchCatalog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Buscar repuestos, BMS, motores..."
+                android:hint="@string/search_catalog_hint"
                 android:textColor="@color/white"
-                android:textColorHint="#80FFFFFF"
+                android:textColorHint="@color/white_50"
                 android:padding="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -76,7 +77,7 @@
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Todos"
+                android:text="@string/all_categories"
                 android:checked="true" />
 
         </com.google.android.material.chip.ChipGroup>

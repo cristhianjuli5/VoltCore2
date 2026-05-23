@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/volt_background">
+    android:background="@color/volt_background"
+    android:paddingTop="16dp">
 
     <TextView
         android:id="@+id/tvOrdersTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Mis Pedidos"
+        android:text="@string/order_history"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -31,8 +32,8 @@
         android:id="@+id/tvEmptyOrders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No tienes pedidos aún"
-        android:textColor="#80FFFFFF"
+        android:text="@string/no_orders_yet"
+        android:textColor="@color/white_50"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
