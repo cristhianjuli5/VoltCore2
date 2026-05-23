@@ -5,55 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/volt_background"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/margin_standard">
 
     <LinearLayout
         android:id="@+id/headerCatalog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="@dimen/dialog_padding"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/explore_parts"
-            android:textColor="@color/white"
-            android:textSize="28sp"
+            android:textColor="@color/volt_text_primary"
+            android:textSize="@dimen/text_size_h2"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/find_everything_desc"
-            android:textColor="@color/white_70"
-            android:textSize="14sp" />
+            android:textColor="@color/volt_text_secondary"
+            android:textSize="@dimen/text_size_price" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_standard"
             app:boxBackgroundColor="@color/glass_surface"
-            app:boxCornerRadiusBottomEnd="28dp"
-            app:boxCornerRadiusBottomStart="28dp"
-            app:boxCornerRadiusTopEnd="28dp"
-            app:boxCornerRadiusTopStart="28dp"
+            app:boxCornerRadiusBottomEnd="@dimen/card_corner_radius_xlarge"
+            app:boxCornerRadiusBottomStart="@dimen/card_corner_radius_xlarge"
+            app:boxCornerRadiusTopEnd="@dimen/card_corner_radius_xlarge"
+            app:boxCornerRadiusTopStart="@dimen/card_corner_radius_xlarge"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
             app:startIconDrawable="@android:drawable/ic_menu_search"
-            app:startIconTint="@color/white">
+            app:startIconTint="@color/volt_text_primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSearchCatalog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_catalog_hint"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white_50"
-                android:padding="16dp" />
+                android:textColor="@color/volt_text_primary"
+                android:textColorHint="@color/volt_text_hint"
+                android:padding="@dimen/margin_standard" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -61,8 +61,8 @@
         android:id="@+id/scrollFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="12dp"
+        android:paddingHorizontal="@dimen/margin_standard"
+        android:paddingBottom="@dimen/margin_medium"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/headerCatalog">
 
@@ -87,7 +87,7 @@
         android:id="@+id/rvCatalog"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:padding="@dimen/margin_small"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         app:layout_constraintBottom_toBottomOf="parent"

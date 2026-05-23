@@ -9,14 +9,14 @@
     </style>
 
     <style name="Widget.VoltCore.Card" parent="Widget.Material3.CardView.Filled">
-        <item name="cardCornerRadius">24dp</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius_xlarge</item>
         <item name="cardBackgroundColor">@color/volt_card_background</item>
         <item name="strokeColor">@color/glass_stroke</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="strokeWidth">@dimen/stroke_width_standard</item>
     </style>
 
     <style name="Widget.VoltCore.Button" parent="Widget.Material3.Button">
-        <item name="cornerRadius">12dp</item>
+        <item name="cornerRadius">@dimen/card_corner_radius</item>
         <item name="backgroundTint">@color/volt_primary</item>
         <item name="android:textColor">@color/black</item>
     </style>

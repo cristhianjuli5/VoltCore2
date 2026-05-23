@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/volt_background"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/margin_standard">
@@ -10,24 +10,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/margin_standard"
         android:text="@string/recovery_title"
-        android:textColor="@color/white"
+        android:textColor="@color/volt_text_primary"
         android:textSize="@dimen/text_size_h1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/margin_xlarge"
         android:gravity="center"
         android:text="@string/recovery_desc"
-        android:textColor="@color/white"
+        android:textColor="@color/volt_text_primary"
         android:textSize="@dimen/text_size_body" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/margin_large"
         android:hint="@string/email_hint"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:textColor="@color/white" />
+            android:textColor="@color/volt_text_primary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

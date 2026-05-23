@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.VoltCore.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="@color/glass_surface"
-    app:cardCornerRadius="16dp"
-    app:strokeColor="@color/glass_stroke"
-    app:strokeWidth="1dp">
+    android:layout_marginBottom="@dimen/margin_medium"
+    app:cardCornerRadius="@dimen/card_corner_radius_medium">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="@dimen/margin_medium"
         android:gravity="center_vertical">
 
         <FrameLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp">
+            android:layout_width="@dimen/thumbnail_size_medium"
+            android:layout_height="@dimen/thumbnail_size_medium">
             <ImageView
                 android:id="@+id/ivProduct"
                 android:layout_width="match_parent"
@@ -32,9 +30,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="32sp"
+                android:textSize="@dimen/text_size_emoji_mid"
                 android:visibility="gone"
-                android:textColor="@color/white" />
+                android:textColor="@color/volt_text_primary" />
         </FrameLayout>
 
         <LinearLayout
@@ -42,15 +40,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="@dimen/margin_standard">
 
             <TextView
                 android:id="@+id/tvProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/product_name_placeholder"
-                android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textColor="@color/volt_text_primary"
+                android:textSize="@dimen/text_size_body"
                 android:textStyle="bold" />
 
             <TextView
@@ -66,10 +64,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/stock_hint"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textColor="@color/volt_text_primary"
+                android:textSize="@dimen/text_size_price"
                 android:alpha="0.8"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="@dimen/margin_xtiny"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipStatus"
@@ -78,16 +76,16 @@
                 android:text="@string/online_status"
                 app:chipBackgroundColor="@color/glass_surface"
                 android:textColor="@color/volt_primary"
-                android:textSize="12sp"
-                app:chipMinHeight="24dp"
+                android:textSize="@dimen/text_size_caption"
+                app:chipMinHeight="@dimen/margin_large"
                 app:chipStrokeWidth="0dp"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="@dimen/margin_tiny"/>
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnEdit"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/min_touch_target"
+            android:layout_height="@dimen/min_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_edit"
             app:tint="@color/volt_primary"
@@ -95,8 +93,8 @@
 
         <ImageButton
             android:id="@+id/btnArchive"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/min_touch_target"
+            android:layout_height="@dimen/min_touch_target"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:tint="@color/volt_error"

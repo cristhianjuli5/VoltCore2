@@ -5,69 +5,69 @@
     android:layout_height="match_parent"
     android:background="@color/volt_background"
     android:fillViewport="true"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/margin_standard">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/dialog_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/vendor_dashboard"
-            android:textColor="@color/white"
-            android:textSize="28sp"
+            android:textColor="@color/volt_text_primary"
+            android:textSize="@dimen/text_size_h2"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage_business_desc"
-            android:textColor="@color/white_70"
-            android:textSize="16sp"
-            android:layout_marginBottom="24dp"/>
+            android:textColor="@color/volt_text_secondary"
+            android:textSize="@dimen/text_size_body"
+            android:layout_marginBottom="@dimen/margin_large"/>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:rowCount="1"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="@dimen/margin_large">
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.VoltCore.Card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="4dp">
+                android:layout_margin="@dimen/grid_margin_small">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/margin_standard">
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/icon_size_large"
+                        android:layout_height="@dimen/icon_size_large"
                         android:src="@android:drawable/ic_menu_agenda"
                         app:tint="@color/volt_primary"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/margin_small"
                         android:contentDescription="@string/icon_desc"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/orders"
-                        android:textColor="@color/white_70"
-                        android:textSize="14sp" />
+                        android:textColor="@color/volt_text_secondary"
+                        android:textSize="@dimen/text_size_price" />
                     <TextView
                         android:id="@+id/tvOrderCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/quantity_placeholder"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textColor="@color/volt_text_primary"
+                        android:textSize="@dimen/text_size_h1"
                         android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -77,33 +77,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="4dp">
+                android:layout_margin="@dimen/grid_margin_small">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/margin_standard">
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/icon_size_large"
+                        android:layout_height="@dimen/icon_size_large"
                         android:src="@android:drawable/ic_menu_gallery"
                         app:tint="@color/volt_primary"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/margin_small"
                         android:contentDescription="@string/icon_desc"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/products"
-                        android:textColor="@color/white_70"
-                        android:textSize="14sp" />
+                        android:textColor="@color/volt_text_secondary"
+                        android:textSize="@dimen/text_size_price" />
                     <TextView
                         android:id="@+id/tvProductCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/quantity_placeholder"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textColor="@color/volt_text_primary"
+                        android:textSize="@dimen/text_size_h1"
                         android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -114,27 +114,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quick_access"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textColor="@color/volt_text_primary"
+            android:textSize="@dimen/text_size_tagline"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="@dimen/margin_standard"/>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnVendorProducts"
             style="@style/Widget.VoltCore.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:clickable="true"
             android:focusable="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/margin_standard"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
                     android:src="@android:drawable/ic_menu_gallery"
                     app:tint="@color/volt_primary"
                     android:contentDescription="@string/icon_desc"/>
@@ -142,15 +142,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/margin_standard"
                     android:text="@string/manage_inventory"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/volt_text_primary"
+                    android:textSize="@dimen/text_size_body"/>
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="@color/white_50"
+                    app:tint="@color/volt_text_hint"
                     android:contentDescription="@string/nav_icon_desc"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -160,17 +160,17 @@
             style="@style/Widget.VoltCore.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:clickable="true"
             android:focusable="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/margin_standard"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
                     android:src="@android:drawable/ic_menu_agenda"
                     app:tint="@color/volt_primary"
                     android:contentDescription="@string/icon_desc"/>
@@ -178,15 +178,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/margin_standard"
                     android:text="@string/view_my_orders"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/volt_text_primary"
+                    android:textSize="@dimen/text_size_body"/>
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="@color/white_50"
+                    app:tint="@color/volt_text_hint"
                     android:contentDescription="@string/nav_icon_desc"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -196,17 +196,17 @@
             style="@style/Widget.VoltCore.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:clickable="true"
             android:focusable="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/margin_standard"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
                     android:src="@android:drawable/ic_menu_edit"
                     app:tint="@color/volt_primary"
                     android:contentDescription="@string/icon_desc"/>
@@ -214,15 +214,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/margin_standard"
                     android:text="@string/edit_profile"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/volt_text_primary"
+                    android:textSize="@dimen/text_size_body"/>
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/icon_size_small"
+                    android:layout_height="@dimen/icon_size_small"
                     android:src="@android:drawable/ic_media_next"
-                    app:tint="@color/white_50"
+                    app:tint="@color/volt_text_hint"
                     android:contentDescription="@string/nav_icon_desc"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

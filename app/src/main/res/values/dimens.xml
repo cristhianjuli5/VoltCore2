@@ -6,29 +6,56 @@
     <dimen name="margin_medium">12dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_huge">64dp</dimen>
+    <dimen name="margin_splash_bottom">48dp</dimen>
     <dimen name="dialog_padding">20dp</dimen>
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_xtiny">2dp</dimen>
 
     <dimen name="text_size_h1">24sp</dimen>
     <dimen name="text_size_h2">28sp</dimen>
+    <dimen name="text_size_h3">22sp</dimen>
+    <dimen name="text_size_h4">20sp</dimen>
+    <dimen name="text_size_h5">18sp</dimen>
     <dimen name="text_size_body">16sp</dimen>
     <dimen name="text_size_price">14sp</dimen>
     <dimen name="text_size_caption">12sp</dimen>
+    <dimen name="text_size_tagline">18sp</dimen>
     <dimen name="text_size_emoji_large">64sp</dimen>
+    <dimen name="text_size_emoji_mid">32sp</dimen>
+    <dimen name="text_size_emoji_xlarge">70sp</dimen>
+    <dimen name="text_size_emoji_huge">120sp</dimen>
 
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="card_corner_radius_medium">16dp</dimen>
     <dimen name="card_corner_radius_large">20dp</dimen>
     <dimen name="card_corner_radius_xlarge">24dp</dimen>
+    <dimen name="profile_image_corner">60dp</dimen>
 
+    <dimen name="stroke_width_standard">1dp</dimen>
+    <dimen name="stroke_width_medium">2dp</dimen>
     <dimen name="button_height_large">60dp</dimen>
+    <dimen name="button_height_medium">56dp</dimen>
     <dimen name="doc_type_width">120dp</dimen>
     <dimen name="tab_indicator_height">3dp</dimen>
     <dimen name="camera_preview_height">250dp</dimen>
     <dimen name="product_image_height">140dp</dimen>
+    <dimen name="product_detail_image_height">300dp</dimen>
+    <dimen name="padding_bottom_detail">100dp</dimen>
+    <dimen name="banner_height">150dp</dimen>
+    <dimen name="banner_width">300dp</dimen>
+    <dimen name="banner_icon_size">80dp</dimen>
     <dimen name="thumbnail_size_small">60dp</dimen>
     <dimen name="thumbnail_size_medium">70dp</dimen>
+    <dimen name="logo_size_login">120dp</dimen>
+    <dimen name="logo_size_splash">200dp</dimen>
+    <dimen name="profile_image_size">120dp</dimen>
     <dimen name="form_max_width">488dp</dimen>
+    <dimen name="icon_size_large">32dp</dimen>
+    <dimen name="icon_size_medium">24dp</dimen>
+    <dimen name="icon_size_small">20dp</dimen>
+    <dimen name="grid_margin">6dp</dimen>
+    <dimen name="grid_margin_small">4dp</dimen>
+    <dimen name="progress_bar_height">4dp</dimen>
 </resources>
